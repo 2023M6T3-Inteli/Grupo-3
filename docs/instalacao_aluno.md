@@ -2,44 +2,44 @@
 
 Como no Inteli o Windows é o sistema operacional mais comumente utilizado, as instruções deste documente são específicas para computadores com este sistema. A instalação destas ferramentas em computadores com Linux ou MacOS é possível, mas provavelmente será necessário buscar procedimentos específicos para estes sistemas operacionais.
 
-## Instalação do kit de desenvolvimento para as tarefas de programação
-
-As tarefas de programação deste módulo 6 deverão ser desenvolvidas na linguagem de programação Java. Você pode utilizar a IDE de sua preferência, como [IntelliJ](https://www.jetbrains.com/pt-br/idea/), [Eclipse](https://www.eclipse.org/), [NetBeans](https://netbeans.apache.org) ou [VSCode com extensões para Java](https://code.visualstudio.com/docs/languages/java).
-
-O programa será chamado através de script em Python. Caso queira verificar se seu programa será chamado e executado corretamente pela plataforma, instale também o [kit de desenvolvimento Python](https://www.python.org/downloads/).
-
 
 ## Instalação do Git
 
-Caso ainda não tenha o Git instalado no seu computador, faça o [download](https://git-scm.com/downloads) e execute a instalação.
+Caso ainda não tenha o Git instalado no seu computador, faça o [download](https://git-scm.com/downloads) e execute a instalação. O Windows 11 já tem vindo com o Git instalado e, além da interface em linha de comandos, com o Git GUI que facilita o acesso através de uma interface gráfica.
+
+Para verificar se o git está instalado, vá até a linha de comando e tente executar o comando:
+git --version
+
+Se a execução falhar, a instalação será necessária.
+
 
 ## Instalação do Visual Studio Code
 
-Para o desenvolvimento do projeto sugerimos utilizar o Visual Studio Code devido à sua facilidade de integração com o Git e devido ao grande número de extensões disponíveis (em particular, as extensões relacionadas ao formato Markdown).
+O desenvolvimento do projeto pode utilizar vantajosamente o Visual Studio Code devido à sua facilidade de integração com o Git e o grande número de extensões disponíveis para ele (em particular, as extensões relacionadas ao formato Markdown).
 
 Procedimento:
 
 1. Acesse https://code.visualstudio.com/
 2. Baixe o instalador indicado.
 3. Faça a instalação do programa.
-4. Execute o Visual studio Code.
-   
-![Visual Studio Code.](./img/vscode.png)
+4. Execute o Visual studio Code: ![Visual Studio Code.](./img/vscode.png)
    
 
 ## Configuração do Git
 
-Se esta é a primeira vez que você utiliza o Git no seu computador, execute o procedimento a seguir para configurar o usuário e o email.
+1. Se esta é a primeira vez que você utiliza o Git no seu computador, execute o procedimento a seguir para configurar o usuário e o email (substitua os dados do exemplo (John Doe e johndoe@example.com) pelos seus - estes dados serão usados para o registro das contribuições de cada membro do time para o repositório do grupo):
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+2. Escolha cuidadosamente um local em seu computador onde ficarão todos os arquivo produzidos durante este módulo (programas-fonte, documentos, figuras, páginas em html, ou seja, todos os arquivos). Execute os comandos a seguir para criar o repositório local no diretório (pasta) escolhido e sincronizar com o repositório do grupo já criado no GitHub (substitua o # do exemplo pelo número do seu grupo:
+git init
+git clone origin https://github.com/2023M6T3-Inteli/Grupo-#.git
+3. Você pode encontrar um curso sobre Git e Github no [W3Schools](https://www.w3schools.com/git/) e descrições detalhadas sobre o Git e seus comandos em [Pro Git](https://git-scm.com/book/en/v2).
 
-Procedimento:
+## Configuração do Visual Studio Code com o Git:
 
-1. No Visual Studio Code, abra um terminal.
+1. No Visual Studio Code, abra um terminal: ![Novo terminal no Visual Studio Code.](./img/vscode-new-terminal.png)
+2. Execute os comandos para configurar o seu nome e o seu email: ![Configuração do nome do email no Git.](./img/vscode-git-config.png)
 
-![Novo terminal no Visual Studio Code.](./img/vscode-new-terminal.png)
-
-2. Execute os comandos para configurar o seu nome e o seu email.
-
-![Configuração do nome do email no Git.](./img/vscode-git-config.png)
 
 ## Instalação da extensão *GitHub Pull Requests and Issues*
 
@@ -47,37 +47,6 @@ Procedimento:
 2. Acesse a área das extensões e instale a extensão *GitHub Pull Requests and Issues*.
 
 ![Instalação da extensão GitHub Pull Requests and Issues.](./img/vscode-ext-github.png)
-
-## Instalação das extensões do Visual Studio Code para o desenvolvimento Java
-
-Faça a instalação das extensões do Visual Studio Code para o desenvolvimento de aplicações na plataforma Java.
-
-Procedimento:
-
-1. Execute o Visual Studio Code.
-2. Acesse a área das extensões e instale o *Extension Pack for Java*.
-
-![Instalação do Extension Pack for Java.](./img/vscode-extensions-java.png)
-
-3. Para testar o ambiente de desenvolvimento, crie um novo projeto Java.
-
-![Criação de novo projeto Java.](./img/vscode-create-java-project.png)
-
-4. Para este primeiro teste, seleciona a opção *No build tools*.
-
-![Criação do projeto com a opção no build tools.](./img/vscode-create-java-project-no-build-tools.png)
-
-5. Crie e selecione a pasta para o projeto.
-
-![Criação e seleção da pasta para o projeto.](./img/vscode-create-java-project-select-folder.png)
-
-6. Defina o nome do projeto.
-
-![Definição do nome do projeto.](./img/vscode-create-java-project-define-name.png)
-
-7. Execute o programa-exemplo e verifique se a execução é bem-sucedida.
-
-![Execução do primeiro programa.](./img/vscode-create-java-project-execution.png)
 
 
 ## Instalação das extensões do Visual Studio Code para a elaboração da documentação
@@ -87,31 +56,7 @@ A documentação do projeto utiliza o formato Markdown. Para tornar mais conveni
 Procedimento:
 
 1. Execute o Visual Studio Code.
-
-2. Acesse a área das extensões e instale o *Markdown All in One*.
-
-![Instalação da extensão "Markdown All in One".](./img/vscode-markdown-extension.png)
-
-
-## Instalação de outras extensões
-
-Acesse a área das extensões e instale o *Live Server*.
-
-![Instalação da extensão "Live Server".](.img/../img/vscode-extensions-live-server.png)
-
-## Instalação das extensões e das ferramentas para a elaboração do artigo
-
-Neste módulo cada grupo deverá redigir um texto descrevendo os resultados do projeto no formato de um artigo científico. O conteúdo deste artigo será editado no formato Markdown, mas a geração do artigo em um formato próximo ao solicitado pelas publicações científicas será realizado utilizando as ferramentas LaTeX e pandoc.
-
-Procedimento:
-
-1. Acesse https://pandoc.org/installing.html e, a seguir, baixe e instale a ferramenta **pandoc**.
-
-2. Acesse https://miktex.org/download e, a seguir, baixe e instale o sistema básico TeX/LaTeX.
-
-3. Execute o Visual Studio code e, a seguir, acesse a área das extensões e instale o [*vscode-pandoc*](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vscode-pandoc) (instale a que tem como autor o *Chris Chinchilla*).
-
-4. Ainda no Visual Studio Code, instale a extensão [*vscode-pdf*](https://marketplace.visualstudio.com/items?itemName=tomoki1207.pdf) (instale a que tem como autor o *tomoki1207*).
+2. Acesse a área das extensões e instale o *Markdown All in One*: ![Instalação da extensão "Markdown All in One".](./img/vscode-markdown-extension.png)
 
 
 ## Próximos passos
