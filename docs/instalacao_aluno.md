@@ -28,10 +28,14 @@ Procedimento:
 ## Configuração do Git
 
 1. Se esta é a primeira vez que você utiliza o Git no seu computador, execute o procedimento a seguir para configurar o usuário e o email (substitua os dados do exemplo (John Doe e johndoe@example.com) pelos seus - estes dados serão usados para o registro das contribuições de cada membro do time para o repositório do grupo):
+
 git config --global user.name "John Doe"
+
 git config --global user.email johndoe@example.com
 2. Escolha cuidadosamente um local em seu computador onde ficarão todos os arquivo produzidos durante este módulo (programas-fonte, documentos, figuras, páginas em html, ou seja, todos os arquivos). Execute os comandos a seguir para criar o repositório local no diretório (pasta) escolhido e sincronizar com o repositório do grupo já criado no GitHub (substitua o # do exemplo pelo número do seu grupo:
+
 git init
+
 git clone origin https://github.com/2023M6T3-Inteli/Grupo-#.git
 3. Você pode encontrar um curso sobre Git e Github no [W3Schools](https://www.w3schools.com/git/) e descrições detalhadas sobre o Git e seus comandos em [Pro Git](https://git-scm.com/book/en/v2).
 
@@ -39,6 +43,13 @@ git clone origin https://github.com/2023M6T3-Inteli/Grupo-#.git
 
 1. No Visual Studio Code, abra um terminal: ![Novo terminal no Visual Studio Code.](./img/vscode-new-terminal.png)
 2. Execute os comandos para configurar o seu nome e o seu email: ![Configuração do nome do email no Git.](./img/vscode-git-config.png)
+
+
+## Instalação da extensão *Live Server*
+
+Acesse a área das extensões e instale o *Live Server*.
+
+![Instalação da extensão "Live Server".](.img/../img/vscode-extensions-live-server.png)
 
 
 ## Instalação da extensão *GitHub Pull Requests and Issues*

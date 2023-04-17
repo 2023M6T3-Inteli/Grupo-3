@@ -10,7 +10,7 @@
 
 # Introdução
 
-Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenharia de Software do Inteli no 1º semestre de 2023. Durante este semestre está sendo desenvolvido um projeto em parceria com a Dell.
+Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenharia de Software do Inteli no 2º trimestre de 2023. Durante este trimperíodoestre está sendo desenvolvido um projeto em parceria com a Dell.
 
 > Alunos do grupo: veja as [instruções para os alunos](LEIAME_aluno.md).
 
