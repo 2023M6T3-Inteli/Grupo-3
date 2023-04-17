@@ -39,6 +39,7 @@ git init
 git clone origin https://github.com/2023M6T3-Inteli/Grupo-#.git
 3. Você pode encontrar um curso sobre Git e Github no [W3Schools](https://www.w3schools.com/git/) e descrições detalhadas sobre o Git e seus comandos em [Pro Git](https://git-scm.com/book/en/v2).
 
+
 ## Configuração do Visual Studio Code com o Git:
 
 1. No Visual Studio Code, abra um terminal: ![Novo terminal no Visual Studio Code.](./img/vscode-new-terminal.png)
@@ -47,17 +48,13 @@ git clone origin https://github.com/2023M6T3-Inteli/Grupo-#.git
 
 ## Instalação da extensão *Live Server*
 
-Acesse a área das extensões e instale o *Live Server*.
-
-![Instalação da extensão "Live Server".](.img/../img/vscode-extensions-live-server.png)
+Acesse a área das extensões e instale o *Live Server*: ![Instalação da extensão "Live Server".](.img/../img/vscode-extensions-live-server.png)
 
 
 ## Instalação da extensão *GitHub Pull Requests and Issues*
 
 1. Execute o Visual Studio Code.
-2. Acesse a área das extensões e instale a extensão *GitHub Pull Requests and Issues*.
-
-![Instalação da extensão GitHub Pull Requests and Issues.](./img/vscode-ext-github.png)
+2. Acesse a área das extensões e instale a extensão *GitHub Pull Requests and Issues*: ![Instalação da extensão GitHub Pull Requests and Issues.](./img/vscode-ext-github.png)
 
 
 ## Instalação das extensões do Visual Studio Code para a elaboração da documentação

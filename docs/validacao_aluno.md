@@ -17,17 +17,6 @@ Comece fazendo no seu computador um clone deste repositório.
 ![Página index.html acessada pelo servidor local.](./img/vscode-go-live.png)
 
 
-## Validação da execução do planejador
-
-1. No Visual Studio Code, navegue até o arquivo **App.java** que está na pasta **/codigo/planejador/src/main/java/inteli/cc6**.
-
-![Navegação até o arquivo App.java](./img/vscode-planejador-app.png)
-
-1. Acione a operação *Run* e verifique o resultado da execução.
-
-![Resultado da execução do planejador.](./img/vscode-planejador-exec.png)
-
-
 ## Validação da geração do artigo
 
 O artigo é editado no formato *Markdown*, mas é possível gerar um arquivo PDF com uma formatação próxima à utilizada em publicações científicas.
