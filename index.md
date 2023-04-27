@@ -13,18 +13,22 @@
 </tr>
 </table>
 
-. Nome do Projeto: xxxx
-. Nome do Parceiro: xxxx
-. Nome do Grupo: xxxx
-. Integrantes do grupo…
-  aaaaaa
-  bbbbbb
-  cccccc
-
+. Nome do Projeto: LearnLink  <br>
+. Nome do Parceiro: Dell <br> 
+. Nome do Grupo: Lírios <br>
+. Integrantes do grupo:
+  <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira, 
+  <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres, 
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho, 
+  <a href="https://www.linkedin.com/in/marcos-vinicius-166531239/"> Marcos Vinicius,
+  <a href="https://www.linkedin.com/in/matheusmacedosantos/"> Matheus Macedo,
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e
+  <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa
+	  
 <font size="+12"><center>
 Template do Documento do Projeto
 Módulo 6 - Engenharia de Software
-Solução de otimização de corte de bobinas de papel
+Elaboração de aplicação para dispositivos móveis
 </center></font>
 
 >*Observação 1: A estrutura inicial deste documento é só um exemplo. O seu grupo deverá alterar esta estrutura de acordo com o que está sendo solicitado nos artefatos.*
