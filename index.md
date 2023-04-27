@@ -112,8 +112,22 @@ Apresenta a matriz de risco com relação ao projeto.
 
 
 ### Análise financeira do projeto
+	  
+A empresa Dell, a stakeholder do projeto, deseja um aplicativo móvel que possua front-end, back-end e banco de dados hospedados na AWS, além de um sistema de recomendação e gamificação. Considerando esses requisitos, a Dell pode ter que arcar com os seguintes custos: <br>
 
-Informar o quanto o parceiro tem projetado para investir no projeto e quais são as projeções de custos e de receitas, relacionadas ao projeto (para o período de um ano), que o parceiro projeta ter.
+- Gastos com infraestrutura na nuvem: A AWS oferece um modelo de cobrança baseado no uso mensal de servidores. Portanto, o valor gasto nesse subtema varia de acordo com a quantidade e a qualidade dos servidores necessários para o projeto. Um exemplo de instância EC2 (para o back-end da aplicação) poderia ser a t2.micro, que custa cerca de US$ 0,0116 por hora. Se você executasse a instância por 24 horas por dia, sete dias por semana, o custo seria de cerca de US $8,46 por mês.  Já para o RDS (para o banco de dados da aplicação), considerando um banco de dados de 10 GB com 100.000 leituras/gravações por mês, custaria cerca de US $ 25,68 por mês. E, para o S3 (front-end da aplicação) com 10 GB de armazenamento e 100GB de transferência de dados, custaria cerca de US $0,22 por mês. Portanto, somando os custos mensais estimados de cada serviço, podemos ter uma estimativa geral de cerca de US $34,36 por mês para esse ambiente específico. <br>
+
+- Manutenção do software: Como se trata de um MVP, o software precisará passar por melhorias e, após sua hospedagem, por manutenção. Para isso, serão necessários custos com desenvolvedores de back-end, front-end e infraestrutura. Além disso, pode ser necessário adaptar o aplicativo para obter um desempenho ou eficiência melhorados, o que pode levar a um gasto adicional de tempo e dinheiro para melhorias no código e infraestrutura. <br>
+- Licença para distribuição do aplicativo: Para que os funcionários possam usar o aplicativo, ele precisa estar disponível em um serviço de distribuição digital de aplicativos móveis, como a Play Store, o Enterprise Program ou a App Store, por exemplo. Para manter o aplicativo nesses serviços, é preciso pagar uma taxa, que na App Store é de 99 dólares por ano, enquanto no Enterprise Program, indicado para empresas que desejam publicar aplicativos internos, a taxa chega a 299 dólares por ano. <br>
+- Escalabilidade: Como se trata de uma empresa internacional, a Dell tem vários funcionários, e conforme a solução for disponibilizada para mais países, pode ser necessário fazer mudanças na infraestrutura ou no banco de dados da plataforma. Isso gera custos adicionais de manutenção e nuvem, como mencionado anteriormente.
+Os gastos da criação e prototipação da aplicação não serão gastos, já que a empresa entrou em parceria com o Inteli para que a turma de Engenharia de Software faça um MVP do produto. Porém, considerando em uma análise geral, a empresa iria precisar de desenvolvedores Back-end, Front-end, Design - UX - e de Infraestrutura (DevOps). 
+Abaixo está um exemplo de planilha de salários sobre tais funcionários: Porém podem ser necessários para futuras manutenções da plataforma. <br>
+<img width="760" alt="image" src="https://user-images.githubusercontent.com/99200253/234987118-924ccc55-f2b5-4b51-9dde-dfd32ad04739.png"> <br>
+Considerando todos os gastos, exceto manutenção, temos anualmente que: <br>
+<img width="509" alt="image" src="https://user-images.githubusercontent.com/99200253/234984538-02190f03-0746-46da-b53e-d33ff79ba773.png"> <br>
+
+Como retorno financeiro esperado, a empresa almeja solucionar o problema da evasão de funcionários, que acarreta prejuízos em termos de perda de conhecimento e habilidades de profissionais experientes, além de gerar custos adicionais com a contratação e treinamento de novos colaboradores. Além disso, a imagem da empresa perante o mercado, seus funcionários e potenciais novos integrantes seria beneficiada, uma vez que a solução proporcionará aos colaboradores a oportunidade de sentirem que suas carreiras estão evoluindo. Com isso, seriam fomentados profissionais engajados e, consequentemente, resultados mais expressivos seriam alcançados.
+
 
 
 ## Mapeamento do processo
