@@ -108,7 +108,7 @@ Apresenta o Canvas de Proposta de Valor com relação à solução.
 
 ### Matriz de Risco
 
-Apresenta a matriz de risco com relação ao projeto.
+![image](https://user-images.githubusercontent.com/98428867/234989662-5dce760f-9e64-4b84-b8a5-206bcf4149af.png)
 
 
 ### Análise financeira do projeto
