@@ -107,8 +107,10 @@ Apresenta o Canvas de Proposta de Valor com relação à solução.
 
 
 ### Matriz de Risco
-
-![image](https://user-images.githubusercontent.com/98428867/234989662-5dce760f-9e64-4b84-b8a5-206bcf4149af.png)
+	  
+Abaixo está a matriz de risco do projeto, sendo elencadas as maiores ameaças e oportunidades com relação ao desenvolvimento do projeto:
+	  
+![image](https://user-images.githubusercontent.com/98428867/234990138-763882ca-b0c7-4a2f-a8a5-264cd94dac62.png)
 
 
 ### Análise financeira do projeto
