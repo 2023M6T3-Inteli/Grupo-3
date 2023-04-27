@@ -6,9 +6,9 @@
 <table>
 <tr>
 <td>
-<a href= "https://klabin.com.br/"><img src="https://klabin.com.br/o/klabinklabinonline-theme/images/klabin-logo.png" alt="Klabin" border="0" width="100%"></a>
+<a href= "[https://klabin.com.br/](https://www.dell.com/pt-br)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Dell_logo_2016.svg/72px-Dell_logo_2016.svg.png" alt="Dell" border="0" width="100%"></a>
 </td>
-<td><a href= "https://www.inteli.edu.br/"><img src="../img/inteli-logo.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width="30%"></a>
+<td><a href= "https://www.inteli.edu.br/"><img src="https://s3.amazonaws.com/gupy5/production/companies/26702/career/63484/images/2022-04-28_16-56_logo.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width="30%"></a>
 </td>
 </tr>
 </table>
@@ -195,20 +195,29 @@ Exemplo de Diagrama de Arquitetura
 
 Aborda o design e a funcionalidade da aplicação ou sistema em questão. Ela fornece informações sobre como o software é projetado para ser fácil de usar e intuitivo para os usuários. Nesta seção, deve ser possível encontrar descrições detalhadas sobre as principais características e recursos da interface do usuário, como botões, menus, ícones e outros elementos que são utilizados para facilitar a interação do usuário com o software. Além disso, são fornecidos exemplos de como as funcionalidades do software são acessadas e usadas pelos usuários, incluindo informações sobre os passos necessários para realizar tarefas específicas. Esta seção também aborda as principais preocupações de UX, como acessibilidade, usabilidade, consistência e simplicidade. São apresentados exemplos de como o software é projetado para atender às necessidades dos usuários com diferentes tipos de habilidades e recursos.
 
-
+## Benchmark e Revisão de Design Systems
+	
+O benchmarking é uma técnica de análise comparativa que permite identificar as melhores práticas em um determinado campo, em relação aos concorrentes ou empresas de referência. No caso de um Design System, o benchmarking pode ser útil para avaliar a eficácia e a qualidade do sistema, além de obter insights sobre como melhorá-lo.
+Análise comparativa entre o Design System utilizado no projeto e outros dois a serem selecionados pelo grupo – i.e. [Google Material Design](https://m3.material.io/), [IBM Carbon Design System](https://carbondesignsystem.com/), [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/), [Adobe Spectrum](https://spectrum.adobe.com/), [Microsoft Fluent Design System](https://www.microsoft.com/design/fluent/#/), [Atlassian Design System](https://atlassian.design/), [DSGov (Governo Federal)](https://www.gov.br/ds/home), [Shopify Polaris](https://polaris.shopify.com/), [Cloudscape](https://cloudscape.design/) etc. – com o objetivo de tornar mais assertivo o uso do Design System demandado para o projeto.
+Alguns critérios de análise são: 
+- Os DSs analisados são unificados, universais, pregnantes e conversacionais? Por quê?
+- Em qual nível hierárquico (nascente, básico, integrado, distribuído e otimizado) cada um deles se encontra?
+- Quais os pontos de fragilidade e força de cada um deles?
+	
 ## Wireframes
 
-Telas de baixa fidelidade das áreas do usuário, conectados, demonstrando a diagramação e o fluxo de navegação.
+Telas de baixa fidelidade das áreas do usuário, conectados, demonstrando a diagramação e o fluxo de navegação. Exemplos: home, login, dashboards etc. Em cada tela colocar: cabeçalho, rodapé, barra lateral, área de conteúdo.
+	
+Aqui você deve colocar o link para o wireframe e colocar as imagens geradas na sequência correta do fluxo de navegação. 
+	
+Recursos e funcionalidades de inclusão e acessibilidade já devem estar previstos nesse protótipo. 
+	
+O grupo deve demonstrar que a UI: (1) se adequa a diferentes contextos e necessidades do usuário, já que se trata de uma aplicação mobile, (2) é transparente, ou seja, atualiza o usuário de forma clara e precisa sobre cada processo que ocorre no sistema, (3) oferece feedbacks (visuais, textuais e, se aplicável, sonoros e táteis) rápidos/imediatos, (4) implementa linguagem amigável e personalizável para constituir uma experiência (4a) coerente com a identidade da marca e (4b) intuitiva e fluida, mitigando possíveis erros do usuário.
+	
 
-Exemplos: tela da home, tela de login, etc. Em cada tela colocar: cabeçalho, rodapé, barra lateral, área de conteúdo.
-
-Aqui você deve colocar o link para o wireframe ou colocar as imagens geradas na sequência correta do fluxo de navegação.
-
-
-## Design de Interface - Guia de Estilos
-Refere-se ao design visual, cores, tipografia, imagens, logotipos, ou seja, os elementos visuais que compõem o produto.
-Aqui você deve colocar o link para seu documento de guia de estilos.
-
+## Design de Interface  - Seleção de Estilos
+	
+Refere-se ao design visual, cores, tipografia, imagens, logotipos, ou seja, os elementos visuais que compõem o produto. Aqui você deve colocar o link para seu documento de guia de estilos e também colar as capturas de tela destes estilos.
 
 # Projeto de Banco de Dados
 
