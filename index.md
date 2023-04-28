@@ -103,7 +103,7 @@ Definir 8 atributos que são importantes para os clientes e diferenciá-los da c
 
 ### Proposta de Valor e Value Proposition Canvas
 
-Apresenta o Canvas de Proposta de Valor com relação à solução.
+<img src="./img/VPC.jpg">
 
 
 ### Matriz de Risco
