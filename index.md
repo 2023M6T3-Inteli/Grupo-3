@@ -103,7 +103,7 @@ Definir 8 atributos que são importantes para os clientes e diferenciá-los da c
 
 ### Proposta de Valor e Value Proposition Canvas
 
-<img src="./img/VPC.jpg">
+<img src="docs/img/VPC.jpg">
 
 
 ### Matriz de Risco
@@ -223,6 +223,8 @@ Alguns critérios de análise são:
 - Os DSs analisados são unificados, universais, pregnantes e conversacionais? Por quê?
 - Em qual nível hierárquico (nascente, básico, integrado, distribuído e otimizado) cada um deles se encontra?
 - Quais os pontos de fragilidade e força de cada um deles?
+
+
 	
 ## Wireframes
 

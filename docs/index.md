@@ -106,8 +106,6 @@ Apresenta a Matriz SWOT com análise da empresa parceira.
 
 Apresenta o Canvas de Proposta de Valor com relação à solução.
 
-<img src="./img/VPC.jpg">
-
 ### Matriz de Risco
 
 Apresenta a matriz de risco com relação ao projeto.
