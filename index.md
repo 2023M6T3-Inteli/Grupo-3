@@ -167,18 +167,18 @@ Descrever os principais stakeholders envolvidos no projeto e seus papéis.
 
 # Requisitos
 
-Esta seção é importante porque permite que os desenvolvedores entendam claramente o que é esperado do software e quais serão as restrições e desafios enfrentados durante o desenvolvimento. Além disso, permite que os usuários finais saibam se o software atende às suas expectativas e se está adequado ao seu ambiente de trabalho.
-
-A seção de requisitos do sistema é atualizada constantemente durante o ciclo de desenvolvimento do software, garantindo que todas as necessidades e especificações estejam sempre atualizadas.
-
+Os requisitos, funcionais e não funcionais, junto com a matriz de ratreabilidade e casos de uso se encontram na planilha abaixo:
+<a href=https://docs.google.com/spreadsheets/d/1omDtc8WQxxAnrNdvlt_fXABqTSAwoPLrm8FABHv8-e0> M6 - Requisitos e Rastreabilidade
 
 ## Requisitos Funcionais
 Esta seção da documentação do software fornece uma descrição detalhada dos requisitos do sistema. Ela inclui informações sobre as funcionalidades esperadas do software, as restrições e limitações do sistema e outras especificações relevantes.
+<img width="508" alt="image" src="https://user-images.githubusercontent.com/99200253/235172889-475ec0e4-e77f-4685-a9af-d38b4f8bb04e.png">
+<img width="508" alt="image" src="https://user-images.githubusercontent.com/99200253/235172964-8cd29a72-3975-4743-9326-711d37878b7b.png">
 
 
 ## Requisitos não Funcionais
-
-Descreve os recursos necessários para sua execução, os requisitos de segurança e privacidade.
+	  
+<img width="508" alt="image" src="https://user-images.githubusercontent.com/99200253/235173645-7d9b2fe5-703d-49bd-ab13-321217c5794b.png">
 
 
 ## Perfis de Usuários 
@@ -190,7 +190,8 @@ A seção de perfil de usuário da documentação de software é responsável po
 
 A seção de casos de uso da documentação de software é uma parte crucial que descreve as funcionalidades 
 do software e como elas serão utilizadas pelos usuários. Aqui, são listados todos os cenários possíveis de uso do software, incluindo as ações que o usuário pode realizar, as interações com o sistema e os resultados esperados. Os casos de uso são descritos em detalhes, incluindo a descrição do objetivo da funcionalidade, as entradas de dados, as ações do usuário e os resultados esperados. Além disso, também são incluídos os critérios de aceitação, que são os padrões que o software precisa atender para ser considerado como funcionando corretamente.
-
+<img width="345" alt="image" src="https://user-images.githubusercontent.com/99200253/235174603-c309645e-9628-466c-aa2a-6326075572bc.png"> <br>
+<img width="347" alt="image" src="https://user-images.githubusercontent.com/99200253/235174763-8b0a7840-b1e5-4276-948b-31adfa7bc26d.png">
 
 <center>
 [template-documento3](../img/template-documento3.jpg)
