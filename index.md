@@ -99,7 +99,30 @@ A problemática surge do fato de vários profissionais de tecnologia da Dell nã
 
 ### Matriz de avaliação de valor Oceano Azul
 
-Definir 8 atributos que são importantes para os clientes e diferenciá-los da concorrência por meio das ações de Reduzir, Eliminar, Aumentar e Criar.
+- Fatores que devem ser eliminados ou reduzidos:
+
+	- Falta de incentivo ao aprendizado e engajamento dos colaboradores
+	- Baixa participação dos colaboradores na cultura organizacional
+
+- Fatores que devem ser reduzidos:
+
+	- Complexidade na descoberta e compartilhamento de conteúdo relevante
+	- Falta de fluidez na interação com o sistema de recomendação
+
+- Fatores que devem ser mantidos:
+
+	- Utilização de bases rotuladas de projetos e documentários fornecidas pelos próprios colaboradores
+	- Funcionalidade de publicação, edição, solicitação para participar e exclusão de conteúdo
+	- Sistema de gamification para os participantes nos projetos
+	- Histórico de projetos e recomendações relacionadas ao usuário
+
+- Fatores que devem ser criados:
+
+	- Sistema de recomendação otimizado para facilitar a descoberta de escolhas relevantes
+	- Barra de busca para procurar conteúdo
+	- Página de perfil para cada funcionário com suas recomendações publicadas
+	- Notificações para atualizar os funcionários sobre novos conteúdos disponíveis ou edições feitas em seus próprios conteúdos
+	- Compliance com opção de marcar conteúdo como "NON-COMPLIANT" e retirá-lo do ar após validação pelo moderador.
 
 
 ### Proposta de Valor e Value Proposition Canvas
