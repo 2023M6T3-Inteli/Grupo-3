@@ -83,17 +83,18 @@ Elaboração de aplicação para dispositivos móveis
 
 ## Parceiro de Negócios
 
-Breve descrição da instituição representada pelo parceiro de negócios, porte, onde atua, área de mercado que atua e posicionamento no mercado.
+A Dell é uma empresa que foi criada em 1984 com o objetivo de oferecer acesso fácil à melhor tecnologia em todos os lugares do planeta. Estão entre as maiores empresas de tecnologia do mundo, sendo líder no mercado de computadores pessoais, servidores, dispositivos de armazenamento, soluções de segurança e soluções de rede, atuando com diversos recursos extraordinários . As aplicações da Dell vão desde soluções de nuvem híbrida e computação de alto desempenho até iniciativas de impacto social e sustentabilidade.
+
 
 
 ## Problema
 
-Descrever o problema ou a oportunidade de negócio.
+Muitos profissionais de T.I se interessam por aprender novas tecnologias. Por exemplo, uma pessoa que trabalha com Front-end usando JavaScript quer aprender Ciência de Dados e programar em Python. Na Dell, alguns profissionais estão saindo da empresa por não estarem se sentindo desafiados e não estarem tendo oportunidades de ganhar novos conhecimentos no vasto mundo da programação.
 
 
 ### Análise do Problema
 
-Nesta seção, serão apresentados os problemas identificados e as necessidades do usuário, bem como uma avaliação da situação atual e as possíveis soluções para cada questão. Além disso, serão identificados os obstáculos e limitações do projeto, a fim de assegurar que todas as preocupações sejam abordadas antes do início da implementação. A Análise do Problema é essencial para garantir que a solução do software seja eficaz e atenda às necessidades dos usuários. É importante que seja realizada uma pesquisa exaustiva e que todas as perspectivas sejam consideradas para garantir que a solução seja bem-sucedida.
+A problemática surge do fato de vários profissionais de tecnologia da Dell não estarem se sentindo desafiados e não terem oportunidades de aprender novas tecnologias, pois os times da Dell ficam centralizados em suas áreas respectivas e utilizam, na maioria das vezes, as mesmas linguagens e frameworks em todos os projetos. Tais razões fazem com que alguns funcionários saiam da instituição em busca de novos desafios e aprendizados. Com o objetivo de não perder esses desenvolvedores e como forma de engajar seus funcionários, a DELL precisa de uma aplicação web que consiga centralizar e conectar essa demanda dos funcionários de adquirirem novos conhecimentos com a oferta de projetos temporários que há na companhia.
 
 
 ### Matriz de avaliação de valor Oceano Azul
