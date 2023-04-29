@@ -241,13 +241,57 @@ Exemplo de Diagrama de Arquitetura
 Aborda o design e a funcionalidade da aplicação ou sistema em questão. Ela fornece informações sobre como o software é projetado para ser fácil de usar e intuitivo para os usuários. Nesta seção, deve ser possível encontrar descrições detalhadas sobre as principais características e recursos da interface do usuário, como botões, menus, ícones e outros elementos que são utilizados para facilitar a interação do usuário com o software. Além disso, são fornecidos exemplos de como as funcionalidades do software são acessadas e usadas pelos usuários, incluindo informações sobre os passos necessários para realizar tarefas específicas. Esta seção também aborda as principais preocupações de UX, como acessibilidade, usabilidade, consistência e simplicidade. São apresentados exemplos de como o software é projetado para atender às necessidades dos usuários com diferentes tipos de habilidades e recursos.
 
 ## Benchmark e Revisão de Design Systems
-	
-O benchmarking é uma técnica de análise comparativa que permite identificar as melhores práticas em um determinado campo, em relação aos concorrentes ou empresas de referência. No caso de um Design System, o benchmarking pode ser útil para avaliar a eficácia e a qualidade do sistema, além de obter insights sobre como melhorá-lo.
-Análise comparativa entre o Design System utilizado no projeto e outros dois a serem selecionados pelo grupo – i.e. [Google Material Design](https://m3.material.io/), [IBM Carbon Design System](https://carbondesignsystem.com/), [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/), [Adobe Spectrum](https://spectrum.adobe.com/), [Microsoft Fluent Design System](https://www.microsoft.com/design/fluent/#/), [Atlassian Design System](https://atlassian.design/), [DSGov (Governo Federal)](https://www.gov.br/ds/home), [Shopify Polaris](https://polaris.shopify.com/), [Cloudscape](https://cloudscape.design/) etc. – com o objetivo de tornar mais assertivo o uso do Design System demandado para o projeto.
-Alguns critérios de análise são: 
-- Os DSs analisados são unificados, universais, pregnantes e conversacionais? Por quê?
-- Em qual nível hierárquico (nascente, básico, integrado, distribuído e otimizado) cada um deles se encontra?
-- Quais os pontos de fragilidade e força de cada um deles?
+
+Neste estudo, iremos comparar e analisar três Design Systems relevantes no mercado: o da Dell Technologies (https://www.delldesignsystem.com/), o da Apple (https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/) e o Atlassian Design System (https://atlassian.design/). O objetivo dessa análise é entender as qualidades e fragilidades de cada Design System, com ênfase no utilizado em nosso projeto, o Dell Technologies Design System. Essa comparação nos permitirá avaliar as melhores práticas e recursos disponíveis em cada sistema, a fim de tomar decisões informadas e garantir que nosso projeto ofereça uma experiência de usuário otimizada e consistente. <br>
+
+O Dell Technologies Design System é uma solução abrangente para o desenvolvimento de interfaces de usuário modernas e responsivas. Ele fornece uma série de componentes, padrões e diretrizes que facilitam a criação de aplicativos eficientes e visualmente atraentes.<br>
+
+O Apple Human Interface Guidelines é um conjunto de diretrizes e padrões de design criados pela Apple para garantir a consistência e a qualidade da experiência do usuário em seus dispositivos e sistemas operacionais. Ele abrange uma ampla gama de tópicos, desde a escolha de cores e tipografia até a organização de elementos na tela e a interação do usuário.<br>
+
+O Atlassian Design System é um conjunto de diretrizes, padrões e componentes de design desenvolvidos pela Atlassian, uma empresa líder em software colaborativo. Ele visa simplificar a criação de interfaces de usuário intuitivas e agradáveis para os produtos da Atlassian e é amplamente utilizado por desenvolvedores e designers em todo o mundo.<br>
+
+De início, após analisar tais Design Systems, pode-se afirmar que esses são unificados, universais, icônicos e conversacionais. Nesse sentido, o primeiro ponto descreve que os DS’s analisados têm uma identidade coesa, seguindo uma lógica interna, já o segundo ponto estabelece que os as definições desses são convencionadas e seguidas externamente, a terceira descreve que todas as funcionalidades das aplicações passam uma mensagem clara do que deve ser feito e a última estabelece que o Design System precisa criar um ambiente de dinâmico e acessível para todas o máximo possível de pessoas. Em segundo lugar, ao classificar o nível hierárquico dos Design Systems da Dell, da Apple e da Atlassian, pode-se definir que todos estes se encontram no nível otimizado, uma vez que estão sempre lançando novas atualizações para o documento, mantendo-o vivo à medida que as necessidades aparecem.<br>
+
+Comparando os DS’s, buscaremos identificar seus pontos fortes e fracos, destacando aspectos como facilidade de uso, customização, disponibilidade de componentes, documentação e suporte, desempenho e compatibilidade com diferentes plataformas e navegadores. Com base nessa análise, poderemos tomar decisões informadas sobre a melhor abordagem a ser seguida em nosso projeto e garantir uma experiência de usuário de alta qualidade<br>
+
+Para que essa análise ocorra de maneira organizada, serão divididos os critérios:<br>
+-Facilidade de uso e integração:<br>
+No contexto da Dell Technologies e da Atlassian,  se tratam de um ponto forte pela facilidade de usar e integrar em projetos, com uma ampla gama de componentes pré-construídos e exemplos de código disponíveis. Além disso, fornece diversas ferramentas e recursos para facilitar a implementação e a colaboração entre designers e desenvolvedores. 
+Já no caso da Apple, concentra-se majoritariamente em fornecer diretrizes de design, em vez de fornecer componentes pré-construídos. <br>
+-Customização e flexibilidade:<br>
+		Mais uma vez os Design System da Dell e da Atlassian se assemelha por garantir uma boa experiência de customização, permitindo aos desenvolvedores ajustarem os componentes e estilos de acordo com suas necessidades, enquanto os da Apple, mais uma vez, é menos focado em customização e mais em seguir as diretrizes específicas para garantir a consistência da experiência do usuário em dispositivos Apple.
+-Componentes disponíveis:<br>
+	A Dell Technologies e a Atlassian disponibilizam uma vasta camada de componentes para o desenvolvimento, enquanto a Apple segue por outro lado, fornecendo frameworks e kits de desenvolvimento de software (SDKs) com componentes básicos para suas plataformas.
+-Documentação e suporte:<br>
+	Todas as documentações analisadas são completas e cumprem seu propósito de auxiliar no desenvolvimento seguindo um design system eficiente, porém dois deles possuem especificidades interessantes. A Apple, oferecendo um canal de suporte e a Atlassian, fornecendo além de kits de design, materiais de aprendizagem. <br>
+-Performance e otimização:<br>
+	Neste aspecto, a Apple se destaca, por focar em seus dispositivos de fabricação própria, prezando pela otimização nestes, de modo que os frameworks e SDKs fornecidos pela Apple são otimizados para seus dispositivos e sistemas operacionais.
+-Escalabilidade e manutenção:<br>
+		Os três design systems analisados possuem uma boa estrutura de escalabilidade e manutenção, de modo a ter cada detalhe documentado, para que a solução por inteiro siga um padrão.
+-Exemplo de aplicação:<br>
+Mesmo com um Design System bem estruturado e detalhado, é importante lembrar que o sucesso de um projeto de interface de usuário depende em grande parte da habilidade da equipe de desenvolvimento e design. Um exemplo disso é o aplicativo mobile "AR Assistent", que segue algumas diretrizes do Dell Technologies Design System, mas que não conseguiu implementá-las de forma eficiente e harmoniosa, resultando em uma aplicação com problemas de interação e aparência.<br>
+
+Para garantir uma implementação adequada do Design System, é fundamental que a equipe de desenvolvimento e design trabalhe em conjunto, mantendo a consistência visual e a experiência do usuário em mente. Isso pode incluir revisões de design e testes de usabilidade para identificar e corrigir problemas de interação e aparência.<br>
+
+No caso do "AR Assistent", a falta de aderência eficaz ao Design System pode ser vista como uma oportunidade de aprendizado para a equipe responsável pelo projeto. Ao analisar os pontos fracos da aplicação e buscar melhorias com base nas diretrizes e componentes disponíveis no Design System, é possível criar uma aplicação mais atraente e com melhor interação com o usuário, proporcionando uma experiência de usuário de alta qualidade.<br>
+
+Em resumo, embora o Dell Technologies Design System forneça um conjunto valioso de recursos e diretrizes para o desenvolvimento de interfaces de usuário, é importante lembrar que a implementação bem-sucedida desses recursos depende da habilidade da equipe em aplicá-los corretamente e garantir que a aparência e a experiência do usuário sejam priorizadas em todo o projeto.<br>
+
+As imagens a seguir ilustram o aplicativo "AR Assistent" e destacam algumas das falhas na implementação do Dell Technologies Design System:<br>
+
+<img src="docs/img/app1.jpg">
+<img src="docs/img/app2.jpg">
+<img src="docs/img/app3.jpg">
+<img src="docs/img/app4.jpg">
+<img src="docs/img/app5.jpg">
+
+Como pode ser observado nas imagens acima, o exemplo demonstra algumas deficiências no que diz respeito à responsividade nas telas de dispositivos móveis atualmente utilizados. Além disso, as cores não são aplicadas de maneira adequada, resultando em uma aparência visualmente desagradável. A interface também deixa a desejar em termos de intuição e auto explicação, o que dificulta a navegação e a interação do usuário com o aplicativo.
+De modo geral, cada um dos analisados tem pontos altos e baixos, porém todos mantendo um padrão de excelente qualidade. Cada Design System apresenta qualidades e fragilidades distintas. O Dell Technologies Design System, utilizado em nosso projeto, oferece facilidade de uso, uma ampla gama de componentes e boa customização. O Apple Human Interface Guidelines é ideal para projetos específicos da Apple, mas pode ser limitado em termos de customização. O Atlassian Design System apresenta uma ampla gama de componentes e padrões, com ênfase na performance e escalabilidade.<br>
+
+Ao considerar essas características, nossa equipe pode tomar decisões informadas sobre a melhor abordagem a ser seguida em nosso projeto, garantindo uma experiência de usuário consistente e de alta qualidade.
+
+
+
 
 
 	
