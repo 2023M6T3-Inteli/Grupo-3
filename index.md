@@ -159,7 +159,10 @@ Como retorno financeiro esperado, a empresa almeja solucionar o problema da evas
 ## Mapeamento do processo
 
 ![image](https://user-images.githubusercontent.com/99200253/235394367-f9c26908-f469-4ab4-be3f-9c49a3e385c7.png)
-
+<img width="713" alt="image" src="https://user-images.githubusercontent.com/99200253/235395425-4cdde302-9aef-4204-9a88-c5815ee41990.png"> <br>
+Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVMRXrhB0=/"> Miro
+	  
+	  
 ## Descritivo da Solução
 
 Descrição da solução a ser desenvolvida (o que é, quais principais funcionalidades, como usar) . Caso ainda não esteja definida a solução na Sprint 1, o faça assim que possível.
@@ -215,6 +218,8 @@ A seção de casos de uso da documentação de software é uma parte crucial que
 do software e como elas serão utilizadas pelos usuários. Aqui, são listados todos os cenários possíveis de uso do software, incluindo as ações que o usuário pode realizar, as interações com o sistema e os resultados esperados. Os casos de uso são descritos em detalhes, incluindo a descrição do objetivo da funcionalidade, as entradas de dados, as ações do usuário e os resultados esperados. Além disso, também são incluídos os critérios de aceitação, que são os padrões que o software precisa atender para ser considerado como funcionando corretamente.
 <img width="345" alt="image" src="https://user-images.githubusercontent.com/99200253/235174603-c309645e-9628-466c-aa2a-6326075572bc.png"> <br>
 <img width="347" alt="image" src="https://user-images.githubusercontent.com/99200253/235174763-8b0a7840-b1e5-4276-948b-31adfa7bc26d.png">
+![Arquitetura da Solução - V1](https://user-images.githubusercontent.com/99200253/235395680-3293047e-f09f-4909-a46e-fe2d5544b5cb.png)
+Para mais informações, acesse: <a href="https://www.canva.com/design/DAFgavuTP8Y/nq-w85X-fIzCM1Fnc-zS0g/edit?utm_content=DAFgavuTP8Y&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)"> Diagrama de Caso de Uso
 
 <center>
 [template-documento3](../img/template-documento3.jpg)
