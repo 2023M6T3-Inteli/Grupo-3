@@ -158,8 +158,7 @@ Como retorno financeiro esperado, a empresa almeja solucionar o problema da evas
 
 ## Mapeamento do processo
 
-Apresentar a modelagem do processo "to be", representando em alto nível o fluxo de trabalho a ser realizado dentro da solução.
-
+![image](https://user-images.githubusercontent.com/99200253/235394367-f9c26908-f469-4ab4-be3f-9c49a3e385c7.png)
 
 ## Descritivo da Solução
 
@@ -223,11 +222,14 @@ do software e como elas serão utilizadas pelos usuários. Aqui, são listados t
 Exemplo de Diagrama de Casos de Uso
 </center>
 
-
 # Arquitetura do Sistema
+<img width="661" alt="image" src="https://user-images.githubusercontent.com/99200253/235394478-8c6032bf-b423-4c4c-a851-2b151fe31373.png"> <br>
+Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg=/"> Miro <br>
+	
 
-Atualizar a cada revisão/atualização da arquitetura, mantendo todas as 3 versões no documento..
-
+Diagrama de fluxo de dados: <br>
+<img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
+Para mais informações, acesse: <a href="https://www.canva.com/design/DAFhCxQEjfE/NpXwvJpZzgwx2GHI2j4buQ/edit?utm_content=DAFhCxQEjfE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> Canva
 
 <center>
 [template-documento4](../img/template-documento4.jpg)
