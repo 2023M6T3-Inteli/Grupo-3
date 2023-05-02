@@ -123,6 +123,9 @@ A problemática surge do fato de vários profissionais de tecnologia da Dell nã
 	- Página de perfil para cada funcionário com suas recomendações publicadas
 	- Notificações para atualizar os funcionários sobre novos conteúdos disponíveis ou edições feitas em seus próprios conteúdos
 	- Compliance com opção de marcar conteúdo como "NON-COMPLIANT" e retirá-lo do ar após validação pelo moderador.
+	  
+![image](https://user-images.githubusercontent.com/99189965/235700862-d2f3b72a-a67a-4095-bd9d-2b41ae3e3e7a.png)
+
 
 
 ### Proposta de Valor e Value Proposition Canvas
