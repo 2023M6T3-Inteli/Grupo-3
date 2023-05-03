@@ -14,9 +14,9 @@ Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenhar
 
 > Alunos do grupo: veja as [instruções para os alunos](LEIAME_aluno.md).
 
-# Projeto: *APP Dispositivo Móvel*
+# Projeto: *Elaboração de aplicação em dispositivo móvel*
 
-# Grupo: *Nome_do_seu_Grupo*
+# Grupo: *Lirios (LearnLink)*
 
 # Descrição
 
