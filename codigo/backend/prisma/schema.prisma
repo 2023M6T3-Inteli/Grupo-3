@@ -10,11 +10,86 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  admin     Boolean
-  score     Int
-  createdAt DateTime @default(now())
+model User{ 
+  id              String      @id @default(uuid())
+  name            String      @default("")
+  email           String      @unique
+  user            String      @unique
+  hashedPassword  String
+  picture         String?     @default("")
+  role            String?     @default("")
+  tags            Tags[]
+  matchs          Match[]
+  conditions      Boolean     @default(true)
+  level           Int         @default(0)
+  comments        Comments[]
+  notifications   Notifications[]
+  badge           String
+  skills          String?     @default("")
+  posts           Post[]
+  admin           Boolean     @default(false)
+  location        String?     @default("")
+  score           Int         @default(0)
+  createdAt       DateTime    @default(now())
+}
+
+model Tags{
+  id              String      @id @default(uuid())
+  tags            String  
+  user            User        @relation(fields: [userID], references: [id])
+  userID          String
+  matchs          Match[]
+  post            Post        @relation(fields: [postID], references: [id])
+  postID          String
+}
+
+model Comments{
+  id              String      @id @default(uuid())
+  user            User        @relation(fields: [userID], references: [id])
+  userID          String
+  post            Post        @relation(fields: [postID], references: [id])
+  postID          String
+  createdAt       DateTime    @default(now())
+}
+
+model FAQ {
+  id              String      @id @default(uuid())
+  question        String
+  answer          String
+  createdAt       DateTime    @default(now())
+}
+
+model Match{ 
+  id              String      @id @default(uuid())
+  user            User        @relation(fields: [userID], references: [id])
+  userID          String
+  tags            Tags        @relation(fields: [tagsID], references: [id])
+  tagsID          String
+  timestamp       DateTime    @default(now())
+}
+
+model Notifications{
+  id              String      @id @default(uuid())
+  title           String
+  content         String
+  user            User        @relation(fields: [userID], references: [id])
+  userID          String
+  post            Post        @relation(fields: [postID], references: [id])
+  postID          String
+  timestamp       DateTime    @default(now())
+}
+
+model Post{
+  id              String      @id @default(uuid())
+  title           String          
+  description     String
+  image           String
+  link            String
+  user            User        @relation(fields: [userID], references: [id])
+  userID          String
+  comments        Comments[]
+  likes           Int
+  tags            Tags[]
+  notifications   Notifications[]
+  createdAt       DateTime     @default(now())
 }
