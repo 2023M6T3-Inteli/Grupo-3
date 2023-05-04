@@ -46,6 +46,7 @@ export default function BottomNavbar() {
                     <BottomNavigationAction label="Add post" icon={<AddCircleOutlinedIcon />} />
                     <BottomNavigationAction label="Favorites" icon={<BookmarkBorderOutlinedIcon />} />
                     <BottomNavigationAction label="Profile" icon={<Person2OutlinedIcon />} />
+                    
                 </BottomNavigation>
             </ThemeProvider>
         </Container>
