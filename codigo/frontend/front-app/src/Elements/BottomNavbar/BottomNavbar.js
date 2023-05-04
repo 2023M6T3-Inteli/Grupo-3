@@ -25,7 +25,7 @@ const Container = styled.div`
   background-color: #fff;
   border-top: 1px solid #D9D9D9;
   justify-content: center;
-  margin: 0
+  margin: 0;
 `;
 
 export default function BottomNavbar() {
