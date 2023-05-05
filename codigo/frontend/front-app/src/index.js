@@ -2,7 +2,8 @@ import React from 'react';
 import App from './App';
 import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from './Pages/TelaDeLogin/LoginScreen'
+//import Login from './Pages/TelaDeLogin/LoginScreen'
+import Feed from './components/Feed';
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <App />,
+  },
+
+  {
+    path: "/feed",
+    element: <Feed />,
   },
 ]);
 
