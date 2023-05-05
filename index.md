@@ -309,7 +309,7 @@ Ao considerar essas características, nossa equipe pode tomar decisões informad
 
 Telas de baixa fidelidade das áreas do usuário, conectados, demonstrando a diagramação e o fluxo de navegação. Exemplos: home, login, dashboards etc. Em cada tela colocar: cabeçalho, rodapé, barra lateral, área de conteúdo.
 	
-Aqui você deve colocar o link para o wireframe e colocar as imagens geradas na sequência correta do fluxo de navegação. 
+https://www.figma.com/file/fh5kuqzdg3gPhQpXDwC3B9/LearnLink?type=design&node-id=0-1&t=avdiGzQZDwmc5Xsl-0
 	
 Recursos e funcionalidades de inclusão e acessibilidade já devem estar previstos nesse protótipo. 
 	
