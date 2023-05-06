@@ -10,86 +10,92 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{ 
-  id              String      @id @default(uuid())
-  name            String      @default("")
-  email           String      @unique
-  user            String      @unique
-  hashedPassword  String
-  picture         String?     @default("")
-  role            String?     @default("")
-  tags            Tags[]
-  matchs          Match[]
-  conditions      Boolean     @default(true)
-  level           Int         @default(0)
-  comments        Comments[]
-  notifications   Notifications[]
-  badge           String
-  skills          String?     @default("")
-  posts           Post[]
-  admin           Boolean     @default(false)
-  location        String?     @default("")
-  score           Int         @default(0)
-  createdAt       DateTime    @default(now())
-}
-
-model Tags{
-  id              String      @id @default(uuid())
-  tags            String  
-  user            User        @relation(fields: [userID], references: [id])
-  userID          String
-  matchs          Match[]
-  post            Post        @relation(fields: [postID], references: [id])
-  postID          String
-}
-
-model Comments{
-  id              String      @id @default(uuid())
-  user            User        @relation(fields: [userID], references: [id])
-  userID          String
-  post            Post        @relation(fields: [postID], references: [id])
-  postID          String
-  createdAt       DateTime    @default(now())
-}
-
-model FAQ {
-  id              String      @id @default(uuid())
-  question        String
-  answer          String
-  createdAt       DateTime    @default(now())
-}
-
-model Match{ 
-  id              String      @id @default(uuid())
-  user            User        @relation(fields: [userID], references: [id])
-  userID          String
-  tags            Tags        @relation(fields: [tagsID], references: [id])
-  tagsID          String
-  timestamp       DateTime    @default(now())
-}
-
-model Notifications{
-  id              String      @id @default(uuid())
-  title           String
-  content         String
-  user            User        @relation(fields: [userID], references: [id])
-  userID          String
-  post            Post        @relation(fields: [postID], references: [id])
-  postID          String
-  timestamp       DateTime    @default(now())
+model User {
+  id            String          @id @default(uuid())
+  name          String
+  username      String          @unique
+  image         String          @default("")
+  location      String          @default("")
+  acceptTerms   Boolean         @default(true)
+  admin         Boolean         @default(false)
+  role          String          @default("")
+  score         Int             @default(0)
+  curriculum    String          @default("")
+  mltable       MLTable[]
+  likes         Likes[]
+  comments      Comments[]
+  tags          Tags[]
+  userPost      UserPost[]
 }
 
 model Post{
-  id              String      @id @default(uuid())
-  title           String          
-  description     String
-  image           String
-  link            String
-  user            User        @relation(fields: [userID], references: [id])
-  userID          String
-  comments        Comments[]
-  likes           Int
-  tags            Tags[]
-  notifications   Notifications[]
-  createdAt       DateTime     @default(now())
+  id            String          @id @default(uuid())
+  title         String          
+  description   String
+  image         String
+  content       String
+  active        Boolean
+  notifications Notifications[]
+  likes         Likes[]
+  comments      Comments[]
+  tags          Tags[]
+  userPost      UserPost[]
+}
+
+model MLTable{
+  id            String          @id @default(uuid())
+  user          User            @relation(fields: [userID], references: [id])
+  userID        String  
+  tags          String
+  notifications Notifications[]        
+}
+
+model Notifications{
+  id            String          @id @default(uuid())
+  title         String          
+  description   String
+  mltable       MLTable         @relation(fields: [mlTableID], references: [id])
+  mlTableID     String
+  post          Post            @relation(fields: [postID], references: [id])
+  postID        String
+}
+
+model FAQ{
+  id            String          @id @default(uuid())
+  question      String
+  answer        String
+}
+
+model Likes{
+  id            String          @id @default(uuid())
+  count         Int
+  user          User            @relation(fields: [userID], references: [id])
+  userID        String
+  post          Post            @relation(fields: [postID], references: [id])
+  postID        String
+}
+
+model Comments{
+  id            String          @id @default(uuid())
+  content       String
+  user          User            @relation(fields: [userID], references: [id])
+  userID        String
+  post          Post            @relation(fields: [postID], references: [id])
+  postID        String
+}
+
+model Tags{
+  id            String          @id @default(uuid())
+  user          User            @relation(fields: [userID], references: [id])
+  userID        String
+  post          Post            @relation(fields: [postID], references: [id])
+  postID        String
+}
+
+model UserPost{
+  id            String           @id @default(uuid())
+  user          User             @relation(fields: [userID], references: [id])
+  userID        String
+  post          Post             @relation(fields: [postID], references: [id])
+  postID        String  
 }

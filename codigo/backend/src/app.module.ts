@@ -6,9 +6,17 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { RankingModule } from './ranking/ranking.module';
 import { UserModule } from './user/user.module';
 import { RootModule } from './root/root.module';
+import { PostModule } from './post/post.module';
 @Module({
-  imports: [PrismaModule, RankingModule, UserModule, HomeModule, NotificationsModule, InterestModule, RootModule],
-  controllers: [],
-  providers: [],
+  imports: [
+    PrismaModule,
+    RankingModule,
+    UserModule,
+    HomeModule,
+    NotificationsModule,
+    InterestModule,
+    RootModule,
+    PostModule,
+  ],
 })
 export class AppModule {}
