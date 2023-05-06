@@ -1,15 +1,16 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateRankingDto } from './dto/create-ranking.dto';
 import { RankingService } from './ranking.service';
 import { PrismaService } from 'prisma/prisma.service';
+import { User } from '@prisma/client';
 
 @ApiTags('ranking')
 @Controller('ranking')
 export class RankingController {
   constructor(private readonly rankingService: RankingService, private prisma: PrismaService) {}
 
-  @Post(":id")
+  @Post(":userId/increment-score")
   @ApiResponse({
     status: 200,
     description: 'Everything works as expected',
@@ -20,8 +21,8 @@ export class RankingController {
     description: 'Forbbiden',
   })
   @ApiOperation({description: 'This endpoint adds a score to the user who posts more'})
-  async addScore(@Param('id') id: string) {
-    return this.rankingService.addScore(id);
+  async addScore(@Param('userId') userId: string): Promise<User> {
+    return this.rankingService.addScore(userId);
   }
 
   @Get()
