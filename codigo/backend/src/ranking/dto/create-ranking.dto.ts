@@ -11,5 +11,5 @@ export class CreateRankingDto {
     score?: number;
 
     @ApiProperty({example: 'null', description: 'profile picture'})
-    picture?: string;
+    image?: string;
 }

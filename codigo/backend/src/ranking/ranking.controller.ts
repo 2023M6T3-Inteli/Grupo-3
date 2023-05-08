@@ -35,7 +35,7 @@ export class RankingController {
     status: 403,
     description: 'Forbbiden',
   })
-  findAll() {
+  async findAll(): Promise<CreateRankingDto[]> {
     return this.rankingService.findAll();
   }
 }
