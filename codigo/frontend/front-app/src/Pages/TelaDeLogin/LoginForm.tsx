@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2), //remove
+    maginLeft: theme.spacing(2), //remove
+    marginRight: theme.spacing(2), //remove
+    //here it goes //but remove all there above
   },
 }));
 
@@ -22,11 +26,9 @@ function LoginForm() {
 
   return (
     <form className={classes.form}>
-      <TextField label="Email" fullWidth margin="normal" className={classes.input} />
-      <TextField label="Senha" fullWidth margin="normal" className={classes.input} />
-      <Button variant="contained" color="primary" fullWidth>
-        Sign In
-      </Button>
+      <TextField label="E-mail" fullWidth margin="normal" className={classes.input} />
+      <TextField label="Password" fullWidth margin="normal" className={classes.input} />
+      <Button variant="contained" color="primary" fullWidth> Sign In </Button>
     </form>
   );
 }
