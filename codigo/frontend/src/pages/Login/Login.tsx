@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from './LoginForm'; //arquivo com a estilização e a construção do forms básico
+import LoginForm from '../../components/LoginForm/LoginForm'; //arquivo com a estilização e a construção do forms básico
 
 //abaixo o app React 
 

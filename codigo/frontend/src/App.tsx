@@ -1,5 +1,5 @@
 import React from "react";
-import BottomNavbar from "./Elements/BottomNavbar/BottomNavbar";
+import BottomNavbar from "./elements/BottomNavbar/BottomNavbar";
 import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
@@ -7,7 +7,6 @@ function App() {
     <>
       <h1>Lirios lindos</h1>
       <BottomNavbar/>
-
       <GlobalStyles />
     </>
   );
