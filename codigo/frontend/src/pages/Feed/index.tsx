@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Container, Wrapper } from './style';
 import FeedMain from './FeedMain/index';
+import BottomNavbar from '../../elements/BottomNavbar/BottomNavbar';
 
 const Feed: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Feed: React.FC = () => {
         <FeedMain />
         {/* <SideBar></SideBar> */}
       </Wrapper>
+      <BottomNavbar />
     </Container>
   );
 }
