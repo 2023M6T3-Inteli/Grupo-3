@@ -19,6 +19,8 @@ export class UserService {
     await this.prisma.user.create({
       data: {
         name: createUserDTO.name,
+        email: createUserDTO.email || 'email@delltechnologies.com',
+        hashedPassword: createUserDTO.hashedPassword,
         username: createUserDTO.username,
         image: createUserDTO.image || '',
         location: createUserDTO.location || '',
