@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //import Login from './Pages/TelaDeLogin/LoginScreen'
 import Feed from './pages/Feed/index';
+import Ranking from './pages/Ranking/index';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     path: "/feed",
     element: <Feed />,
   },
+  {
+    path: "/ranking",
+    element: <Ranking/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
