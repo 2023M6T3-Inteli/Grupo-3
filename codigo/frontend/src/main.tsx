@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //import Login from './Pages/TelaDeLogin/LoginScreen'
 import Feed from './pages/Feed/index';
 import Ranking from './pages/Ranking/index';
+import Saved from './pages/Saved';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/ranking",
     element: <Ranking/>
+  },
+  {
+    path: "/saved",
+    element:<Saved/>
   }
 ]);
 
