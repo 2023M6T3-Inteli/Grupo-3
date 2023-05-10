@@ -1,28 +1,31 @@
 import React from 'react';
-import { Container, Header, Intro, Trends, Trending, Cards, Feed, Card, CardIntro, CardProfile, CardContent, PostTags, CardFootbar, PostInteraction, NotInterested } from './style';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import InfoIcon from '@mui/icons-material/Info';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-
+import { Container, Header, Intro, FormSearch , Input , Trends, Trending, Cards, Feed,} from './style';
+import CardFeed from '../../../components/CardFeed/index';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 const FeedMain: React.FC = () => {
   return(
     <Container>
       <Header>
         <Intro>
-          <h1>Welcome, Joana!</h1>
-          <img></img>
+          <h1>Welcome, Bruno!</h1>
+          <img style={{width: 40, height: 40 , 'border-radius': 20}}
+            src="https://github.com/brun0meira.png"
+            alt="profileImg"
+          />
         </Intro>
-        <input></input>
+        <FormSearch>
+          <SearchIcon sx={{ color: '#0561FC', 'margin-right': '5px' }} />
+          <Input placeholder="Seach in dell contents" type="text" />
+        </FormSearch>
       </Header>
       <Trends>
         <Trending>
-          <StarOutlineIcon />
+          <StarBorderIcon sx={{ color: '#0561FC', 'margin-right': '5px', width: '18px', height: '18px' }} />
           <h2>Trending in frontend</h2>
-          <InfoIcon />
+          <InfoOutlinedIcon sx={{ color: '#000000', 'margin-left': '5px', width: '18px', height: '18px' }} />
         </Trending>
         <Cards>
           <img></img>
@@ -31,37 +34,7 @@ const FeedMain: React.FC = () => {
         </Cards>
       </Trends>
       <Feed>
-        <Card>
-          <CardIntro>
-            <img></img>
-            <CardProfile>
-              <h3>Joana Dadell</h3>
-              <h4>30 Minutes ago</h4>
-            </CardProfile>
-            <MoreHorizIcon />
-          </CardIntro>
-          <CardContent>
-            <h2>Server-side Rendering in React</h2>
-            <img></img>
-            <PostTags>
-              <span>#python</span>
-              <span>#javascript</span>
-              <span>#c++</span>
-            </PostTags>
-            <CardFootbar>
-              <PostInteraction>
-                <FavoriteIcon />
-                <p>17 Likes</p>
-                <ChatBubbleOutlineIcon />
-                <p>32 Comments</p>
-              </PostInteraction>
-              <NotInterested>
-                <p>Not interested</p>
-                <SentimentVeryDissatisfiedIcon />
-              </NotInterested>
-            </CardFootbar>
-          </CardContent>
-        </Card>
+        <CardFeed/>
       </Feed>
     </Container>
   );
