@@ -53,7 +53,7 @@ const CardFeed: React.FC = () => {
           </PostTags>
           <CardFootbar>
             <PostInteraction>
-              <FavoriteIcon sx={{ color: '#8F8F8F'}} />
+              <FavoriteBorderOutlinedIcon sx={{ color: '#8F8F8F'}} />
               <p>17 Likes</p>
               <ChatBubbleOutlineIcon />
               <p>32 Comments</p>

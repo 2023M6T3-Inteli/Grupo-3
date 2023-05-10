@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  
+  font-family: 'Roboto', sans-serif;
 `;
 
 export const Card = styled.div`
