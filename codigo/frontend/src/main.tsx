@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   }
   {
     path: "/ranking",
-    element: <Ranking/>
+    element: <Ranking/>,
   }
 ]);
 
