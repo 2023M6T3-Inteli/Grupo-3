@@ -115,7 +115,8 @@ var StyledBottonsProfile = styled(BottonsProfile)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 10px;
+  margin-bottom: 1rem;
 `;
 
 function Profile() {
