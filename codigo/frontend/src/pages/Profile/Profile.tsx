@@ -1,103 +1,38 @@
-// import {  Container,  ProfileInfo,  BottonsProfile,  Badges,  Imagem,} from "./style";
-// import Button from "@mui/material/Button";
-// import styled from "styled-components";
-// import Selena from "../../assets/Selena_Gomez_at_White_House.jpg";
-// import { Box } from "@mui/material";
-
-// var StyledButton = styled(Button)`
-//   max-width: 400px;
-//   width: 100%;
-//   // border-radius: 50%;
-// `;
-
-// var StyledImage = styled.div`
-//   width: 100px;
-//   height: 100px;
-//   border-radius: 50%;
-//   background-image: url(${Selena});
-//   background-size: cover;
-//   justify-content: center;
-//   margin-left: auto;
-//   margin-right: auto;
-// `;
-
-// // var ImagemFrufru = styled.img`
-// //   width: 100%;
-// //   heigth: 100%;
-// // `;
-
-// function Profile() {
-//   return (
-//     <Container>
-//       <ProfileInfo>
-//         <StyledImage></StyledImage>
-//         <h1>Clara Alemão</h1> {/* name */}
-//         <p>Front-end developer</p> {/* role of the user */}
-//         <p>São Paulo - SP</p> {/* local */}
-//       </ProfileInfo>
-//       <BottonsProfile>
-//         <StyledButton variant="contained" color="primary">
-//           {" "}
-//           View Dell Curriculum{" "}
-//         </StyledButton>
-//         <br></br>
-//         <br></br>
-
-//         <StyledButton variant="contained" color="primary">
-//           {" "}
-//           Call in Teams{" "}
-//         </StyledButton>
-//       </BottonsProfile>
-//       <Badges>
-//         <h4>You`re level 10</h4>
-//         <div>
-//           <div id="blue background"></div>
-//           <div id="gray blackground"></div>
-//           <h6>Achievements</h6>
-//           <div>
-//             <img></img>
-//             <img></img>
-//             <img></img>
-//             <img></img>
-//           </div>
-//         </div>
-//       </Badges>
-//     </Container>
-//   );
-// }
-
-// export default Profile;
-
-////////////////////////////
-//////////////////////////
-// MANTIVE ACIMA O CÓDIGO ORIGINAL DO GABRIEL //
-///////////////////////////////
-/////////////////////////////////
-
-
-import {Container,ProfileInfo,BottonsProfile,Badges,Imagem, } from "./style";
+import {
+  Container,
+  ProfileInfo,
+  BottonsProfile,
+  Badges,
+  Imagem,
+} from "./style";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import Selena from "../../assets/Selena_Gomez_at_White_House.jpg";
-import { Box } from "@mui/material";
+import GlobalStyles from "../../styles/GlobalStyles";
+import HardWorker from "../../assets/HardWorker1.png";
+import GroupBoy from "../../assets/GroupBoy.png";
+import TeamWork from "../../assets/TeamWork.png";
+import Complete10 from "../../assets/Complete10.png";
 
 //estilização do botão - também usamos material U.I. aqui
 var StyledButton = styled(Button)`
   max-width: 400px;
-  width: 100%;
+  width: 80%;
   // border-radius: 50%;
 `;
 
 //estilização referente à imagem
 var StyledImage = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   background-image: url(${Selena});
   background-size: cover;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  font-style: Roboto;
+  margin-top: 100px;
 `;
 
 //informações do perfil
@@ -119,13 +54,86 @@ var StyledBottonsProfile = styled(BottonsProfile)`
   margin-bottom: 1rem;
 `;
 
+var StyleBadges = styled(Badges)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 0.2rem;
+  font-style: Roboto;
+`;
+
+//estilização referente à imagem
+var StyledHardworker = styled.img`
+  width: 70px;
+  height: 70px;
+  background-image: url(${HardWorker});
+  justify-content: center;
+  font-style: Roboto;
+  border-radius: 50%;
+  align-items: center;
+`;
+
+var StyledGroupBoy = styled.img`
+  width: 70px;
+  height: 70px;
+  background-image: url(${GroupBoy});
+  justify-content: center;
+  font-style: Roboto;
+  border-radius: 50%;
+  align-items: center;
+`;
+
+var StyledTeamWork = styled.img`
+  width: 70px;
+  height: 70px;
+  background-image: url(${TeamWork});
+  justify-content: center;
+  font-style: Roboto;
+  border-radius: 50%;
+  align-items: center;
+`;
+
+var StyledComplete10 = styled.img`
+  width: 70px;
+  height: 70px;
+  background-image: url(${Complete10});
+  justify-content: center;
+  font-style: Roboto;
+  border-radius: 50%;
+  align-items: center;
+`;
+
+var StyledAchievements = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 1rem;
+  font-style: Roboto;
+`;
+
+var StyledTitleAchievement = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 20px;
+margin-bottom: 0.2rem;
+font-style: Roboto;
+`;
+
 function Profile() {
   return (
     <Container>
+      <GlobalStyles />
       <StyledProfileInfo>
         <StyledImage></StyledImage>
         <h1>Selena Gomez</h1> {/* name */}
-        <p>A singer that wanna be a front-end developer</p> {/* role of the user */}
+        <p>A singer that wanna be a front-end developer</p>{" "}
+        {/* role of the user */}
         <p>São Paulo - SP</p> {/* local */}
       </StyledProfileInfo>
 
@@ -135,30 +143,27 @@ function Profile() {
           View Dell Curriculum{" "}
         </StyledButton>
         <br></br>
-        <br></br>
 
         <StyledButton variant="contained" color="primary">
           {" "}
           Call in Teams{" "}
         </StyledButton>
       </StyledBottonsProfile>
-
-      <Badges>
+      <StyleBadges>
+        <h2>You`re level 10</h2>
+        <br></br>
+        <StyledTitleAchievement>
+          <h5>Achievements</h5>
+        </StyledTitleAchievement>
+      </StyleBadges>
+      <StyledAchievements>
         <div>
-          <h4>You`re level 10</h4>
-          <div>
-            {/* <div id="blue background"></div>
-            <div id="gray blackground"></div> */}
-            <h6>Achievements</h6>
-            {/* <div>
-              <img></img>
-              <img></img>
-              <img></img>
-              <img></img>
-            </div> */}
-          </div>
+          <StyledHardworker></StyledHardworker>
+          <StyledGroupBoy></StyledGroupBoy>
+          <StyledTeamWork></StyledTeamWork>
+          <StyledComplete10></StyledComplete10>
         </div>
-      </Badges>
+      </StyledAchievements>
     </Container>
   );
 }
