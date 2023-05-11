@@ -1,0 +1,22 @@
+{
+  "name": "grupo-3",
+  "version": "1.0.0",
+  "description": "<table>\r <tr>\r <td>\r <a href= \"https://www.dell.com/pt-br\"><img src=\"https://pt.wikipedia.org/wiki/Ficheiro:Dell_logo_2016.svg\" alt=\"Dell\" border=\"0\" width=\"100%\"></a>\r </td>\r <td><a href= \"https://www.inteli.edu.br/\"><img src=\"./docs/img/inteli-logo.png\" alt=\"Inteli - Instituto de Tecnologia e Liderança\" border=\"0\" width=\"30%\"></a>\r </td>\r </tr>\r </table>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2023M6T3-Inteli/Grupo-3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2023M6T3-Inteli/Grupo-3/issues"
+  },
+  "homepage": "https://github.com/2023M6T3-Inteli/Grupo-3#readme"
+}
