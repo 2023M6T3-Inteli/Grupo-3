@@ -1,14 +1,17 @@
 import {
   Box,
+  Card,
+  CardMedia,
   Container,
   Divider,
+  Link,
   List,
-  ListItem,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import React from "react";
+import User from "../../assets/users";
 import BottomNavbar from "../../elements/BottomNavbar/BottomNavbar";
+import "../../styles/GlobalStyles";
 
 const Ranking: React.FC = () => {
   //o código comentado abaixo representa a integração
@@ -28,108 +31,105 @@ const Ranking: React.FC = () => {
 
   const data = [
     {
+      id: "",
+      image: "",
       name: "Yves",
       score: 10,
     },
     {
+      id: "",
+      image: "",
       name: "Marcos",
       score: 5,
     },
     {
+      id: "",
+      image: "",
       name: "Livia",
       score: 15,
     },
     {
+      id: "",
+      image: "",
       name: "Gabriel",
       score: 5,
     },
     {
+      id: "",
+      image: "",
       name: "Raissa",
       score: 5,
     },
     {
+      id: "",
+      image: "https://github.com/brun0meira.png",
       name: "Bruno",
       score: 5,
     },
     {
+      id: "",
+      image: "",
       name: "Matheus",
-      score: 5,
-    },
-    {
-      name: "Manon",
-      score: 5,
-    },
-    {
-      name: "Ze",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
-      score: 5,
-    },
-    {
-      name: "Goya",
       score: 5,
     },
   ];
 
   data.sort((a, b) => b.score - a.score);
+
   return (
-    <Container maxWidth="sm">
-      <Typography
-        fontFamily="roboto"
-        variant="h4"
-        fontSize="24px"
-        component="h1"
-        align="left"
-        gutterBottom
-      >
-        Ranking
-      </Typography>
+    <Container>
       <List>
         {data.map((item, index) => (
-          <React.Fragment key={index}>
-            <ListItem>
-              <ListItemText
-                primary={
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    fontFamily='roboto'
-                    fontSize='14px'                    
-                  >
-                    <span>{`${index + 1}. ${item.name}`}</span>
-                    <span>{item.score}</span>
+          <Link href={`/user/${item.id}`} underline="none" color="inherit">
+            <React.Fragment key={index}>
+              <Card
+                sx={{
+                  my: 2,
+                  border:
+                    index < 1
+                      ? "2px solid #EFB959"
+                      : index < 2
+                      ? "2px solid #B8B8B8"
+                      : index < 3
+                      ? "2px solid #D47D43"
+                      : "2px solid #D9D9D9",
+                }}
+              >
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Box display="flex" alignItems="center">
+                    {item.image ? (
+                      <CardMedia
+                        component="img"
+                        src={item.image}
+                        alt={item.name}
+                        sx={{ width: 50, height: 50 }}
+                      />
+                    ) : (
+                      <User width={50} color="rgba(0,0,0,0.7)" />
+                    )}
+
+                    <Typography
+                      variant="h6"
+                      component="p"
+                      marginLeft="1em"
+                    >{`${item.name}`}</Typography>
                   </Box>
-                }
-              />
-            </ListItem>
-            {index !== data.length - 1 && <Divider />}
-          </React.Fragment>
+                  <Typography variant="h6" marginRight="1em" component="p">
+                    {item.score}
+                  </Typography>
+                </Box>
+              </Card>
+              {index !== data.length - 1 && <Divider />}
+            </React.Fragment>
+          </Link>
         ))}
       </List>
-      <footer><BottomNavbar/></footer>
+
+      <BottomNavbar />
     </Container>
   );
 };
