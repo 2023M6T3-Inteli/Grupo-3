@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Feed from './pages/Feed/index';
 import Ranking from './pages/Ranking/index';
 import Saved from './pages/Saved';
+import Account from './pages/Account';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/saved",
     element:<Saved/>
+  },
+  {
+    path: "/Account",
+    element: <Account />
   }
 ]);
 
