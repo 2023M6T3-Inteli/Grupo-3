@@ -36,8 +36,9 @@ const Account: React.FC = () => {
             <Grid item xs={12}>
                 <div style={{ display: "flex", justifyContent: "center", flexDirection:"row", flexWrap:"wrap"}}>
                     {/*<CardAccount/>*/}
-                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
-                        <p style={{color:"white"}}>Front-end <br />developing</p>
+                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0, display:'flex', flexDirection:"row",justifyContent:"space-between" }} >
+                        <div><p style={{ color: "white" }}>Front-end <br />developing</p></div>
+                        <div><input type='checkbox'></input></div>
                     </Paper>
                     <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
                         <p style={{ color: "white" }}>Ux</p>
@@ -45,15 +46,18 @@ const Account: React.FC = () => {
                     <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
                         <p style={{ color: "white" }}>Back-end<br />developing</p>
                     </Paper>
-                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
-                        <p style={{ color: "white" }}>Machine learning/<br />AI</p>
+                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0, display: 'flex', flexDirection: "row", justifyContent: "space-between" }} >
+                        <div><p style={{ color: "white" }}>Machine learning/<br />AI</p></div>
+                        <div><input type='checkbox'></input></div>
                     </Paper>
                     <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
                         <p style={{ color: "white" }}>Cyber Security</p> 
                     </Paper>
-                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0 }} >
+                    <Paper style={{ height: 109, width: 166, backgroundColor: "#0672CB", margin: 5, borderRadius: 0, display: 'flex', flexDirection: "row", justifyContent: "space-between" }} >
                         <p style={{ color: "white" }}>Testing</p>
+                        <div><input type='checkbox'></input></div>
                     </Paper>
+                   
                 </div>
                
             </Grid>
