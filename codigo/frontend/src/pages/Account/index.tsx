@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid';
 import GlobalStyles from '../../styles/GlobalStyles';
 import NavBar from '../../components/NavBar';
 import BottonAccount from '../../components/BottonAccount';
-import CardAccount from '../../components/CardAccount';
 
 // import { Container } from './styles';
 
