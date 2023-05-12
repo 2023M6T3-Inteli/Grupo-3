@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateRankingDto } from './dto/create-ranking.dto';
 
+
 //Ranking service como injetável
 @Injectable()
 export class RankingService {
@@ -36,13 +37,13 @@ export class RankingService {
       throw new Error("User doesn't exist");
     }
 
-    const numPosts = await this.prisma.userPost.count({
-      where: { userID: userId },
-    });
+    // const numPosts = await this.prisma.userPost.count({
+    //   where: { userID: userId },
+    // });
 
     const updatedUser = await this.prisma.user.update({
       where: { id: userId },
-      data: { score: user.score + numPosts },
+      data: { score: user.score + 1 },
     });
     return updatedUser;
   }

@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { RankingEntity } from "../entities/ranking.entity";
 
-export class CreateRankingDto {
+export class CreateRankingDto extends RankingEntity {
     @ApiProperty({example: 'haxb3yziw1', description: 'id'})
     id?: string;
 
