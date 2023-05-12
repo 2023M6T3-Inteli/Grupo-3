@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //import Login from './Pages/TelaDeLogin/LoginScreen'
 import Feed from './pages/Feed/index';
+import Profile from './pages/Profile/Profile';
 import Ranking from './pages/Ranking/index';
 import Login from './pages/Login/Login'; //09 de Maio de 2023
 
@@ -22,8 +23,12 @@ const router = createBrowserRouter([
     element: <Feed />,
   },
   {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
     path: "/ranking",
-    element: <Ranking/>
+    element: <Ranking/>,
   }
 ]);
 
