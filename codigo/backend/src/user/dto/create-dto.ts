@@ -1,55 +1,92 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Comments, Likes, MLTable, Tags, UserPost } from '@prisma/client';
+import { Comments, Likes, Tags, UserPost } from '@prisma/client';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsString
+} from 'class-validator';
+import { User } from '../entities/user.entity';
 
-export class CreateUserDTO {
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+export class CreateUserDTO extends User {
+  @ApiProperty({ example: 'haxb3yziw1', description: 'id' })
+  @IsOptional()
   id?: string;
 
-  @ApiProperty({example: 'email@delltechnologies.com', description: 'email'})
+  @IsEmail()
+  @ApiProperty({ example: 'email@delltechnologies.com', description: 'email' })
   email: string;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'password'})
+  @IsString()
+  @ApiProperty({ example: 'haxb3yziw1', description: 'password' })
   hashedPassword: string;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'name'})
+  @IsString()
+  @ApiProperty({ example: 'haxb3yziw1', description: 'name' })
   name: string;
 
-  @ApiProperty({example: 'Annie', description: 'arroba'})
+  @IsString()
+  @ApiProperty({ example: 'Annie', description: 'arroba' })
   username: string;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'Image'})
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ example: 'haxb3yziw1.png', description: 'Image' })
   image?: string;
 
-  @ApiProperty({example: 'San Francisco', description: 'Location'})
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ example: 'San Francisco', description: 'Location' })
   location?: string;
 
-  @ApiProperty({example: true, description: 'terms'})
+  @IsBoolean()
+  @ApiProperty({ example: true, description: 'terms' })
   acceptTerms: boolean;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @IsBoolean()
+  @ApiProperty({ example: false, description: 'Site Admin' })
   admin?: boolean;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ example: 'Software Engineer', description: 'Occupation' })
   role?: string;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @IsString()
+  @ApiProperty({ example: 'cv.pdf', description: 'Curriculo' })
+  @IsOptional()
   curriculum?: string;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    example: 1,
+    description: 'Score according to number of posts',
+  })
   score?: number;
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
-  mltags: MLTable[];
-
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @ApiProperty({ example: [3], description: 'Usuário deu 3 likes' })
   likes?: Likes[];
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @ApiProperty({
+    example: ['Muito bom', 'Muito ruim'],
+    description: 'Comentários em post',
+  })
+  @IsOptional()
   comments?: Comments[];
 
-  @ApiProperty({example: 'haxb3yziw1', description: 'id'})
+  @ApiProperty({
+    example: ['Python', 'JavaScript'],
+    description: 'Tags do usuário',
+  })
+  @IsOptional()
   tags?: Tags[];
 
-  @ApiProperty({example: 'post 1, 2 , 3', description: 'id'})
+  @ApiProperty({
+    example: ['post 1', 'post 2', 'post 3'],
+    description: 'Posts do usuário',
+  })
+  @IsOptional()
   userPosts?: UserPost[];
 }

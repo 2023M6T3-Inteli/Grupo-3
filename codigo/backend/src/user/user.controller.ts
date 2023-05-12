@@ -1,14 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, ForbiddenException, Get, Param, Post, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-dto';
 import { UserService } from './user.service';
+import { User } from '@prisma/client';
+import { Request } from 'express';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('/create-account')
   async createUser(@Body() createUserDTO: CreateUserDTO) {
     return this.userService.createUser(createUserDTO);
   }
@@ -18,9 +20,13 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  //precisa criar a autenticação e verificação para login
-  @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  @Get('/profile/:username')
+  async findByUsername(@Param('username') username: string) {
+    return this.userService.findByUsername(username);
+  }
+
+  @Delete('/delete/:id')
+  async deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
   }
 }
