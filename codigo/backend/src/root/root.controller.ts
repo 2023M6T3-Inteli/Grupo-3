@@ -20,7 +20,7 @@ export class RootController {
     description: 'Forbbiden',
   })
   health() {
-    return "ping"
+    return this.rootService.health();
   }
 
 // Define a rota GET '/health' utilizando o decorador '@Get'
@@ -34,6 +34,6 @@ export class RootController {
     description: 'Forbbiden',
   })
   healthCheck() {
-    return "pong"
+    return this.rootService.healthCheck()
   }
 }

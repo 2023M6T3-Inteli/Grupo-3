@@ -1,14 +1,15 @@
 import { BadGatewayException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDTO } from './dto/create-dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   async createUser(createUserDTO: CreateUserDTO): Promise<User> {
-    const { email } = createUserDTO;
+    const { email, username } = createUserDTO;
 
     //verifica se o email já existe
     const checkEmail = await this.prisma.user.findUnique({
@@ -21,7 +22,7 @@ export class UserService {
 
     //verifica se o username já existe
     const checkUsername = await this.prisma.user.findUnique({
-      where: { username: createUserDTO.username },
+      where: { username },
     });
 
     if (checkUsername) {
@@ -29,13 +30,13 @@ export class UserService {
     }
 
     //Verifica se o usuário aceitou os termos e condições.
-    const acceptedTerm = await this.prisma.user.findFirst({
-      where: { acceptTerms: true },
-    });
+    // const acceptedTerm = await this.prisma.user.findFirst({
+    //   where: { acceptTerms: true },
+    // });
 
-    if (!acceptedTerm.acceptTerms) {
-      throw new BadGatewayException('User must accept the terms');
-    }
+    // if (!acceptedTerm.acceptTerms) {
+    //   throw new BadGatewayException('User must accept the terms');
+    // }
 
     //Cria o usuário
     const user = await this.prisma.user.create({
@@ -50,7 +51,9 @@ export class UserService {
         image: createUserDTO.image || '',
         curriculum: createUserDTO.curriculum || '',
         hashedPassword: await bcrypt.hash(createUserDTO.hashedPassword, 10),
-      }
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     });
 
     //retorna o usuário, exceto sua senha
@@ -61,8 +64,15 @@ export class UserService {
   }
 
   async getAllUsers() {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
     return users;
+  }
+
+  async findOne(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    return user;
   }
 
   async findByEmail(email: string) {
@@ -104,14 +114,18 @@ export class UserService {
       throw new Error('User doesnt exist');
     }
 
-    // if (user.admin === false) {
-    //   throw new Error(
-    //     "You don't have permission to delete other users. Permission denied!",
-    //   );
-    // }
+    if (user.admin === false) {
+      throw new Error(
+        "You don't have permission to delete other users. Permission denied!",
+      );
+    }
 
     const deletedUser = await this.prisma.user.delete({ where: { id } });
 
     return deletedUser;
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User>{
+    return ;
   }
 }
