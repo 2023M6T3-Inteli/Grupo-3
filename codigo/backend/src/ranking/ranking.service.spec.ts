@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../prisma/prisma.service';
 import { RankingService } from './ranking.service';
-import { NotFoundException } from '@nestjs/common';
 
 // Criamos primeiro nos dados fícticios para serem retornados do Prisma
 const fakeUsers = [

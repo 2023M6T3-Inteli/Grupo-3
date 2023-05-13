@@ -66,27 +66,14 @@ export class CreateUserDTO extends User {
   })
   score?: number;
 
-  @ApiProperty({ example: [3], description: 'Usuário deu 3 likes' })
   likes?: Likes[];
 
-  @ApiProperty({
-    example: ['Muito bom', 'Muito ruim'],
-    description: 'Comentários em post',
-  })
   @IsOptional()
   comments?: Comments[];
 
-  @ApiProperty({
-    example: ['Python', 'JavaScript'],
-    description: 'Tags do usuário',
-  })
   @IsOptional()
   tags?: Tags[];
 
-  @ApiProperty({
-    example: ['post 1', 'post 2', 'post 3'],
-    description: 'Posts do usuário',
-  })
   @IsOptional()
   userPosts?: UserPost[];
 }
