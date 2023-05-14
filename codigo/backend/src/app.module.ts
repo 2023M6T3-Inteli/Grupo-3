@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from 'prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
+import { AtGuard } from './common/guards';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PostModule } from './post/post.module';
 import { RankingModule } from './ranking/ranking.module';
 import { RootModule } from './root/root.module';
 import { UserModule } from './user/user.module';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { RolesGuard } from './auth/guards/roles.guard';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -19,10 +19,10 @@ import { RolesGuard } from './auth/guards/roles.guard';
     RootModule,
     PostModule,
     AuthModule,
+    ConfigModule.forRoot({isGlobal: true})
   ],
   providers: [
-    { provide: APP_GUARD, useClass: JwtAuthGuard },
-    { provide: APP_GUARD, useClass: RolesGuard },
+    { provide: APP_GUARD, useClass: AtGuard },
   ],
 })
 export class AppModule {}

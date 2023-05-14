@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
 import { CreateRankingDto } from './dto/create-ranking.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 
 //Ranking service como injetável

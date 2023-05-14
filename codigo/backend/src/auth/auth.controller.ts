@@ -1,36 +1,74 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
-  Request,
-  Response,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GetCurrentUser, GetCurrentUserId, Public } from '../common/decorators';
+import { AtGuard, RtGuard } from '../common/guards';
 import { AuthService } from './auth.service';
-import { IsPublic } from './decorators/is-public.decorator';
-import { LocalAuthGuard } from './guards/local-auth.guard';
-import { AuthRequest } from './models/AuthRequest';
-import { LoginRequestBody } from './models/LoginRequestBody';
+import { AuthDto } from './dto';
+import { Tokens } from './types';
+import { IsEmail } from 'class-validator';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-  @IsPublic()
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
-  @HttpCode(HttpStatus.OK)
-  async login(@Body() {email, password}: LoginRequestBody, @Request() req: AuthRequest) {
-    return this.authService.login(req.user);
+  @Public()
+  @Post('signup')
+  @ApiResponse({
+    status: 200,
+    description: 'Everything works as expected',
+    type: AuthDto,
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbbiden',
+  })
+  @HttpCode(HttpStatus.CREATED)
+  signupLocal(@Body() dto: AuthDto): Promise<Tokens> {
+    return this.authService.signupLocal(dto);
   }
 
-  @Get('signout')
-  async signout(@Request() req: AuthRequest, @Response() res: AuthRequest ){
-    return this.authService.logout(req, res)
+  @Public()
+  @Post('signin')
+  @ApiResponse({
+    status: 200,
+    description: 'Everything works as expected',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'The route exists, but the program can not get in there',
+  })
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  signinLocal(@Body() dto: AuthDto): Promise<Tokens> {
+    return this.authService.signinLocal(dto);
+  }
+
+  @Post('logout')
+  @UseGuards(AtGuard)
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  logout(@GetCurrentUserId() userId: string): Promise<boolean> {
+    return this.authService.logout(userId);
+  }
+
+  @Public()
+  @UseGuards(RtGuard)
+  @Post('refresh')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(
+    @GetCurrentUserId() userId: string,
+    @GetCurrentUser('refreshToken') refreshToken: string,
+  ): Promise<Tokens> {
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 }

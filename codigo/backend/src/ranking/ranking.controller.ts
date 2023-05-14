@@ -5,11 +5,10 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { PrismaService } from '../../prisma/prisma.service';
 import { CreateRankingDto } from './dto/create-ranking.dto';
 import { RankingService } from './ranking.service';
 import { User } from '@prisma/client';
-import { JwtAuthGuard } from '../../src/auth/guards/jwt-auth.guard';
+import { PrismaService } from '../prisma/prisma.service';
 
 @ApiTags('ranking')
 @Controller('ranking')
@@ -30,7 +29,6 @@ export class RankingController {
     description: 'Forbbiden',
   })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     description: 'This endpoint adds a score to the user who posts more',
   })
@@ -40,7 +38,6 @@ export class RankingController {
 
   @Get()
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Everything works as expected',
