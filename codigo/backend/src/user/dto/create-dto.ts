@@ -5,7 +5,9 @@ import {
   IsEmail,
   IsNumber,
   IsOptional,
-  IsString
+  IsString,
+  MaxLength,
+  MinLength
 } from 'class-validator';
 import { User } from '../entities/user.entity';
 
@@ -19,6 +21,8 @@ export class CreateUserDTO extends User {
   email: string;
 
   @IsString()
+  @MinLength(5)
+  @MaxLength(20)
   @ApiProperty({ example: 'haxb3yziw1', description: 'password' })
   hashedPassword: string;
 

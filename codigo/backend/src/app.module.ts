@@ -6,6 +6,9 @@ import { PostModule } from './post/post.module';
 import { RankingModule } from './ranking/ranking.module';
 import { RootModule } from './root/root.module';
 import { UserModule } from './user/user.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { UserModule } from './user/user.module';
     PostModule,
     AuthModule,
   ],
-  //providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}

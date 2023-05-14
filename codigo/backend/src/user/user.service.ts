@@ -1,5 +1,5 @@
 import { BadGatewayException, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDTO } from './dto/create-dto';
@@ -63,19 +63,19 @@ export class UserService {
     };
   }
 
-  async getAllUsers() {
+  async getAllUsers(): Promise<User[]> {
     const users = await this.prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
     });
     return users;
   }
 
-  async findOne(userId: string) {
+  async findOne(userId: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     return user;
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     return user;
   }
@@ -104,20 +104,24 @@ export class UserService {
         tags: true,
       },
     });
+
+    if (!user) {
+      throw new Error('User does not exist');
+    }
+
     return user;
   }
 
+  async getAdminUsers(): Promise<User[]> {
+    const adminUsers = this.prisma.user.findMany({ where: { admin: true } });
+    return adminUsers;
+  }
+
   async deleteUser(id: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({ where: { id: id } });
+    const findUser = await this.prisma.user.findUnique({ where: { id } });
 
-    if (!user) {
-      throw new Error('User doesnt exist');
-    }
-
-    if (user.admin === false) {
-      throw new Error(
-        "You don't have permission to delete other users. Permission denied!",
-      );
+    if (!findUser) {
+      throw new Error('User does not exist');
     }
 
     const deletedUser = await this.prisma.user.delete({ where: { id } });
@@ -125,7 +129,7 @@ export class UserService {
     return deletedUser;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User>{
-    return ;
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return;
   }
 }

@@ -11,9 +11,10 @@ import { validate } from 'class-validator';
 export class LoginValidationMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const body = req.body;
-
+    
     const loginRequestBody = new LoginRequestBody();
     loginRequestBody.email = body.email;
+    //não tenho usuário logado na minha aplicação.
     loginRequestBody.password = body.password;
 
     const validations = await validate(loginRequestBody);
