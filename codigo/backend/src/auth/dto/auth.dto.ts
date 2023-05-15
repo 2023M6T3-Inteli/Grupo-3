@@ -68,3 +68,15 @@ export class AuthDto {
   @IsOptional()
   userPosts?: UserPost[];
 }
+
+export class AuthLoginDto{
+  @IsNotEmpty()
+  @IsEmail()
+  @ApiProperty({example: 'yves@dell.com', description: 'email'})
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({example: 'adoleta', description: 'password'})
+  password: string;
+}

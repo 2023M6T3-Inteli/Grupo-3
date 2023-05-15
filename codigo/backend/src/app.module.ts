@@ -9,6 +9,7 @@ import { RankingModule } from './ranking/ranking.module';
 import { RootModule } from './root/root.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { PrismaModule } from './prisma/prisma.module';
     RootModule,
     PostModule,
     AuthModule,
-    ConfigModule.forRoot({isGlobal: true})
+    ConfigModule.forRoot({isGlobal: true}),
+    CaslModule
   ],
   providers: [
     { provide: APP_GUARD, useClass: AtGuard },

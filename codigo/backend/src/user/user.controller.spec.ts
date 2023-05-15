@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 // Criamos primeiro nos dados fícticios para serem retornados do Prisma
 const fakeUsers = [
@@ -18,6 +18,7 @@ const fakeUsers = [
     acceptTerms: true,
     curriculum: '',
     username: 'unique',
+    hashedRt: '',
     createdAt: new Date(),
     updatedAt: new Date(),
   },

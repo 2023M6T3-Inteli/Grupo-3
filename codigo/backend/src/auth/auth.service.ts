@@ -9,7 +9,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
 
-import { AuthDto } from './dto';
+import { AuthDto, AuthLoginDto } from './dto';
 import { JwtPayload, Tokens } from './types';
 
 @Injectable()
@@ -65,20 +65,26 @@ export class AuthService {
     return tokens;
   }
 
-  async signinLocal(dto: AuthDto): Promise<Tokens> {
+  async signinLocal(dto: AuthLoginDto): Promise<Tokens> {
     const user = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
       },
     });
 
-    if (!user) throw new ForbiddenException('Access Denied');
+    if (!user)
+      throw new ForbiddenException(
+        'E-mail or password does not exist. Access Denied!',
+      );
 
     const passwordMatches = await argon.verify(
       user.hashedPassword,
       dto.password,
     );
-    if (!passwordMatches) throw new ForbiddenException('Access Denied');
+    if (!passwordMatches)
+      throw new ForbiddenException(
+        'E-mail or password does not exist. Access Denied!',
+      );
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRtHash(user.id, tokens.refresh_token);
@@ -133,7 +139,7 @@ export class AuthService {
   async getTokens(userId: string, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
-      email: email,
+      email: email
     };
 
     const [at, rt] = await Promise.all([

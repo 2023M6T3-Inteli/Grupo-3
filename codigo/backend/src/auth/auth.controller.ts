@@ -11,9 +11,8 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUser, GetCurrentUserId, Public } from '../common/decorators';
 import { AtGuard, RtGuard } from '../common/guards';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
+import { AuthDto, AuthLoginDto } from './dto';
 import { Tokens } from './types';
-import { IsEmail } from 'class-validator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -48,7 +47,7 @@ export class AuthController {
   })
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
-  signinLocal(@Body() dto: AuthDto): Promise<Tokens> {
+  signinLocal(@Body() dto: AuthLoginDto): Promise<Tokens> {
     return this.authService.signinLocal(dto);
   }
 

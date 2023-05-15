@@ -2,19 +2,29 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
-  Patch
+  Patch,
+  Request,
+  Response,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.factory';
+import { User } from './entities/user.entity';
+import { ForbiddenError } from '@casl/ability';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 @ApiTags('user')
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private abilityFactory: CaslAbilityFactory,
+  ) {}
   @Get()
   @ApiBearerAuth()
   async getAllUsers() {
@@ -29,19 +39,24 @@ export class UserController {
 
   @Patch(':id')
   @ApiBearerAuth()
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return await this.userService.update(id, updateUserDto);
   }
 
   @Get('admin')
+  @UseGuards(AdminGuard)
   @ApiBearerAuth()
-  async getAdmin(): Promise<User[]> {
+  async getAdmin(@Request() req): Promise<User[]> {
     return this.userService.getAdminUsers();
   }
 
   @Delete('/delete/:id')
+  @UseGuards(AdminGuard)
   @ApiBearerAuth()
-  async deleteUser(@Param('id') id: string): Promise<User> {
+  async deleteUser(@Param('id') id: string, @Request() req): Promise<User> {
     return this.userService.deleteUser(id);
   }
 }
