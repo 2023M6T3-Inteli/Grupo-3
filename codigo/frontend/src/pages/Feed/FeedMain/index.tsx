@@ -1,37 +1,40 @@
 import React from 'react';
-import { Container, Header, Intro, FormSearch , Input , Trends, Trending, Cards, Feed,} from './style';
+import { Container, Header, Trends, Trending, ForYou, Feed,} from './style';
+import SearchBox from '../../../components/SearchBox';
+import HeaderApp from '../../../components/HeaderApp';
 import CardFeed from '../../../components/CardFeed/index';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import SearchIcon from '@mui/icons-material/Search';
+import RecommendIcon from '@mui/icons-material/Recommend';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const FeedMain: React.FC = () => {
   return(
     <Container>
       <Header>
-        <Intro>
-          <h1>Welcome, Bruno!</h1>
-          <img style={{width: 40, height: 40 , 'border-radius': 20}}
-            src="https://github.com/brun0meira.png"
-            alt="profileImg"
-          />
-        </Intro>
-        <FormSearch>
-          <SearchIcon sx={{ color: '#0561FC', 'margin-right': '5px' }} />
-          <Input placeholder="Seach in dell contents" type="text" />
-        </FormSearch>
+        <HeaderApp />
+        <SearchBox />
       </Header>
       <Trends>
         <Trending>
-          <StarBorderIcon sx={{ color: '#0561FC', 'margin-right': '5px', width: '18px', height: '18px' }} />
-          <h2>Trending in frontend</h2>
-          <InfoOutlinedIcon sx={{ color: '#000000', 'margin-left': '5px', width: '18px', height: '18px' }} />
+          <div>
+            <RecommendIcon sx={{ color: '#0561FC', 'margin-right': '5px', width: '18px', height: '18px' }} />
+            <h2>You might like</h2>
+            <InfoOutlinedIcon sx={{ color: '#000000', 'margin-left': '5px', width: '18px', height: '18px' }} />
+          </div>
+          <p>See More</p>
         </Trending>
-        <Cards>
-          <img></img>
-          <img></img>
-          <img></img>
-        </Cards>
+        <ForYou>
+          <div>
+            <p>Front-end <CircleIcon sx={{ color: '#555555', width: '4px', height: '4px', 'margin': '0 0 2px 0'}} /> <span>For you</span></p>
+            <h4>#Angular</h4>
+            <span>200 Posts</span>
+          </div>
+          <div>
+          <p>Back-end <CircleIcon sx={{ color: '#555555', width: '4px', height: '4px', 'margin': '0 0 2px 0'}} /> <span>For you</span></p>
+            <h4>#NestJS</h4>
+            <span>100 Posts</span>
+          </div>
+        </ForYou>
       </Trends>
       <Feed>
         <CardFeed/>

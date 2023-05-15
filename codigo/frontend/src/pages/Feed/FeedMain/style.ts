@@ -1,9 +1,22 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 380px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px){
+    width: 80%;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+
+  @media (min-width: 1280px){
+    width: 60%;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
 `;
 
 export const Header = styled.div`
@@ -11,60 +24,32 @@ export const Header = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-`;
-
-export const Intro = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  
-`;
-
-export const FormSearch = styled.form`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid #D9D9D9;
   width: 95%;
-  height: 40px;
-  padding: 0px 10px 0px 10px;
-  
-`;
 
-export const Input = styled.input`
-  width: 100%;
-  height: 95%;
-  border: none;
-
-  :focus{
-    box-shadow: 0 0 0 0;
-    border: 0 none;
-    outline: 0;
-  }
-
-  ::placeholder {
-    color: #8F8F8F;
-  }
-
-  ::-webkit-search-cancel-button{
-    -webkit-appearance: none;
-  }
 `;
 
 export const Trends = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  
 `;
 
 export const Trending = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+
+  p{
+    color: #0561FC;
+  }
+
+  div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   h2{
     font-size: 16px;
@@ -72,11 +57,42 @@ export const Trending = styled.div`
   
 `;
 
-export const Cards = styled.div`
+export const ForYou = styled.div`
   display: flex;
   flex-direction: row;
-  width: 95%;
-  height: 75px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #D9D9D9;
+  margin: 0 0 15px 0;
+
+  div{ 
+    margin: 0 0 2px 0;
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+
+  p{
+    font-weight: bold;
+    color: black;
+
+    span{
+      font-weight: normal;
+    }
+  }
+
+  h4{
+    color: #0561FC;
+    font-weight: bold;
+  }
+
+  span{
+    font-size: 14px;
+  }
   
 `;
 

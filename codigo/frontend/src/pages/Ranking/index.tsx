@@ -32,31 +32,31 @@ const Ranking: React.FC = () => {
   const data = [
     {
       id: "",
-      image: "",
+      image: "https://github.com/yveslevi.png",
       name: "Yves",
       score: 10,
     },
     {
       id: "",
-      image: "",
+      image: "https://github.com/mar-vin2004.png",
       name: "Marcos",
       score: 5,
     },
     {
       id: "",
-      image: "",
+      image: "https://github.com/Livia-Coutinho.png",
       name: "Livia",
       score: 15,
     },
     {
       id: "",
-      image: "",
+      image: "https://github.com/gabreurt.png",
       name: "Gabriel",
       score: 5,
     },
     {
       id: "",
-      image: "",
+      image: "https://github.com/Ra2861.png",
       name: "Raissa",
       score: 5,
     },
@@ -68,7 +68,7 @@ const Ranking: React.FC = () => {
     },
     {
       id: "",
-      image: "",
+      image: "https://github.com/matheusmacedosantos.png",
       name: "Matheus",
       score: 5,
     },

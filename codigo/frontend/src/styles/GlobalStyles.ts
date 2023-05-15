@@ -21,6 +21,10 @@ export default createGlobalStyle`
 
     height: 100%;
     width: 100%;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-bottom: 60px;
   }
 
   *, button, input{
@@ -33,19 +37,7 @@ export default createGlobalStyle`
     background: var(--primary);
   }
 
-  h1{
-    font-weight: normal;
-  }
-
-  h2{
-    font-weight: normal;
-  }
-
-  h3{
-    font-weight: normal;
-  }
-
-  h4{
+  h1, h2, h3, h4{
     font-weight: normal;
   }
 
