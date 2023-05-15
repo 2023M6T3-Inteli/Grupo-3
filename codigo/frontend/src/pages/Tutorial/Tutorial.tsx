@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Img001 from "./img/img01.png";
 import Img002 from "./img/img02.png";
@@ -10,7 +11,8 @@ const PageAll = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh; 
+  height: 100vh;
+  padding-bottom: 60px; // Tirar dps
 `;
 
 const TutorialContainer = styled.div`
@@ -137,6 +139,12 @@ const Tutorial: React.FC = () => {
     },
   ];
 
+  const navigate = useNavigate();
+  const handleOnClickLogin = useCallback(
+    () => navigate("/login", { replace: true }),
+    [navigate]
+  );
+
   const handleSlideChange = (swiper: Swiper) => {
     setActiveSlideIndex(swiper.realIndex);
   };
@@ -169,7 +177,7 @@ const Tutorial: React.FC = () => {
       </PaginationContainer>
       <BigButtonContainer>
         {/* <BigButton onClick={handleNextSlide}>Next</BigButton> */}
-        <BigButton onClick={() => console.log("ola")}>Next</BigButton>
+        <BigButton onClick={handleOnClickLogin}>Next</BigButton>
       </BigButtonContainer>
     </PageAll>
   );

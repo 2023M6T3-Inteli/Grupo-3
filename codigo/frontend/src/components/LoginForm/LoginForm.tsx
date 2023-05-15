@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -115,6 +116,12 @@ const CreateAccount = styled(Typography)`
 `;
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const handleOnClickHomL = useCallback(
+    () => navigate("/feed", { replace: true }),
+    [navigate]
+  );
+
   return (
     <Form>
       <Title>Welcome to LearnLink,</Title>
@@ -128,7 +135,7 @@ function LoginForm() {
         <Password>
           <ForgotPassword> Don't remember your password? Reset password </ForgotPassword>
         </Password>
-        <StyledButton variant="contained" color="primary">
+        <StyledButton onClick={handleOnClickHomL} variant="contained" color="primary">
           {" "}
           Sign In{" "}
         </StyledButton>

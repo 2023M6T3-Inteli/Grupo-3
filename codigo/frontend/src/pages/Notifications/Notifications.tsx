@@ -11,6 +11,7 @@ import {motion} from 'framer-motion'
 import {useEffect, useState, useRef} from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import HeaderApp from '../../components/HeaderApp';
 
 import img1 from '../../assets/img1.png'
 import img2 from '../../assets/img2.png'
@@ -22,7 +23,7 @@ const Notifications: React.FC = () => {
 
     return (
         <Container>
-            <GlobalStyles />
+            <HeaderApp />
             <Wrapper>
                 <SearchBar>
                     <SearchIcon fontSize='medium' sx={{ ml: 0 }}></SearchIcon>
@@ -59,6 +60,7 @@ const Notifications: React.FC = () => {
                 </Trendingcard>
             </Notificationsfeed>
             <BottomNavbar />
+            <GlobalStyles />
         </Container>
     );
 }

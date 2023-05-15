@@ -7,6 +7,10 @@ import Feed from './pages/Feed/index';
 import Profile from './pages/Profile/Profile';
 import Ranking from './pages/Ranking/index';
 import Login from './pages/Login/Login'; //09 de Maio de 2023
+import Notifications from './pages/Notifications/Notifications';
+import Saved from './pages/Saved';
+import Account from './pages/Account';
+
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,18 @@ const router = createBrowserRouter([
   {
     path: "/ranking",
     element: <Ranking/>,
+  },
+  {
+    path: "/favorites",
+    element: <Saved/>,
+  },
+  {
+    path: "/notification",
+    element: <Notifications/>,
+  },
+  {
+    path: "/acc",
+    element: <App />,
   }
 ]);
 

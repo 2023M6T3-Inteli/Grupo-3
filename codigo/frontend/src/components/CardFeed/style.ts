@@ -15,6 +15,7 @@ export const Card = styled.div`
   height: fit-content;
   border: 1px solid #E8E8E8;
   padding: 10px;
+  margin-bottom: 20px;
 `;
 
 export const CardIntro = styled.div`
@@ -34,6 +35,10 @@ export const OwnerPost = styled.div`
 export const CardProfile = styled.div`
   p{
     margin: 0;
+
+    span{
+      font-weight: bold;
+    }
   }
   
 `;
@@ -42,8 +47,13 @@ export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  h2{
-    margin: 10px 0px 10px 0px;
+  h3{
+    margin: 5px 0px 5px 0px;
+    font-weight: bold;
+  }
+
+  p{
+    text-align: justify;
   }
   
 `;
@@ -52,7 +62,7 @@ export const ImgContainer = styled.div`
   width: 100%;
   height: 170px;
   overflow: hidden;
-  background: blue;
+  background: none;
 
   img{
     width: 100%;
@@ -61,8 +71,7 @@ export const ImgContainer = styled.div`
 `;
 
 export const PostTags = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 5px 0 15px 0;
   display: flex;
   flex-direction: row;
   height: 17px;
@@ -87,7 +96,7 @@ export const PostInteraction = styled.div`
   align-items: center;
 
   p{
-    margin: 0px 5px 0px 0px;
+    margin: 0px 15px 5px 5px;
   }
 `;
 
@@ -97,8 +106,6 @@ export const NotInterested = styled.div`
   align-items: center;
 
   p{
-    margin: 0px 5px 0px 0px ;
+    margin: 0px 5px 5px 0px;
   }
-
-  
 `;

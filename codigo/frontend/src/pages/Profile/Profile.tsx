@@ -13,30 +13,32 @@ import HardWorker from "../../assets/HardWorker1.png";
 import GroupBoy from "../../assets/GroupBoy.png";
 import TeamWork from "../../assets/TeamWork.png";
 import Complete10 from "../../assets/Complete10.png";
+import BottomNavbar from "../../elements/BottomNavbar/BottomNavbar";
+import HeaderApp from "../../components/HeaderApp";
 
 //estilização do botão - também usamos material U.I. aqui
-var StyledButton = styled(Button)`
+
+const StyledButton = styled(Button)`
   max-width: 400px;
   width: 80%;
   // border-radius: 50%;
 `;
 
 //estilização referente à imagem
-var StyledImage = styled.div`
+const StyledImage = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background-image: url(${Selena});
+  background-image: url('https://github.com/brun0meira.png');
   background-size: cover;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
   font-style: Roboto;
-  margin-top: 100px;
 `;
 
 //informações do perfil
-var StyledProfileInfo = styled(ProfileInfo)`
+const StyledProfileInfo = styled(ProfileInfo)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +47,7 @@ var StyledProfileInfo = styled(ProfileInfo)`
 `;
 
 //botões do perfil
-var StyledBottonsProfile = styled(BottonsProfile)`
+const StyledBottonsProfile = styled(BottonsProfile)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +56,7 @@ var StyledBottonsProfile = styled(BottonsProfile)`
   margin-bottom: 1rem;
 `;
 
-var StyleBadges = styled(Badges)`
+const StyleBadges = styled(Badges)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +67,7 @@ var StyleBadges = styled(Badges)`
 `;
 
 //estilização referente à imagem
-var StyledHardworker = styled.img`
+const StyledHardworker = styled.img`
   width: 70px;
   height: 70px;
   background-image: url(${HardWorker});
@@ -75,7 +77,7 @@ var StyledHardworker = styled.img`
   align-items: center;
 `;
 
-var StyledGroupBoy = styled.img`
+const StyledGroupBoy = styled.img`
   width: 70px;
   height: 70px;
   background-image: url(${GroupBoy});
@@ -85,7 +87,7 @@ var StyledGroupBoy = styled.img`
   align-items: center;
 `;
 
-var StyledTeamWork = styled.img`
+const StyledTeamWork = styled.img`
   width: 70px;
   height: 70px;
   background-image: url(${TeamWork});
@@ -95,7 +97,7 @@ var StyledTeamWork = styled.img`
   align-items: center;
 `;
 
-var StyledComplete10 = styled.img`
+const StyledComplete10 = styled.img`
   width: 70px;
   height: 70px;
   background-image: url(${Complete10});
@@ -105,7 +107,7 @@ var StyledComplete10 = styled.img`
   align-items: center;
 `;
 
-var StyledAchievements = styled.div`
+const StyledAchievements = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,7 +117,7 @@ var StyledAchievements = styled.div`
   font-style: Roboto;
 `;
 
-var StyledTitleAchievement = styled.div`
+const StyledTitleAchievement = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -128,11 +130,11 @@ font-style: Roboto;
 function Profile() {
   return (
     <Container>
-      <GlobalStyles />
+      <HeaderApp />
       <StyledProfileInfo>
         <StyledImage></StyledImage>
-        <h1>Selena Gomez</h1> {/* name */}
-        <p>A singer that wanna be a front-end developer</p>{" "}
+        <h1>Bruno Meira</h1> {/* name */}
+        <p>A Swifter fan that wanna be a front-end developer</p>{" "}
         {/* role of the user */}
         <p>São Paulo - SP</p> {/* local */}
       </StyledProfileInfo>
@@ -164,6 +166,8 @@ function Profile() {
           <StyledComplete10></StyledComplete10>
         </div>
       </StyledAchievements>
+      <BottomNavbar />
+      <GlobalStyles />
     </Container>
   );
 }
