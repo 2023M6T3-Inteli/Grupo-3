@@ -52,7 +52,6 @@ export class AuthController {
   }
 
   @Post('logout')
-  @UseGuards(AtGuard)
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   logout(@GetCurrentUserId() userId: string): Promise<boolean> {

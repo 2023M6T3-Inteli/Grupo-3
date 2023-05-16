@@ -99,19 +99,19 @@ model UserPost {
 model User {
   id             String     @id @default(uuid())
   name           String
-  email          String     @unique
-  hashedPassword String
-  hashedRt       String?
   admin          Boolean    @default(false)
   score          Int?       @default(0)
+  hashedPassword String
   location       String?    @default("")
   role           String?    @default("")
   acceptTerms    Boolean    @default(true)
   curriculum     String?    @default("")
   image          String?    @default("")
   username       String     @unique
+  email          String     @unique
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+  hashedRt       String?
   comments       Comments[]
   likes          Likes[]
   MLTable        MLTable[]

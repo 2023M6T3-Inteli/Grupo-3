@@ -56,17 +56,6 @@ export class AuthDto {
     description: 'Score according to number of posts',
   })
   score?: number;
-
-  likes?: Likes[];
-
-  @IsOptional()
-  comments?: Comments[];
-
-  @IsOptional()
-  tags?: Tags[];
-
-  @IsOptional()
-  userPosts?: UserPost[];
 }
 
 export class AuthLoginDto{

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDTO } from './dto/create-post.dto';
-import { CreateCommentDTO } from './dto/create-comment.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateCommentDTO } from './dto/create-comment.dto';
+import { CreatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createPost(createPostDTO: CreatePostDTO) {
+  async createPost(createPostDTO: CreatePostDTO, userID: string) {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -15,7 +15,17 @@ export class PostService {
         image: createPostDTO.image,
         content: createPostDTO.content,
         active: createPostDTO.active,
+        userPost: {
+          create: {
+            userID: userID,
+          },
+        },
       },
+    });
+
+    await this.prisma.user.update({
+      where: { id: userID },
+      data: { score: { increment: 1 } },
     });
 
     return createdPost;
@@ -63,3 +73,7 @@ export class PostService {
     return commentAdd;
   }
 }
+
+
+
+
