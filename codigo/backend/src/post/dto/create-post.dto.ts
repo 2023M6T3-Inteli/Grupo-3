@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Comments } from "@prisma/client";
 import { IsOptional } from "class-validator";
+import { CreateUserDTO } from "src/user/dto/create-dto";
+import { CreateCommentDTO, CreateUserPostDTO } from "./create-comment.dto";
 
 export class CreatePostDTO {
   @ApiProperty({ example: 'My Post', description: 'Title' })
@@ -23,8 +24,11 @@ export class CreatePostDTO {
   @IsOptional()
   active: boolean;
 
-  @ApiProperty({example: 'This post is very interesting', description: 'Comments of the post'})
+  @ApiProperty({ type: () => CreateCommentDTO, isArray: true, description: 'Comments of the post' })
   @IsOptional()
-  comments: Comments
+  comments: CreateCommentDTO[];
+
+  @ApiProperty({ type: () => CreateUserPostDTO, description: 'This attribute references the user that is the owner' })
+  userPost: CreateUserDTO
 }
 

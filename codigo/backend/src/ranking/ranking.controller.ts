@@ -17,25 +17,6 @@ export class RankingController {
     private readonly rankingService: RankingService,
     private prisma: PrismaService,
   ) {}
-
-  @Post(':userId/increment-score')
-  @ApiResponse({
-    status: 200,
-    description: 'Everything works as expected',
-    type: CreateRankingDto,
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbbiden',
-  })
-  @ApiBearerAuth()
-  @ApiOperation({
-    description: 'This endpoint adds a score to the user who posts more',
-  })
-  async addScore(@Param('userId') userId: string): Promise<User> {
-    return this.rankingService.addScore(userId);
-  }
-
   @Get()
   @ApiBearerAuth()
   @ApiResponse({

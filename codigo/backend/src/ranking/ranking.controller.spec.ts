@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RankingController } from './ranking.controller';
 import { RankingService } from './ranking.service';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 const fakeUsers = [
   {
@@ -59,48 +59,6 @@ describe('RankingController', () => {
       expect(response).toEqual(fakeUsers);
 
       findAllSpy.mockRestore();
-    });
-  });
-
-  describe('addScore', () => {
-    it('should increment the score of the user', async () => {
-      const userId = '1';
-      const updatedUser = {
-        id: userId,
-        name: 'Primeiro',
-        score: 11,
-        image: 'true.png',
-        email: 'first@email.com',
-        admin: false,
-        location: '',
-        role: '',
-        hashedPassword: '',
-        acceptTerms: true,
-        curriculum: '',
-        username: 'unique',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-
-      jest.spyOn(rankingService, 'addScore').mockResolvedValue(updatedUser);
-
-      const result = await rankingController.addScore(userId);
-
-      expect(result).toEqual(updatedUser);
-      expect(rankingService.addScore).toHaveBeenCalledTimes(1);
-      expect(rankingService.addScore).toHaveBeenCalledWith(userId);
-    });
-
-    it('should throw an error if the user does not exist', async () => {
-      const userId = '999';
-
-      jest.spyOn(rankingService, 'addScore').mockRejectedValue(new Error("User doesn't exist"));
-
-      await expect(rankingController.addScore(userId)).rejects.toThrow(
-        "User doesn't exist",
-      );
-      expect(rankingService.addScore).toHaveBeenCalledTimes(1);
-      expect(rankingService.addScore).toHaveBeenCalledWith(userId);
     });
   });
 });

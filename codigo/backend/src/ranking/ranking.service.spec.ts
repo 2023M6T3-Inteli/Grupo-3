@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { RankingService } from './ranking.service';
 
 // Criamos primeiro nos dados fícticios para serem retornados do Prisma
@@ -74,52 +74,4 @@ describe('RankingService', () => {
       expect(prisma.user.findMany).toHaveBeenCalledWith(expected);
     });
   });
-
-  describe('addScore', () => {
-    it('should increment the score of the user', async () => {
-      const userId = '1';
-      const user = {
-        id: userId,
-        name: 'Test User',
-        score: 5,
-        image: 'user.png',
-      };
-  
-      // Mock the user findUnique and user update methods
-      prismaMock.user.findUnique.mockResolvedValue(user);
-      prismaMock.user.update.mockImplementation(async ({ where, data }) => {
-        if (where.id === userId) {
-          return { ...user, score: user.score + 1 };
-        }
-      });
-  
-      const updatedUser = await rankingService.addScore(userId);
-  
-      expect(updatedUser.score).toEqual(user.score + 1);
-      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
-      expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { id: userId },
-      });
-      expect(prisma.user.update).toHaveBeenCalledTimes(1);
-      expect(prisma.user.update).toHaveBeenCalledWith({
-        where: { id: userId },
-        data: { score: user.score + 1 },
-      });
-    });
-  
-    it('should throw an error if the user does not exist', async () => {
-      const userId = '1';
-  
-      // Mock the user findUnique to return null
-      prismaMock.user.findUnique.mockResolvedValue(null);
-  
-      await expect(rankingService.addScore(userId)).rejects.toThrow("User doesn't exist");
-      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
-      expect(prisma.user.findUnique).toHaveBeenCalledWith({
-        where: { id: userId },
-      });
-      expect(prisma.user.update).not.toHaveBeenCalled();
-    });
-  });
-  
 });

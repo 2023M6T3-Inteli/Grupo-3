@@ -25,26 +25,4 @@ export class RankingService {
     });
     return rankedUsers;
   }
-
-  //Adição de score com base no id, relacionando ao número de posts
-  async addScore(userId: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      // include: { userPost: true },
-    });
-
-    if (!user) {
-      throw new Error("User doesn't exist");
-    }
-
-    // const numPosts = await this.prisma.userPost.count({
-    //   where: { userID: userId },
-    // });
-
-    const updatedUser = await this.prisma.user.update({
-      where: { id: userId },
-      data: { score: user.score + 1 },
-    });
-    return updatedUser;
-  }
 }
