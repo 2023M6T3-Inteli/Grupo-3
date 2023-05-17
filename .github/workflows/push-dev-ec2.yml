@@ -1,0 +1,28 @@
+name: Push-to-development-EC2
+
+on:
+    
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    name: Deploy to EC2 on development branch push
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout the files
+          uses: actions/checkout@v3
+        
+        - name: Deploy to Server
+          uses: easingthemes/ssh-deploy@main
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.DEV_EC2_SSH_KEY }}
+            REMOTE_HOST: ${{ secrets.DEV_EC2_HOST_DNS }}
+            REMOTE_USER: ${{ secrets.USERNAME }}
+            SCRIPT_AFTER: |
+              cd codigo/backend/
+              npm i
+              npm run build
+              pm2 restart main
