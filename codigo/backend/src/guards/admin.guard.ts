@@ -1,9 +1,9 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
-import { Action } from 'src/enums/role.enum';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { User } from 'src/user/entities/user.entity';
+import { Action } from '../enums/role.enum';
+import { PrismaService } from '../prisma/prisma.service';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class AdminGuard implements CanActivate {

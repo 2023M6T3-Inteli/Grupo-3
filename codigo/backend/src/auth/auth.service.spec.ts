@@ -74,10 +74,7 @@ describe('Auth Flow', () => {
       try {
         tokens = await authService.signinLocal({
           email: user.email,
-          password: user.password,
-          name: '',
-          username: '',
-          acceptTerms: false
+          password: user.password
         });
       } catch (error) {
         expect(error.status).toBe(403);
@@ -97,10 +94,7 @@ describe('Auth Flow', () => {
 
       const tokens = await authService.signinLocal({
         email: user.email,
-        password: user.password,
-        name: '',
-        username: '',
-        acceptTerms: false
+        password: user.password
       });
 
       expect(tokens.access_token).toBeTruthy();
@@ -112,10 +106,7 @@ describe('Auth Flow', () => {
       try {
         tokens = await authService.signinLocal({
           email: user.email,
-          password: user.password + 'a',
-          name: '',
-          username: '',
-          acceptTerms: false
+          password: user.password + 'a'
         });
       } catch (error) {
         expect(error.status).toBe(403);

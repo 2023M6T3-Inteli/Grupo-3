@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
@@ -20,11 +20,9 @@ import { CaslModule } from './casl/casl.module';
     RootModule,
     PostModule,
     AuthModule,
-    ConfigModule.forRoot({isGlobal: true}),
-    CaslModule
+    ConfigModule.forRoot({ isGlobal: true }),
+    CaslModule,
   ],
-  providers: [
-    { provide: APP_GUARD, useClass: AtGuard },
-  ],
+  providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
 export class AppModule {}

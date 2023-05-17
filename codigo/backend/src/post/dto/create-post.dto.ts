@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional } from "class-validator";
-import { CreateUserDTO } from "src/user/dto/create-dto";
+import { CreateUserDTO } from "../../user/dto/create-dto";
 import { CreateCommentDTO, CreateUserPostDTO } from "./create-comment.dto";
 
 export class CreatePostDTO {

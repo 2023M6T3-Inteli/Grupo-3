@@ -1,14 +1,9 @@
-import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { Controller, Get } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateRankingDto } from './dto/create-ranking.dto';
 import { RankingService } from './ranking.service';
-import { User } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
+;
 
 @ApiTags('ranking')
 @Controller('ranking')
@@ -17,6 +12,7 @@ export class RankingController {
     private readonly rankingService: RankingService,
     private prisma: PrismaService,
   ) {}
+
   @Get()
   @ApiBearerAuth()
   @ApiResponse({

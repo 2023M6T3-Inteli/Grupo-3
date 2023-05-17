@@ -9,7 +9,7 @@ import {
 
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUser, GetCurrentUserId, Public } from '../common/decorators';
-import { AtGuard, RtGuard } from '../common/guards';
+import { RtGuard } from '../common/guards';
 import { AuthService } from './auth.service';
 import { AuthDto, AuthLoginDto } from './dto';
 import { Tokens } from './types';
