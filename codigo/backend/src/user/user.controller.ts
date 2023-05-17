@@ -13,6 +13,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { ProfileUser } from './dto/pick-user.dto';
+import { Profile } from 'passport';
 
 @ApiTags('user')
 @Controller('users')
@@ -23,13 +25,13 @@ export class UserController {
   ) {}
   @Get()
   @ApiBearerAuth()
-  async getAllUsers() {
+  async getAllUsers(): Promise<ProfileUser[]> {
     return this.userService.getAllUsers();
   }
 
   @Get('/profile/:username')
   @ApiBearerAuth()
-  async findByUsername(@Param('username') username: string) {
+  async findByUsername(@Param('username') username: string): Promise<ProfileUser> {
     return this.userService.findByUsername(username);
   }
 
@@ -45,7 +47,7 @@ export class UserController {
   @Get('admin')
   @UseGuards(AdminGuard)
   @ApiBearerAuth()
-  async getAdmin(): Promise<User[]> {
+  async getAdmin(): Promise<ProfileUser[]> {
     return this.userService.getAdminUsers();
   }
 

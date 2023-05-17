@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { CreateRankingDto } from './dto/create-ranking.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateRankingDto } from './dto/create-ranking.dto';
 
 
 //Ranking service como injetável
@@ -13,8 +12,8 @@ export class RankingService {
   async findAll(): Promise<CreateRankingDto[]> {
     const rankedUsers = await this.prisma.user.findMany({
       select: {
-        id: true,
-        name: true,
+        id: false,
+        username: true,
         score: true,
         image: true,
       },

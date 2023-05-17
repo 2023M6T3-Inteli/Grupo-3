@@ -2,48 +2,107 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ProfileUser } from './dto/pick-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
-  async getAllUsers(): Promise<User[]> {
+  async getAllUsers(): Promise<ProfileUser[]> {
     const users = await this.prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
-    });
-    return users;
-  }
-
-  async findOne(userId: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    return user;
-  }
-
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({ where: { email } });
-    return user;
-  }
-
-  async findByUsername(username: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { username },
       select: {
-        acceptTerms: true,
-        admin: true,
+        acceptTerms: false,
+        admin: false,
         comments: true,
         email: true,
         createdAt: true,
         name: true,
         username: true,
         curriculum: true,
-        hashedPassword: true,
+        hashedPassword: false,
         image: true,
-        id: true,
-        likes: false,
+        id: false,
+        likes: true,
         location: true,
         role: true,
         score: true,
         updatedAt: false,
-        userPost: false,
+        userPost: { select: { post: true } },
+        tags: true,
+      },
+    });
+    return users;
+  }
+
+  async findOne(userId: string): Promise<ProfileUser> {
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: {
+      acceptTerms: false,
+      admin: false,
+      comments: true,
+      email: true,
+      createdAt: true,
+      name: true,
+      username: true,
+      curriculum: true,
+      hashedPassword: false,
+      image: true,
+      id: false,
+      likes: true,
+      location: true,
+      role: true,
+      score: true,
+      updatedAt: false,
+      userPost: { select: { post: true } },
+      tags: true,
+    }, });
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<ProfileUser> {
+    const user = await this.prisma.user.findUnique({ where: { email }, select: {
+      acceptTerms: false,
+      admin: false,
+      comments: true,
+      email: true,
+      createdAt: true,
+      name: true,
+      username: true,
+      curriculum: true,
+      hashedPassword: false,
+      image: true,
+      id: false,
+      likes: true,
+      location: true,
+      role: true,
+      score: true,
+      updatedAt: false,
+      userPost: { select: { post: true } },
+      tags: true,
+    }, });
+    return user;
+  }
+
+  async findByUsername(username: string): Promise<ProfileUser> {
+    const user = await this.prisma.user.findUnique({
+      where: { username },
+      select: {
+        acceptTerms: false,
+        admin: false,
+        comments: true,
+        email: true,
+        createdAt: true,
+        name: true,
+        username: true,
+        curriculum: true,
+        hashedPassword: false,
+        image: true,
+        id: false,
+        likes: true,
+        location: true,
+        role: true,
+        score: true,
+        updatedAt: false,
+        userPost: { select: { post: true } },
         tags: true,
       },
     });
@@ -55,8 +114,30 @@ export class UserService {
     return user;
   }
 
-  async getAdminUsers(): Promise<User[]> {
-    const adminUsers = this.prisma.user.findMany({ where: { admin: true } });
+  async getAdminUsers(): Promise<ProfileUser[]> {
+    const adminUsers = this.prisma.user.findMany({
+      where: { admin: true },
+      select: {
+        acceptTerms: false,
+        admin: false,
+        comments: true,
+        email: true,
+        createdAt: true,
+        name: true,
+        username: true,
+        curriculum: true,
+        hashedPassword: false,
+        image: true,
+        id: false,
+        likes: true,
+        location: true,
+        role: true,
+        score: true,
+        updatedAt: false,
+        userPost: { select: { post: true } },
+        tags: true,
+      },
+    });
     return adminUsers;
   }
 

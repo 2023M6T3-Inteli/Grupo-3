@@ -6,7 +6,7 @@ export class CreateRankingDto extends RankingEntity {
     id?: string;
 
     @ApiProperty({example: 'Andrew Esteves', description: 'This is the name of the user on rank'})
-    name?: string;
+    username?: string;
 
     @ApiProperty({example: 40, description: 'Rating of the user according to projects that he/she has completed'})
     score?: number;

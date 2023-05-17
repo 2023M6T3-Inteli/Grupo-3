@@ -35,4 +35,5 @@ export class PostController {
 
   //criar rota de delete post, mas apenas o dono do post e o administrador do site podem deleta-lo
   //criar rota de update no post, apenas o dono do post pode editá-lo.
+  //criar rota para dar like em posts
 }
