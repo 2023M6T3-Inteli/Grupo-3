@@ -8,76 +8,41 @@ import {
   List,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import User from "../../assets/users";
 import BottomNavbar from "../../elements/BottomNavbar/BottomNavbar";
 import "../../styles/GlobalStyles";
+import axios from "../../axios";
 
 const Ranking: React.FC = () => {
-  //o código comentado abaixo representa a integração
-  // const [data, setData] = useState([])
 
-  // useEffect(() => {
-  //   const getUsers = async () => {
-  //     await axios.get("/ranking").then(res => {
-  //       setData(res.data)
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  //   }
+  interface Ranking {
+    id: string;
+    image: string;
+    username: string;
+    score: number;
+  }
 
-  //   getUsers()
-  // }, [])
+  
+  const [data, setData] = useState<Ranking[]>([])
 
-  const data = [
-    {
-      id: "",
-      image: "https://github.com/yveslevi.png",
-      name: "Yves",
-      score: 10,
-    },
-    {
-      id: "",
-      image: "https://github.com/mar-vin2004.png",
-      name: "Marcos",
-      score: 5,
-    },
-    {
-      id: "",
-      image: "https://github.com/Livia-Coutinho.png",
-      name: "Livia",
-      score: 15,
-    },
-    {
-      id: "",
-      image: "https://github.com/gabreurt.png",
-      name: "Gabriel",
-      score: 5,
-    },
-    {
-      id: "",
-      image: "https://github.com/Ra2861.png",
-      name: "Raissa",
-      score: 5,
-    },
-    {
-      id: "",
-      image: "https://github.com/brun0meira.png",
-      name: "Bruno",
-      score: 5,
-    },
-    {
-      id: "",
-      image: "https://github.com/matheusmacedosantos.png",
-      name: "Matheus",
-      score: 5,
-    },
-  ];
+  useEffect(() => {
+    const getUsers = async () => {
+      await axios.get("/ranking").then(res => {
+        setData(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
 
-  data.sort((a, b) => b.score - a.score);
+    getUsers()
+  }, [])
+
+  if(!data) return null;
 
   return (
     <Container>
+      <Typography variant="h4" fontFamily="Roboto" >Ranking</Typography>
       <List>
         {data.map((item, index) => (
           <Link href={`/user/${item.id}`} underline="none" color="inherit">
@@ -105,7 +70,7 @@ const Ranking: React.FC = () => {
                       <CardMedia
                         component="img"
                         src={item.image}
-                        alt={item.name}
+                        alt={item.username}
                         sx={{ width: 50, height: 50 }}
                       />
                     ) : (
@@ -116,7 +81,7 @@ const Ranking: React.FC = () => {
                       variant="h6"
                       component="p"
                       marginLeft="1em"
-                    >{`${item.name}`}</Typography>
+                    >{`${item.username}`}</Typography>
                   </Box>
                   <Typography variant="h6" marginRight="1em" component="p">
                     {item.score}
