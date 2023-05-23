@@ -1,21 +1,11 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Container,
-  Divider,
-  Link,
-  List,
-  Typography,
-} from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import User from "../../assets/users";
+import axios from "../../axios";
+import RankingComponent from "../../components/RankingComponent";
 import BottomNavbar from "../../elements/BottomNavbar/BottomNavbar";
 import "../../styles/GlobalStyles";
-import axios from "../../axios";
 
 const Ranking: React.FC = () => {
-
   interface Ranking {
     id: string;
     image: string;
@@ -23,77 +13,38 @@ const Ranking: React.FC = () => {
     score: number;
   }
 
-  
-  const [data, setData] = useState<Ranking[]>([])
+  const [data, setData] = useState<Ranking[]>([]);
 
   useEffect(() => {
     const getUsers = async () => {
-      await axios.get("/ranking").then(res => {
-        setData(res.data)
-      }).catch(err => {
-        console.log(err)
-      })
-    }
+      await axios
+        .get("/ranking")
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
-    getUsers()
-  }, [])
+    getUsers();
+  }, []);
 
-  if(!data) return null;
+  if (!data) return null;
 
   return (
     <Container>
-      <Typography variant="h4" fontFamily="Roboto" >Ranking</Typography>
-      <List>
-        {data.map((item, index) => (
-          <Link href={`/user/${item.id}`} underline="none" color="inherit">
-            <React.Fragment key={index}>
-              <Card
-                sx={{
-                  my: 2,
-                  border:
-                    index < 1
-                      ? "2px solid #EFB959"
-                      : index < 2
-                      ? "2px solid #B8B8B8"
-                      : index < 3
-                      ? "2px solid #D47D43"
-                      : "2px solid #D9D9D9",
-                }}
-              >
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Box display="flex" alignItems="center">
-                    {item.image ? (
-                      <CardMedia
-                        component="img"
-                        src={item.image}
-                        alt={item.username}
-                        sx={{ width: 50, height: 50 }}
-                      />
-                    ) : (
-                      <User width={50} color="rgba(0,0,0,0.7)" />
-                    )}
+      <Typography variant="h4" fontFamily="Roboto">
+        Ranking
+      </Typography>
 
-                    <Typography
-                      variant="h6"
-                      component="p"
-                      marginLeft="1em"
-                    >{`${item.username}`}</Typography>
-                  </Box>
-                  <Typography variant="h6" marginRight="1em" component="p">
-                    {item.score}
-                  </Typography>
-                </Box>
-              </Card>
-              {index !== data.length - 1 && <Divider />}
-            </React.Fragment>
-          </Link>
-        ))}
-      </List>
-
+      {data ? (
+        data.map((item, index) => {
+          return <RankingComponent index={index} item={item} />;
+        })
+      ) : (
+        <p className="text-xl text-gray-500">Loading...</p>
+      )}
       <BottomNavbar />
     </Container>
   );
