@@ -57,6 +57,18 @@ export class PostService {
       throw new BadGatewayException('Post is not active');
     }
 
+    const existingLike = await this.prisma.likes.findFirst({
+      where: { userID, postID },
+    });
+
+    if (existingLike) {
+      await this.prisma.likes.delete({
+        where: { id: existingLike.id },
+      });
+
+      return { message: 'Like removed successfully' };
+    }
+
     await this.prisma.likes.create({
       data: {
         count: 1,
@@ -69,7 +81,6 @@ export class PostService {
 
     return { message: 'Post liked with success' };
   }
-
 
   //esse daqui ta encaminhado, deixo pro brunao deixar 100% e botar pra aparecer os comentários no post, dica
   //a 2° parte que falei do post você põe no método getAllPosts que está logo acima
@@ -86,10 +97,12 @@ export class PostService {
     });
 
     if (!active) {
-      throw new BadGatewayException('Post was deleted or oculted by the author');
+      throw new BadGatewayException(
+        'Post was deleted or oculted by the author',
+      );
     }
 
-    const parsedContent = JSON.parse(content)
+    const parsedContent = JSON.parse(content);
 
     const commentAdd = await this.prisma.comments.create({
       data: {
