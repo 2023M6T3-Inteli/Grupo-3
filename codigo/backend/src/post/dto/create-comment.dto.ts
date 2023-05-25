@@ -21,3 +21,18 @@ export class CreateUserPostDTO {
   @IsOptional()
   postID: string
 }
+
+export class LikesDto {
+  @ApiProperty({example: 10, description: 'Likes'})
+  @IsOptional()
+  count: number
+
+  @IsOptional()
+  userID: string
+
+  @IsOptional()
+  id: string
+
+  @IsOptional()
+  postID: string
+}

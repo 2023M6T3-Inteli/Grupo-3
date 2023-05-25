@@ -7,9 +7,36 @@ import { ProfileUser } from './dto/pick-user.dto';
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
-  async getAllUsers(): Promise<ProfileUser[]> {
+  async getAllUsers() {
     const users = await this.prisma.user.findMany({
       orderBy: { createdAt: 'desc' },
+      select: {
+        acceptTerms: false,
+        admin: false,
+        comments: true,
+        email: true,
+        createdAt: true,
+        name: true,
+        username: true,
+        curriculum: true,
+        hashedPassword: false,
+        image: true,
+        id: false,
+        likes: { select: { postID: true } },
+        location: true,
+        role: true,
+        score: true,
+        updatedAt: false,
+        userPost: { select: { post: true } },
+        tags: true,
+      },
+    });
+    return users;
+  }
+
+  async findOne(userId: string): Promise<ProfileUser> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
       select: {
         acceptTerms: false,
         admin: false,
@@ -31,54 +58,33 @@ export class UserService {
         tags: true,
       },
     });
-    return users;
-  }
-
-  async findOne(userId: string): Promise<ProfileUser> {
-    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: {
-      acceptTerms: false,
-      admin: false,
-      comments: true,
-      email: true,
-      createdAt: true,
-      name: true,
-      username: true,
-      curriculum: true,
-      hashedPassword: false,
-      image: true,
-      id: false,
-      likes: true,
-      location: true,
-      role: true,
-      score: true,
-      updatedAt: false,
-      userPost: { select: { post: true } },
-      tags: true,
-    }, });
     return user;
   }
 
   async findByEmail(email: string): Promise<ProfileUser> {
-    const user = await this.prisma.user.findUnique({ where: { email }, select: {
-      acceptTerms: false,
-      admin: false,
-      comments: true,
-      email: true,
-      createdAt: true,
-      name: true,
-      username: true,
-      curriculum: true,
-      hashedPassword: false,
-      image: true,
-      id: false,
-      likes: true,
-      location: true,
-      role: true,
-      score: true,
-      updatedAt: false,
-      userPost: { select: { post: true } },
-      tags: true,
-    }, });
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        acceptTerms: false,
+        admin: false,
+        comments: true,
+        email: true,
+        createdAt: true,
+        name: true,
+        username: true,
+        curriculum: true,
+        hashedPassword: false,
+        image: true,
+        id: false,
+        likes: true,
+        location: true,
+        role: true,
+        score: true,
+        updatedAt: false,
+        userPost: { select: { post: true } },
+        tags: true,
+      },
+    });
     return user;
   }
 
