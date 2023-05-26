@@ -40,6 +40,7 @@ export const Trending = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 0 10px 0;
+  padding: 5px;
 
   p{
     color: #0561FC;
@@ -86,7 +87,7 @@ export const ForYou = styled.div`
   }
 
   h4{
-    color: #0561FC;
+    color: #0063b8;
     font-weight: bold;
   }
 
