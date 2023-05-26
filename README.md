@@ -32,6 +32,19 @@ Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenhar
 
 *Descrição_resumida_do_projeto*
 
+## 📁 Estrutura de pastas
+
+(colocar aqui a estrutura de pastas em si)
+
+Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
+
+- <b>readme.md</b>: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
+
+- <b>documentos</b>: aqui estão todos os documentos do projeto, incluindo o manual de instruções. 
+
+- <b>src</b>: todo o código fonte criado para o desenvolvimento do projeto, incluindo os blocos de código do circuito, backend e frontend se aplicáveis.
+
+
 # Documentação
 
 Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o seu conteúdo é publicado via GitHub Pages.
