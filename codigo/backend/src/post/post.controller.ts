@@ -49,20 +49,14 @@ export class PostController {
     return this.postService.incrementLike(postID, userID);
   }
 
-  //criar rota de delete post, mas apenas o dono do post e o administrador do site podem deleta-loç
+  //Delete post function, available only to the post owner and application admin
 
-  @Delete(':id')
-  // @UseGuards(AdminGuard)
+  @Delete('delete/:postId')
   async deletePost(
     @Param('postId') postId: string,
-    @Req() request: Request,
     @GetCurrentUserId() userId: string,
     ): Promise<void> {
-      try {
-        await this.postService.deletePost(postId, userId);
-      } catch (error) {
-        throw new HttpException('Error delete post', HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+      await this.postService.deletePost(postId, userId);
   }
   
   // Edit post function, available only to the post owner

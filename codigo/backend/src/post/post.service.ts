@@ -3,6 +3,7 @@ import { BadGatewayException, Injectable, UnauthorizedException, NotFoundExcepti
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
+import { Post } from '@prisma/client';
 
 @Injectable()
 export class PostService {
@@ -121,27 +122,31 @@ export class PostService {
     return commentAdd;
   }
 
-  // Função de deletar se for dono do post ou admin
-  async deletePost(postId: string, userId: string): Promise<void> {
-    const post = await this.prisma.post.findUnique({ where: { id: postId } });
+  //Delete post function, available only to the post owner and application admin
+  async deletePost(postId: string, userId: string): Promise<Post> {
+    const post = await this.prisma.userPost.findFirst({
+      where: {
+        postID: {equals: postId}
+      }
+    });
+
+    const userAdmin = await this.prisma.user.findFirst({
+      where: {
+        id: {equals: userId}
+      }
+    });
+
     if (!post) {
       throw new NotFoundException('Post not found');
     }
 
-    if (post.id !== userId && !this.isAdmin(userId)) {
+    if (post.userID !== userId && userAdmin.admin == false) {
       throw new UnauthorizedException('You are not allowed to delete this post');
-    }
+    }  
 
-    await this.prisma.post.delete({ where: { id: postId } });
-  }
+    const deletedPost = await this.prisma.post.delete({ where: { id: postId } });
 
-  private isAdmin(userId: string): any {
-    if (userId) {
-      return true
-    } else {
-      return false
-    }
-    // Todo - logica do se for admin
+    return deletedPost;
   }
 
   // Edit post function, available only to the post owner

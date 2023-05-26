@@ -38,7 +38,7 @@ model Notifications {
   description String
   mlTableID   String
   mltable     MLTable @relation(fields: [mlTableID], references: [id])
-  post        Post    @relation(fields: [postID], references: [id])
+  post        Post    @relation(fields: [postID], references: [id], onDelete: Cascade)
 
   @@index([mlTableID], map: "Notifications_mlTableID_fkey")
   @@index([postID], map: "Notifications_postID_fkey")
@@ -55,7 +55,7 @@ model Likes {
   count  Int
   userID String
   postID String
-  post   Post   @relation(fields: [postID], references: [id])
+  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userID], references: [id])
 
   @@index([postID], map: "Likes_postID_fkey")
@@ -67,7 +67,7 @@ model Comments {
   userID  String
   postID  String
   content String
-  post    Post   @relation(fields: [postID], references: [id])
+  post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
   user    User   @relation(fields: [userID], references: [id])
 
   @@index([postID], map: "Comments_postID_fkey")
@@ -79,7 +79,7 @@ model Tags {
   userID  String
   postID  String
   subject String
-  post    Post   @relation(fields: [postID], references: [id])
+  post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
   user    User   @relation(fields: [userID], references: [id])
 
   @@index([postID], map: "Tags_postID_fkey")
@@ -90,7 +90,7 @@ model UserPost {
   id     String @id @default(uuid())
   userID String
   postID String
-  post   Post   @relation(fields: [postID], references: [id])
+  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userID], references: [id])
 
   @@index([postID], map: "UserPost_postID_fkey")
