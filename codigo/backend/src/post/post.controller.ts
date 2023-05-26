@@ -30,6 +30,32 @@ export class PostController {
     return this.postService.findAllComments();
   }
 
+  //contabiliza os likes do post 
+  /*async postLiked(id:string){
+    const findPost = await 
+    this.prisma.post.findUnique({where:{id}});
+
+    if (!findPost){
+      throw new Error('Like not found')
+    }
+
+    const isActive = await
+    this.prisma.post.findUnique({
+      where:{id},
+      select:{active:true},
+    })
+
+    if (!isActive){
+      throw new Error('Post not active');
+    }
+
+    //aqui vc vai colocar a lógica para incrementar o like a um post
+    
+
+    return {message:'Post liked with sucess!'}
+
+  }*/
+  
   @Post('comment/:postId')
   async createComment(
     @Param('postId') postId: string,
