@@ -49,7 +49,7 @@ export default function BottomNavbar() {
         [navigate]
     );
     const handleOnClickAdd = useCallback(
-        () => navigate("/", { replace: true }),
+        () => navigate("/PostContent", { replace: true }),
         [navigate]
     );
     const handleOnClickSaved = useCallback(
