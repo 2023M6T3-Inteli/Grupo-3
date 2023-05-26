@@ -5,29 +5,31 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AccountService {
-  constructor(private readonly prisma:PrismaService){}
+  constructor(private readonly prisma: PrismaService) { }
+  async update(userID: string, tagsID: string,updateAccountDto: UpdateAccountDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {id: userID}
+    })
 
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
-  }
+    const tag = await this.prisma.tags.findUnique({
+      where: {
+        id: tagsID
+      }
+    });
 
-  findAll() {
-    return `This action returns all account`;
-  }
+    const updatedTag = await this.prisma.tags.update({
+      where: {
+        id: tagsID
+      },
+      data: {
+       
+      }
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} account`;
-  }
-
-  async update(userID: string, updateAccountDto: UpdateAccountDto) {
     const preference = await this.prisma.user.update({
       where: { id: userID },
-      data: { tags: {} }
-      
+      data: { tags: {  } }
+
     })
     return preference
   }
