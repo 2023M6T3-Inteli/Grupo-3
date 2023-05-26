@@ -141,19 +141,21 @@ export class PostService {
     } else {
       return false
     }
-    // Todo - logica do se for admin 
+    // Todo - logica do se for admin
   }
 
-  // Função de editar se for dono do post
+  // Edit post function, available only to the post owner
   async editPost(userId: string, postId: string, newData: any): Promise<any> {
-    const post = await this.prisma.post.findUnique({ where: { id: userId }, select: { userPost: true } })
+    const post = await this.prisma.userPost.findFirst({
+      where: {
+        postID: {equals: postId}
+      }
+    });
 
-    // const post = await this.prisma.userPost.findUnique({ where: { id: userId, }, select: { userID: true } });
-    return post;
-    // if (!post || post.userID !== userId) {
-    //   throw new UnauthorizedException('You are not allowed to update this post');
-    // }
+    if (!post || post.userID !== userId) {
+      throw new UnauthorizedException('You are not allowed to update this post');
+    }
 
-    // await this.prisma.post.update({ where: { id: postId }, data: newData });
+    await this.prisma.post.update({ where: { id: postId }, data: newData });
   }
 }

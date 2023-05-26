@@ -1,15 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Delete, UseGuards, Req, Put, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Req } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
-import { GetCurrentUser } from 'src/common/decorators';
-import { IsString, IsNotEmpty } from 'class-validator';
-import { HttpException, HttpStatus } from '@nestjs/common';
-import { AdminGuard } from 'src/guards/admin.guard';
 
 @ApiTags('post')
 @ApiBearerAuth()
@@ -70,17 +65,13 @@ export class PostController {
       }
   }
   
-  //criar rota de update no post, apenas o dono do post pode editá-lo.
-  @Put('edit/:id')
+  // Edit post function, available only to the post owner
+  @Put('edit/:postId')
   async editPost(
     @Param('postId') postId: string,
-    @Body() newData: any,
+    @Body() newData: string,
     @GetCurrentUserId() userId: string,
   ): Promise<void> {
-    try {
-      await this.postService.editPost(userId, postId, newData);
-    } catch (error) {
-      throw new HttpException('Error delete post', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    await this.postService.editPost(userId, postId, newData);
   }
 }
