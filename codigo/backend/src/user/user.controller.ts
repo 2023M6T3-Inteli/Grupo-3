@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -5,7 +6,8 @@ import {
   Get,
   Param,
   Patch,
-  UseGuards
+  UseGuards,
+  Post
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from '../guards/admin.guard';
@@ -14,7 +16,34 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 import { ProfileUser } from './dto/pick-user.dto';
+import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { Profile } from 'passport';
+import axios, { AxiosResponse } from 'axios';
+
+async function login(username: string, password: string): Promise<any> {
+  try {
+    const response: AxiosResponse = await axios.post('/api/login', {
+      username,
+      password
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erro na requisição de login:', error);
+    throw error;
+  }
+}
+
+const username = 'usuário';
+const password = 'senha';
+
+login(username, password)
+  .then(data => {
+    console.log('Login realizado com sucesso:', data);
+    // Faça algo com os dados de login bem-sucedidos
+  })
+  .catch(error => {
+    // Trate o erro de login aqui
+  });
 
 @ApiTags('user')
 @Controller('users')

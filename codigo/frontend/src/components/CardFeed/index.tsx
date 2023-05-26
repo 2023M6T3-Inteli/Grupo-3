@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Card, CardIntro, OwnerPost , CardProfile, CardContent, ImgContainer, PostTags, CardFootbar, PostInteraction, NotInterested } from './style';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -6,6 +6,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import next from '../../assets/next.webp';
 import nodejs from '../../assets/nodejs.png';
+import axios from 'axios';
 
 const Posts = [
   { id: 0, ownerPhoto: 'brun0meira',  owner: 'Bruno Meira', timestamp: '2023-05-10 14:54', tittlePost: 'Server-Side Rendering in React', PostImage: 'Null', postDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque, mi et interdum pellentesque, velit purus sollicitudin enim, a tristique enim nibh luctus tortor. Integer eleifend pretium massa, quis sollicitudin tortor dictum nec.", postsTags: ['NextJS', 'Front-end', 'SSR'], likes: 23, comments: 30},
@@ -14,7 +15,10 @@ const Posts = [
   { id: 3, ownerPhoto: 'Livia-Coutinho',  owner: 'Livia Coutinho', timestamp: '2023-05-10 14:54', tittlePost: 'Node.js: Starting from theory to practice', PostImage: nodejs, postDescription: 'tt', postsTags: ['NodeJS', 'Express', 'Back-end'], likes: 16, comments: 24},
 ]
 
+
 const CardFeed: React.FC = () => {
+  const [data, setData] = useState<any>(null);
+
   const textCard = Posts.map((post) => {
     const [isLiked, setIsLiked] = useState(false);
 

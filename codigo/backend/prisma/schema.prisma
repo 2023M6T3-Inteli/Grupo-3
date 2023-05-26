@@ -101,6 +101,7 @@ model User {
   id             String     @id @default(uuid())
   name           String
   admin          Boolean    @default(false)
+  firstLogin     Boolean    @default(false)
   score          Int?       @default(0)
   hashedPassword String
   location       String?    @default("")
