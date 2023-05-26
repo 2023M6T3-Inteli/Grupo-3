@@ -6,6 +6,8 @@ import { CancelButton, ContainerHead, InputContainer, InputTextarea, InputTitle,
 
 const PostContent: React.FC = () => {
   const [postData, setPostData] = useState({
+    title: '',
+    description: '',
     content: '',
     image: '',
     tags: [] as string[],
@@ -13,14 +15,14 @@ const PostContent: React.FC = () => {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  // const selectedTags = tags => console.log(tags)};
-
   const handlePost = () => {
     axios
       .post('/api/posts', postData)
       .then((response) => {
         console.log('Post criado com sucesso:', response.data);
         setPostData({
+          title: '',
+          description: '',
           content: '',
           image: '',
           tags: [],
@@ -49,12 +51,12 @@ const PostContent: React.FC = () => {
     fetchUserProfile();
   }, []);
 
-
- const inputRef = useRef<HTMLTextAreaElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (titleRef.current) {
+      titleRef.current.focus();
     }
   }, []);
 
@@ -74,33 +76,47 @@ const PostContent: React.FC = () => {
         </ProfileInfo>
       </PersonContainer>
       <InputContainer>
-      <InputTitle
-          ref={inputRef}
+        <InputTitle
+          ref={titleRef}
           placeholder="Digite seu título aqui..."
-          rows={1}
           onChange={(e) => {
-            const textarea = e.target as HTMLTextAreaElement;
-            textarea.style.height = 'auto';
-            textarea.style.height = `${textarea.scrollHeight} px`;
+            const input = e.target as HTMLInputElement;
+            setPostData((prevData) => ({
+              ...prevData,
+              title: input.value,
+            }));
           }}
         />
 
         <InputTextarea
-          ref={inputRef}
+          ref={contentRef}
           placeholder="Digite seu texto..."
           rows={7}
           onChange={(e) => {
             const textarea = e.target as HTMLTextAreaElement;
+            setPostData((prevData) => ({
+              ...prevData,
+              content: textarea.value,
+            }));
             textarea.style.height = 'auto';
-            textarea.style.height = `${textarea.scrollHeight} px`;
+            textarea.style.height = `${textarea.scrollHeight}px`;
           }}
         />
-        
-        <TagsInput selectedTags={selectedTags} />
 
+        <TagsInput
+          selectedTags={selectedTags}
+          onChange={(tags) => {
+            setPostData((prevData) => ({
+              ...prevData,
+              tags: tags,
+            }));
+            setSelectedTags(tags);
+          }}
+        />
       </InputContainer>
     </>
-  );
-};
-
-export default PostContent;
+   );
+  };
+  
+  export default PostContent;
+  
