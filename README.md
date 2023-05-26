@@ -18,6 +18,16 @@ Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenhar
 
 # Grupo: *Lirios (LearnLink)*
 
+## Integrantes
+
+<a  href="https://www.linkedin.com/in/bruno-omeira/">Bruno Otavio Bezerra de Meira</br></a>
+<a  href="https://www.linkedin.com/in/gabrielriostorres/">Gabriel Rios Torres</br></a>
+<a  href="https://www.linkedin.com/in/liviapcoutinho/">Livia Lopes Coutinho</br></a>
+<a  href="https://www.linkedin.com/in/marcos-vinicius-166531239/">Marcos Vinicius Alves de Moura</br></a>
+<a  href="https://www.linkedin.com/in/matheusmacedosantos/">Matheus Macedo Santos</br></a>
+<a  href="https://www.linkedin.com/in/raissa-sabino/">Raissa Da Silva Sabino</br></a>
+<a  href="https://www.linkedin.com/in/yveslevi/">Yves Levi Paixão Lapa</br></a>
+
 # Descrição
 
 *Descrição_resumida_do_projeto*
