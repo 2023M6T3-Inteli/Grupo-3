@@ -180,6 +180,10 @@ Descrever o objetivo geral e os objetivos específicos.
 
 
 #### Objetivos gerais
+	  
+	  . Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
+          . Fornecer uma ferramenta de comunicação eficiente entre os colaboradores da empresa.
+          . Melhorar o engajamento dos funcionários com a cultura e os valores da empresa.
 
 
 
