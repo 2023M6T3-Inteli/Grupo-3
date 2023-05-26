@@ -25,7 +25,7 @@ export class UserController {
   ) {}
   @Get()
   @ApiBearerAuth()
-  async getAllUsers(): Promise<ProfileUser[]> {
+  async getAllUsers() {
     return this.userService.getAllUsers();
   }
 

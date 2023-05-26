@@ -75,11 +75,12 @@ model Comments {
 }
 
 model Tags {
-  id     String @id @default(uuid())
-  userID String
-  postID String
-  post   Post   @relation(fields: [postID], references: [id])
-  user   User   @relation(fields: [userID], references: [id])
+  id      String @id @default(uuid())
+  userID  String
+  postID  String
+  subject String
+  post    Post   @relation(fields: [postID], references: [id])
+  user    User   @relation(fields: [userID], references: [id])
 
   @@index([postID], map: "Tags_postID_fkey")
   @@index([userID], map: "Tags_userID_fkey")
