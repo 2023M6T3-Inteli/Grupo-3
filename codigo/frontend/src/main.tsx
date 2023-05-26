@@ -9,6 +9,7 @@ import Notifications from './pages/Notifications/Notifications';
 import Profile from './pages/Profile/Profile';
 import Ranking from './pages/Ranking/index';
 import Saved from './pages/Saved';
+import Account from './pages/Account';
 
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/notification",
     element: <Notifications/>,
+  },
+  {
+    path: "/Account",
+    element: <Account />,
   },
   {
     path: "/acc",
