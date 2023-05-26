@@ -168,7 +168,10 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVMRXrhB0
 	  
 ## Descritivo da Solução
 
-Descrição da solução a ser desenvolvida (o que é, quais principais funcionalidades, como usar) . Caso ainda não esteja definida a solução na Sprint 1, o faça assim que possível.
+A solução proposta é desenvolver um aplicativo web/mobile em nuvem (AWS) para a Intranet da Dell, com o objetivo de recomendar conteúdos sobre tecnologia aos funcionários. A plataforma permitirá aos usuários explorar diferentes áreas da tecnologia, se inscrever em tópicos de interesse e receber recomendações personalizadas com base em seu perfil.
+Além disso, haverá recursos de interação social para compartilhar informações e participar de discussões.
+A solução também oferecerá análises e métricas para acompanhar o engajamento e fazer melhorias contínuas.
+Em resumo, a solução proposta busca fornecer uma plataforma abrangente, personalizada e interativa para o compartilhamento de conteúdo e o aprendizado de tecnologia pelos funcionários da Dell, com o objetivo de promover o desenvolvimento profissional, o engajamento e o compartilhamento de conhecimentos dentro da empresa.
 
 
 ### Objetivos
