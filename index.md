@@ -168,7 +168,10 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVMRXrhB0
 	  
 ## Descritivo da Solução
 
-Descrição da solução a ser desenvolvida (o que é, quais principais funcionalidades, como usar) . Caso ainda não esteja definida a solução na Sprint 1, o faça assim que possível.
+A solução proposta é desenvolver um aplicativo web/mobile em nuvem (AWS) para a Intranet da Dell, com o objetivo de recomendar conteúdos sobre tecnologia aos funcionários. A plataforma permitirá aos usuários explorar diferentes áreas da tecnologia, se inscrever em tópicos de interesse e receber recomendações personalizadas com base em seu perfil.
+Além disso, haverá recursos de interação social para compartilhar informações e participar de discussões.
+A solução também oferecerá análises e métricas para acompanhar o engajamento e fazer melhorias contínuas.
+Em resumo, a solução proposta busca fornecer uma plataforma abrangente, personalizada e interativa para o compartilhamento de conteúdo e o aprendizado de tecnologia pelos funcionários da Dell, com o objetivo de promover o desenvolvimento profissional, o engajamento e o compartilhamento de conhecimentos dentro da empresa.
 
 
 ### Objetivos
@@ -177,12 +180,18 @@ Descrever o objetivo geral e os objetivos específicos.
 
 
 #### Objetivos gerais
-
-
+	  
+- Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
+- Fornecer uma ferramenta de comunicação eficiente entre os colaboradores da empresa.
+- Melhorar o engajamento dos funcionários com a cultura e os valores da empresa.
 
 #### Objetivos específicos
-
-
+	  
+- Criar um ambiente seguro para compartilhamento de informações internas da empresa.
+- Permitir que os colaboradores possam interagir e colaborar com seus colegas de trabalho.
+- Possibilitar o reconhecimento dos funcionários através de um sistema de ranking.
+- Garantir a conformidade das publicações com as diretrizes da empresa através de um sistema de denúncia.
+- Proporcionar aos usuários uma experiência personalizada com base em seus interesses e avaliações de conteúdo.
 
 ### Justificativa
 
@@ -265,20 +274,20 @@ De início, após analisar tais Design Systems, pode-se afirmar que esses são u
 Comparando os DS’s, buscaremos identificar seus pontos fortes e fracos, destacando aspectos como facilidade de uso, customização, disponibilidade de componentes, documentação e suporte, desempenho e compatibilidade com diferentes plataformas e navegadores. Com base nessa análise, poderemos tomar decisões informadas sobre a melhor abordagem a ser seguida em nosso projeto e garantir uma experiência de usuário de alta qualidade<br>
 
 Para que essa análise ocorra de maneira organizada, serão divididos os critérios:<br>
--Facilidade de uso e integração:<br>
+- Facilidade de uso e integração:<br>
 No contexto da Dell Technologies e da Atlassian,  se tratam de um ponto forte pela facilidade de usar e integrar em projetos, com uma ampla gama de componentes pré-construídos e exemplos de código disponíveis. Além disso, fornece diversas ferramentas e recursos para facilitar a implementação e a colaboração entre designers e desenvolvedores. 
 Já no caso da Apple, concentra-se majoritariamente em fornecer diretrizes de design, em vez de fornecer componentes pré-construídos. <br>
--Customização e flexibilidade:<br>
+- Customização e flexibilidade:<br>
 		Mais uma vez os Design System da Dell e da Atlassian se assemelha por garantir uma boa experiência de customização, permitindo aos desenvolvedores ajustarem os componentes e estilos de acordo com suas necessidades, enquanto os da Apple, mais uma vez, é menos focado em customização e mais em seguir as diretrizes específicas para garantir a consistência da experiência do usuário em dispositivos Apple.
--Componentes disponíveis:<br>
+- Componentes disponíveis:<br>
 	A Dell Technologies e a Atlassian disponibilizam uma vasta camada de componentes para o desenvolvimento, enquanto a Apple segue por outro lado, fornecendo frameworks e kits de desenvolvimento de software (SDKs) com componentes básicos para suas plataformas.
--Documentação e suporte:<br>
+- Documentação e suporte:<br>
 	Todas as documentações analisadas são completas e cumprem seu propósito de auxiliar no desenvolvimento seguindo um design system eficiente, porém dois deles possuem especificidades interessantes. A Apple, oferecendo um canal de suporte e a Atlassian, fornecendo além de kits de design, materiais de aprendizagem. <br>
--Performance e otimização:<br>
+- Performance e otimização:<br>
 	Neste aspecto, a Apple se destaca, por focar em seus dispositivos de fabricação própria, prezando pela otimização nestes, de modo que os frameworks e SDKs fornecidos pela Apple são otimizados para seus dispositivos e sistemas operacionais.
--Escalabilidade e manutenção:<br>
+- Escalabilidade e manutenção:<br>
 		Os três design systems analisados possuem uma boa estrutura de escalabilidade e manutenção, de modo a ter cada detalhe documentado, para que a solução por inteiro siga um padrão.
--Exemplo de aplicação:<br>
+- Exemplo de aplicação:<br>
 Mesmo com um Design System bem estruturado e detalhado, é importante lembrar que o sucesso de um projeto de interface de usuário depende em grande parte da habilidade da equipe de desenvolvimento e design. Um exemplo disso é o aplicativo mobile "AR Assistent", que segue algumas diretrizes do Dell Technologies Design System, mas que não conseguiu implementá-las de forma eficiente e harmoniosa, resultando em uma aplicação com problemas de interação e aparência.<br>
 
 Para garantir uma implementação adequada do Design System, é fundamental que a equipe de desenvolvimento e design trabalhe em conjunto, mantendo a consistência visual e a experiência do usuário em mente. Isso pode incluir revisões de design e testes de usabilidade para identificar e corrigir problemas de interação e aparência.<br>

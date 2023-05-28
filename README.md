@@ -18,9 +18,32 @@ Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenhar
 
 # Grupo: *Lirios (LearnLink)*
 
+## Integrantes
+
+<a  href="https://www.linkedin.com/in/bruno-omeira/">Bruno Otavio Bezerra de Meira</br></a>
+<a  href="https://www.linkedin.com/in/gabrielriostorres/">Gabriel Rios Torres</br></a>
+<a  href="https://www.linkedin.com/in/liviapcoutinho/">Livia Lopes Coutinho</br></a>
+<a  href="https://www.linkedin.com/in/marcos-vinicius-166531239/">Marcos Vinicius Alves de Moura</br></a>
+<a  href="https://www.linkedin.com/in/matheusmacedosantos/">Matheus Macedo Santos</br></a>
+<a  href="https://www.linkedin.com/in/raissa-sabino/">Raissa Da Silva Sabino</br></a>
+<a  href="https://www.linkedin.com/in/yveslevi/">Yves Levi Paixão Lapa</br></a>
+
 # Descrição
 
 *Descrição_resumida_do_projeto*
+
+## 📁 Estrutura de pastas
+
+(colocar aqui a estrutura de pastas em si)
+
+Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
+
+- <b>readme.md</b>: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
+
+- <b>documentos</b>: aqui estão todos os documentos do projeto, incluindo o manual de instruções. 
+
+- <b>src</b>: todo o código fonte criado para o desenvolvimento do projeto, incluindo os blocos de código do circuito, backend e frontend se aplicáveis.
+
 
 # Documentação
 
