@@ -30,7 +30,7 @@ Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenhar
 
 # Descrição
 
-*Descrição_resumida_do_projeto*
+Este projeto representa uma continuação da aplicação web desenvolvida no módulo 5 do curso de Engenharia de Software. No âmbito deste novo módulo, há um requisito fundamental que consiste na criação de uma aplicação web mobile-first, que se integrará com um sistema legado para estabelecer a comunicação com a aplicação desenvolvida no módulo anterior. Com base nisso, a Dell solicitou a criação de uma rede social interna, destinada aos colaboradores, na qual eles possam discutir sobre tecnologias e consumir conteúdos profissionais. Além disso, será implementado um sistema de recomendação, que indicará projetos específicos para as pessoas que estejam consumindo mais conteúdo sobre determinada tecnologia. Esses projetos já estão registrados no banco de dados do projeto anterior
 
 ## 📁 Estrutura de pastas
 
@@ -44,6 +44,16 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 - <b>src</b>: todo o código fonte criado para o desenvolvimento do projeto, incluindo os blocos de código do circuito, backend e frontend se aplicáveis.
 
+## Dataset
+Neste projeto, utilizamos o dataset fornecido pelo professor instrutor Victor Hayashi, que está disponível para acesso através do <a href="https://www.kaggle.com/datasets/shubhammehta21/movie-lens-small-latest-dataset"> link.
+
+O dataset contém informações relevantes sobre avaliações de filmes, incluindo os campos:
+*   userId
+*   movieId
+*   rating
+*   timestamp:
+
+O objetivo deste projeto é realizar análises e aplicar técnicas de processamento de dados nesse conjunto de dados, a fim de obter insights valiosos sobre as preferências e comportamentos dos usuários em relação aos filmes avaliados. A partir dessas análises, poderemos extrair informações úteis para recomendações personalizadas e tomada de decisões relacionadas ao domínio dos filmes.
 
 # Documentação
 
