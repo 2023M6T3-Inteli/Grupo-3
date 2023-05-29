@@ -9,7 +9,9 @@ import Notifications from './pages/Notifications/Notifications';
 import Profile from './pages/Profile/Profile';
 import Ranking from './pages/Ranking/index';
 import Saved from './pages/Saved';
+import PostContent from './pages/PostContent/PostContent';
 import Account from './pages/Account';
+
 
 
 const router = createBrowserRouter([
@@ -50,6 +52,11 @@ const router = createBrowserRouter([
     path: "/acc",
     element: <App />,
   },
+  {
+    path: "/createpost",
+    element: <PostContent/>,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
