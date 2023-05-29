@@ -86,4 +86,12 @@ export class UserController {
   async deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
   }
+
+  @Post('setup/tags')
+  async updateUserTags(
+    @GetCurrentUserId() userId: string,
+    @Body() tags: string[],
+  ): Promise<void> {
+    await this.userService.updateUserTags(userId, tags);
+  }
 }
