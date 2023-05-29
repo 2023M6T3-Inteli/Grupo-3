@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
   ForbiddenException,
@@ -71,6 +72,44 @@ export class AuthService {
         email: dto.email,
       },
     });
+
+    if(user.lastLogin == ''){
+      await this.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          lastLogin: new Date().toString(),
+        },
+      })
+    } else{
+      const lastLogin = new Date(user.lastLogin);
+      const actualDate = new Date();
+
+      const hours = Math.abs(lastLogin.valueOf() - actualDate.valueOf()) / 36e5;
+
+      if(hours > 24 && hours < 48){
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            lastLogin: new Date().toString(),
+            streak: user.streak + 1,
+          },
+        })
+      } else if(hours > 48){
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            lastLogin: new Date().toString(),
+            streak: 0,
+          },
+        })
+      }
+    }
 
     if (!user)
       throw new ForbiddenException(

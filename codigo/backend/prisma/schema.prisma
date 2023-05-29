@@ -14,6 +14,7 @@ model Post {
   image         String
   active        Boolean
   content       String
+  createdAt     DateTime        @default(now())
   comments      Comments[]
   likes         Likes[]
   notifications Notifications[]
@@ -101,7 +102,6 @@ model User {
   id             String     @id @default(uuid())
   name           String
   admin          Boolean    @default(false)
-  firstLogin     Boolean    @default(false)
   score          Int?       @default(0)
   hashedPassword String
   location       String?    @default("")
@@ -114,6 +114,9 @@ model User {
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
   hashedRt       String?
+  firstLogin     Boolean    @default(false)
+  lastLogin      String     @default("")
+  streak         Int        @default(0)
   comments       Comments[]
   likes          Likes[]
   MLTable        MLTable[]
