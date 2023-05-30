@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, BadGatewayException } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User, Tags } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ProfileUser } from './dto/pick-user.dto';
@@ -162,6 +162,54 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return;
+  }
+
+  async getAllTags() {
+    const tags = await this.prisma.tags.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        userID: true,
+        postID: true,
+        subject: true,
+        createdAt: true,
+      },
+    });
+    return tags;
+  }
+
+  async deleteTag(userId: string, tag: string): Promise<any> {
+    const findTag = await this.prisma.tags.findMany({ where: {
+      userID: userId,
+      subject: tag
+    }});
+
+    if (!findTag) {
+      throw new BadGatewayException('Tag relationship does not exist!');
+    }
+
+    await this.prisma.tags.deleteMany({
+      where: {
+        userID: userId,
+        subject: tag
+      },
+    });;
+  }
+
+  async deleteByUserId(userId: string): Promise<void> {
+    await this.prisma.tags.deleteMany({
+      where: {
+        userID: userId,
+      },
+    });
+  }
+
+  async deleteByPostId(postId: string): Promise<void> {
+    await this.prisma.tags.deleteMany({
+      where: {
+        postID: postId,
+      },
+    });
   }
 
   async updateUserTags(userId: string, tags: string[]): Promise<void> {

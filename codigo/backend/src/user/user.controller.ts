@@ -87,6 +87,33 @@ export class UserController {
     return this.userService.deleteUser(id);
   }
 
+  @Get('setup')
+  @ApiBearerAuth()
+  async getAllTags() {
+    return this.userService.getAllTags();
+  }
+
+  @Delete('tag/:id')
+  @ApiBearerAuth()
+  async deleteTag(
+    @Param('userId') userId: string, 
+    @Body() tag: string,
+    ): Promise<void> {
+    await this.userService.deleteTag(userId, tag);
+  }
+
+  @Delete('tags/:userId')
+  @ApiBearerAuth()
+  async deleteByUserId(@Param('userId') userId: string): Promise<void> {
+    await this.userService.deleteByUserId(userId);
+  }
+
+  @Delete('tags/:postId')
+  @ApiBearerAuth()
+  async deleteByPostId(@Param('postId') postId: string): Promise<void> {
+    await this.userService.deleteByPostId(postId);
+  }
+
   @Post('setup/tags')
   @ApiBearerAuth()
   async updateUserTags(

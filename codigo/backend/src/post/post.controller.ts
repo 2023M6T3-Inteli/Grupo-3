@@ -88,7 +88,7 @@ export class PostController {
   // Edit post function, available only to the post owner
   @Put('edit/:postId')
   async editPost(
-    @Param('postId') postId: string,
+    @Param('postId')  postId: string,
     @Body() newData: string,
     @GetCurrentUserId() userId: string,
   ): Promise<void> {
