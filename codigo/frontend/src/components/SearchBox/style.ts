@@ -8,7 +8,7 @@ export const FormSearch = styled.form`
   width: 100%;
   height: 40px;
   padding: 0px 10px 0px 10px;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   
 `;
 

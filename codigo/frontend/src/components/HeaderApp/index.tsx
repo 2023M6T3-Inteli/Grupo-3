@@ -18,7 +18,7 @@ const HeaderApp: React.FC = () => {
       </RightSide>
       <LeftSide>
         <RankingButton onClick={handleOnClickRanking}>
-          <EmojiEventsIcon style={{width: '30px', height:'30px', color:'#FCB818'}}/>
+          <EmojiEventsIcon style={{width: '20px', height:'20px', color:'#FCB818'}}/>
           <span>Ranking</span>
         </RankingButton>
         <img style={{width: 40, height: 40 , borderRadius: 20}}
