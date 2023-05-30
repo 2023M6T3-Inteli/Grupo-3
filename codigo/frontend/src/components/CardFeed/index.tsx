@@ -81,9 +81,9 @@ const CardFeed: React.FC = () => {
               <ChatBubbleOutlineIcon />
               <p>{post.comments} Comments</p>
             </PostInteraction>
-            <NotInterested>
+            {/* <NotInterested>
               <p>Not interested</p>
-            </NotInterested>
+            </NotInterested> */}
           </CardFootbar>
         </CardContent>
       </Card>
