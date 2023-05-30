@@ -73,7 +73,7 @@ export class AuthService {
       },
     });
 
-    if(user.lastLogin == ''){
+    if (user.lastLogin == '') {
       await this.prisma.user.update({
         where: {
           id: user.id,
@@ -81,14 +81,14 @@ export class AuthService {
         data: {
           lastLogin: new Date().toString(),
         },
-      })
-    } else{
+      });
+    } else {
       const lastLogin = new Date(user.lastLogin);
       const actualDate = new Date();
 
       const hours = Math.abs(lastLogin.valueOf() - actualDate.valueOf()) / 36e5;
 
-      if(hours > 24 && hours < 48){
+      if (hours > 24 && hours < 48) {
         await this.prisma.user.update({
           where: {
             id: user.id,
@@ -97,8 +97,8 @@ export class AuthService {
             lastLogin: new Date().toString(),
             streak: user.streak + 1,
           },
-        })
-      } else if(hours > 48){
+        });
+      } else if (hours > 48) {
         await this.prisma.user.update({
           where: {
             id: user.id,
@@ -107,7 +107,7 @@ export class AuthService {
             lastLogin: new Date().toString(),
             streak: 0,
           },
-        })
+        });
       }
     }
 
@@ -178,7 +178,7 @@ export class AuthService {
   async getTokens(userId: string, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
-      email: email
+      email: email,
     };
 
     const [at, rt] = await Promise.all([

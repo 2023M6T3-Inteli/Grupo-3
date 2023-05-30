@@ -1,5 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { BadGatewayException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Injectable,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
@@ -7,7 +12,7 @@ import { Post } from '@prisma/client';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
     const createdPost = await this.prisma.post.create({
@@ -126,14 +131,14 @@ export class PostService {
   async deletePost(postId: string, userId: string): Promise<Post> {
     const post = await this.prisma.userPost.findFirst({
       where: {
-        postID: {equals: postId}
-      }
+        postID: { equals: postId },
+      },
     });
 
     const userAdmin = await this.prisma.user.findFirst({
       where: {
-        id: {equals: userId}
-      }
+        id: { equals: userId },
+      },
     });
 
     if (!post) {
@@ -141,10 +146,14 @@ export class PostService {
     }
 
     if (post.userID !== userId && userAdmin.admin == false) {
-      throw new UnauthorizedException('You are not allowed to delete this post');
-    }  
+      throw new UnauthorizedException(
+        'You are not allowed to delete this post',
+      );
+    }
 
-    const deletedPost = await this.prisma.post.delete({ where: { id: postId } });
+    const deletedPost = await this.prisma.post.delete({
+      where: { id: postId },
+    });
 
     return deletedPost;
   }
@@ -153,12 +162,14 @@ export class PostService {
   async editPost(userId: string, postId: string, newData: any): Promise<any> {
     const post = await this.prisma.userPost.findFirst({
       where: {
-        postID: {equals: postId}
-      }
+        postID: { equals: postId },
+      },
     });
 
     if (!post || post.userID !== userId) {
-      throw new UnauthorizedException('You are not allowed to update this post');
+      throw new UnauthorizedException(
+        'You are not allowed to update this post',
+      );
     }
 
     await this.prisma.post.update({ where: { id: postId }, data: newData });

@@ -10,7 +10,6 @@ import { RootModule } from './root/root.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CaslModule } from './casl/casl.module';
-import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { AccountModule } from './account/account.module';
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     CaslModule,
-    AccountModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
