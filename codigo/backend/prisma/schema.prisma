@@ -26,7 +26,7 @@ model MLTable {
   id            String          @id @default(uuid())
   userID        String
   tags          String
-  User          User            @relation(fields: [userID], references: [id])
+  User          User            @relation(fields: [userID], references: [id], onDelete: Cascade)
   notifications Notifications[]
 
   @@index([userID], map: "MLTable_userID_fkey")
@@ -38,7 +38,7 @@ model Notifications {
   postID      String
   description String
   mlTableID   String
-  mltable     MLTable @relation(fields: [mlTableID], references: [id])
+  mltable     MLTable @relation(fields: [mlTableID], references: [id], onDelete: Cascade)
   post        Post    @relation(fields: [postID], references: [id], onDelete: Cascade)
 
   @@index([mlTableID], map: "Notifications_mlTableID_fkey")
@@ -56,8 +56,8 @@ model Likes {
   count  Int
   userID String
   postID String
-  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userID], references: [id])
+  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user   User   @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "Likes_postID_fkey")
   @@index([userID], map: "Likes_userID_fkey")
@@ -69,19 +69,19 @@ model Comments {
   postID  String
   content String
   post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user    User   @relation(fields: [userID], references: [id])
+  user    User   @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "Comments_postID_fkey")
   @@index([userID], map: "Comments_userID_fkey")
 }
 
 model Tags {
-  id      String @id @default(uuid())
-  userID  String
-  postID  String
+  id      String  @id @default(uuid())
+  userID  String?
+  postID  String?
   subject String
-  post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user    User   @relation(fields: [userID], references: [id])
+  post    Post?   @relation(fields: [postID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user    User?   @relation(fields: [userID], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([postID], map: "Tags_postID_fkey")
   @@index([userID], map: "Tags_userID_fkey")
@@ -92,7 +92,7 @@ model UserPost {
   userID String
   postID String
   post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userID], references: [id])
+  user   User   @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "UserPost_postID_fkey")
   @@index([userID], map: "UserPost_userID_fkey")

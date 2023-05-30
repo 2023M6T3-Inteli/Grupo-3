@@ -166,19 +166,29 @@ export class UserService {
 
   async updateUserTags(userId: string, tags: string[]): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    console.log(user);
+    
+    if(!user){
+      throw new Error('Invalid user');
+    }
 
+    if(user.firstLogin == true){
+      await this.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          firstLogin: true,
+        },
+      })
 
-    // if (user && user.isFirstLogin) {
-    //   // Atualize as tags do usuário
-    //   await this.prisma.user.update({
-    //     where: { id: userId },
-    //     data: {
-    //       isFirstLogin: false, // Atualize o campo isFirstLogin para false
-    //     },
-    //   });
-    // } else {
-    //   throw new Error('Usuário inválido ou não é o primeiro login.');
-    // }
+      for(let i = 0; i < tags.length; i++){
+        await this.prisma.tags.create({
+          data: {
+            userID: user.id,
+            subject: tags[i],
+          },
+        });
+      }
+    }
   }
 }

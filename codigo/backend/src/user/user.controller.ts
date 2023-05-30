@@ -88,6 +88,7 @@ export class UserController {
   }
 
   @Post('setup/tags')
+  @ApiBearerAuth()
   async updateUserTags(
     @GetCurrentUserId() userId: string,
     @Body() tags: string[],
