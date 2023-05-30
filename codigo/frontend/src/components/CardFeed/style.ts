@@ -35,9 +35,12 @@ export const OwnerPost = styled.div`
 export const CardProfile = styled.div`
   p{
     margin: 0;
+    font-weight: 200;
+    font-size: 12px;
 
     span{
-      font-weight: bold;
+      font-weight: 300;
+      font-size: 16px;
     }
   }
   
@@ -46,14 +49,19 @@ export const CardProfile = styled.div`
 export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0px 14px 0px 14px;
 
   h3{
-    margin: 5px 0px 5px 0px;
-    font-weight: bold;
+    margin: 15px 0px 10px 0px;
+    font-weight: 200;
+    color: #0E0E0E; 
   }
 
   p{
     text-align: justify;
+    font-weight: 200;
+    color: #666666;
+    
   }
   
 `;
@@ -72,6 +80,7 @@ export const ImgContainer = styled.div`
 
 export const PostTags = styled.div`
   margin: 5px 0 15px 0;
+  padding: 10px 0px 24px 0px;
   display: flex;
   flex-direction: row;
   height: 17px;
