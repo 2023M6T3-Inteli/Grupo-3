@@ -1,16 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Comments, Likes, Tags, UserPost } from '@prisma/client';
-import { IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class AuthDto {
   @IsNotEmpty()
   @IsEmail()
-  @ApiProperty({example: 'yves@dell.com', description: 'email'})
+  @ApiProperty({ example: 'yves@dell.com', description: 'email' })
   email: string;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({example: 'adoleta', description: 'password'})
+  @ApiProperty({ example: 'adoleta', description: 'password' })
   password: string;
 
   @IsString()
@@ -58,14 +65,14 @@ export class AuthDto {
   score?: number;
 }
 
-export class AuthLoginDto{
+export class AuthLoginDto {
   @IsNotEmpty()
   @IsEmail()
-  @ApiProperty({example: 'yves@dell.com', description: 'email'})
+  @ApiProperty({ example: 'yves@dell.com', description: 'email' })
   email: string;
 
   @IsNotEmpty()
   @IsString()
-  @ApiProperty({example: 'adoleta', description: 'password'})
+  @ApiProperty({ example: 'adoleta', description: 'password' })
   password: string;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { Injectable, BadGatewayException } from '@nestjs/common';
+import { User, Tags } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ProfileUser } from './dto/pick-user.dto';
@@ -164,21 +164,80 @@ export class UserService {
     return;
   }
 
+  async getAllTags() {
+    const tags = await this.prisma.tags.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        userID: true,
+        postID: true,
+        subject: true,
+        createdAt: true,
+      },
+    });
+    return tags;
+  }
+
+  async deleteTag(userId: string, delTag: string): Promise<void> {
+    const findTag = await this.prisma.tags.findFirst({ where: {
+      userID: userId,
+      subject: delTag["tag"]
+    }});
+
+    if (!findTag) {
+      throw new BadGatewayException('Tag relationship does not exist!');
+    }
+
+    await this.prisma.tags.delete({
+      where: {
+        id: findTag.id,
+      },
+    });;
+  }
+
+  async deleteByUserId(userId: string): Promise<void> {
+    await this.prisma.tags.deleteMany({
+      where: {
+        userID: userId,
+      },
+    });
+  }
+
+  async deleteByPostId(postId: string): Promise<void> {
+    await this.prisma.tags.deleteMany({
+      where: {
+        postID: postId,
+      },
+    });
+  }
+
   async updateUserTags(userId: string, tags: string[]): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    console.log(user);
+    
+    if(!user){
+      throw new BadGatewayException('Invalid user!');
+    }
 
+    if(user.firstLogin == false){
+      await this.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          firstLogin: true,
+        },
+      })
 
-    // if (user && user.isFirstLogin) {
-    //   // Atualize as tags do usuário
-    //   await this.prisma.user.update({
-    //     where: { id: userId },
-    //     data: {
-    //       isFirstLogin: false, // Atualize o campo isFirstLogin para false
-    //     },
-    //   });
-    // } else {
-    //   throw new Error('Usuário inválido ou não é o primeiro login.');
-    // }
+      for(let i = 0; i < tags.length; i++){
+        await this.prisma.tags.create({
+          data: {
+            userID: user.id,
+            subject: tags[i],
+          },
+        });
+      }
+    } else{
+      throw new BadGatewayException('User has already performed the setup of his account!');
+    }
   }
 }
