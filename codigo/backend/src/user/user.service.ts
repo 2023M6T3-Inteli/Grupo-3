@@ -178,20 +178,19 @@ export class UserService {
     return tags;
   }
 
-  async deleteTag(userId: string, tag: string): Promise<any> {
-    const findTag = await this.prisma.tags.findMany({ where: {
+  async deleteTag(userId: string, delTag: string): Promise<void> {
+    const findTag = await this.prisma.tags.findFirst({ where: {
       userID: userId,
-      subject: tag
+      subject: delTag["tag"]
     }});
 
     if (!findTag) {
       throw new BadGatewayException('Tag relationship does not exist!');
     }
 
-    await this.prisma.tags.deleteMany({
+    await this.prisma.tags.delete({
       where: {
-        userID: userId,
-        subject: tag
+        id: findTag.id,
       },
     });;
   }

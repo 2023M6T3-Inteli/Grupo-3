@@ -18,32 +18,6 @@ import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.fa
 import { ProfileUser } from './dto/pick-user.dto';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { Profile } from 'passport';
-import axios, { AxiosResponse } from 'axios';
-
-async function login(username: string, password: string): Promise<any> {
-  try {
-    const response: AxiosResponse = await axios.post('/api/login', {
-      username,
-      password
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Erro na requisição de login:', error);
-    throw error;
-  }
-}
-
-const username = 'usuário';
-const password = 'senha';
-
-login(username, password)
-  .then(data => {
-    console.log('Login realizado com sucesso:', data);
-    // Faça algo com os dados de login bem-sucedidos
-  })
-  .catch(error => {
-    // Trate o erro de login aqui
-  });
 
 @ApiTags('user')
 @Controller('users')
@@ -93,13 +67,13 @@ export class UserController {
     return this.userService.getAllTags();
   }
 
-  @Delete('tag/:id')
+  @Delete('tag/:userId')
   @ApiBearerAuth()
   async deleteTag(
-    @Param('userId') userId: string, 
-    @Body() tag: string,
+    @Param('userId') userId: string,
+    @Body() delTag: string,
     ): Promise<void> {
-    await this.userService.deleteTag(userId, tag);
+    await this.userService.deleteTag(userId, delTag);
   }
 
   @Delete('tags/:userId')
