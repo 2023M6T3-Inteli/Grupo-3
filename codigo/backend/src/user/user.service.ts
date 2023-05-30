@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadGatewayException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -168,10 +168,10 @@ export class UserService {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     
     if(!user){
-      throw new Error('Invalid user');
+      throw new BadGatewayException('Invalid user!');
     }
 
-    if(user.firstLogin == true){
+    if(user.firstLogin == false){
       await this.prisma.user.update({
         where: {
           id: user.id,
@@ -189,6 +189,8 @@ export class UserService {
           },
         });
       }
+    } else{
+      throw new BadGatewayException('User has already performed the setup of his account!');
     }
   }
 }
