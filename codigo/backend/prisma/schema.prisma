@@ -12,7 +12,7 @@ model Post {
   title         String
   description   String
   image         String
-  active        Boolean
+  active        Boolean         @default(true)
   content       String
   createdAt     DateTime        @default(now())
   comments      Comments[]

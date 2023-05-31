@@ -89,8 +89,54 @@ export class PostService {
     return this.prisma.comments.findMany();
   }
 
-  //esse daqui ta encaminhado, deixo pro brunao deixar 100% e botar pra aparecer os comentários no post, dica
-  //a 2° parte que falei do post você põe no método getAllPosts que está logo acima
+  async findCommentsByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const comments = await this.prisma.comments.findMany({
+      where: { postID: postId },
+    });
+
+    return comments;
+  }
+
+  async findCommentsUsersByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const comments = await this.prisma.comments.findMany({
+      where: { postID: postId },
+    });
+
+    const usersID = [];
+
+    for(let i = 0; i < comments.length; i++){
+      usersID.push(comments[i].userID)
+    }
+
+    const users = [];
+
+    for(let i = 0; i < usersID.length; i++){
+      const userstst = await this.prisma.user.findMany({
+        where: { id: usersID[i] },
+      });
+      users.push(userstst[0])
+    }
+
+    return users
+  }
+
+  // Create comments in posts
   async createComments(postId: string, userId: string, content: string) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
 
@@ -98,22 +144,9 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    const active = await this.prisma.post.findUnique({
-      where: { id: postId },
-      select: { active: true },
-    });
-
-    if (!active) {
-      throw new BadGatewayException(
-        'Post was deleted or oculted by the author',
-      );
-    }
-
-    const parsedContent = JSON.parse(content);
-
     const commentAdd = await this.prisma.comments.create({
       data: {
-        content: parsedContent.commentAdd,
+        content: content["content"],
         userID: userId,
         postID: postId,
       },
