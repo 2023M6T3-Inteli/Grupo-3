@@ -1,14 +1,12 @@
-/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
   Injectable,
-  UnauthorizedException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateCommentDTO } from './dto/create-comment.dto';
-import { CreatePostDTO } from './dto/create-post.dto';
 import { Post } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
@@ -38,11 +36,16 @@ export class PostService {
     return createdPost;
   }
 
-  async getAllPosts() {
+  async getAllPosts(): Promise<{}> {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
-      include: { _count: true },
+      include: {
+        _count: true,
+        userPost: { select: { userID: true } },
+        tags: { select: { subject: true } },
+      },
     });
+
     return posts;
   }
 
@@ -125,8 +128,8 @@ export class PostService {
 
     const usersID = [];
 
-    for(let i = 0; i < comments.length; i++){
-      usersID.push(comments[i].userID)
+    for (let i = 0; i < comments.length; i++) {
+      usersID.push(comments[i].userID);
     }
 
     const users = [];
@@ -137,8 +140,7 @@ export class PostService {
       });
       users.push(auxUser[0])
     }
-
-    return users
+    return users;
   }
 
   // Create comments in posts
@@ -151,7 +153,7 @@ export class PostService {
 
     const commentAdd = await this.prisma.comments.create({
       data: {
-        content: content["content"],
+        content: content['content'],
         userID: userId,
         postID: postId,
       },

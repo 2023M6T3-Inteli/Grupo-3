@@ -5,19 +5,16 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
-  UseGuards,
-  Post
+  Post,
+  UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { AdminGuard } from '../guards/admin.guard';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ProfileUser } from './dto/pick-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
-import { ProfileUser } from './dto/pick-user.dto';
-import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
-import { Profile } from 'passport';
 
 @ApiTags('user')
 @Controller('users')
@@ -36,15 +33,6 @@ export class UserController {
   @ApiBearerAuth()
   async findByUsername(@Param('username') username: string): Promise<ProfileUser> {
     return this.userService.findByUsername(username);
-  }
-
-  @Patch(':id')
-  @ApiBearerAuth()
-  async update(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    return await this.userService.update(id, updateUserDto);
   }
 
   @Get('admin')

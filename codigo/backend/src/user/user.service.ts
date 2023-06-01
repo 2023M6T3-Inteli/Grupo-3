@@ -160,10 +160,6 @@ export class UserService {
     return deletedUser;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    return;
-  }
-
   async getAllTags() {
     const tags = await this.prisma.tags.findMany({
       orderBy: { createdAt: 'desc' },
