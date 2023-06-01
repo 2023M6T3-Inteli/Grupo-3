@@ -388,7 +388,11 @@ Link ou imagem da tabela com dados organizados dos testes realizados.
 
 # Documentação da API
 
-Apresentar a documentação no formato Swagger ou aplicação equivalente com todas as requisições dos endpoints desenvolvidos e funcionando.
+Devido ao problema enfretado pela AWS acessada pelo lab, que, quando fechada, o EC2 cai com os load balancers, a documentação teve que ficar no local, seguem os prints abaixo da documentação da API:
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/91b5ac06-3a3b-4586-b8fe-5b04f7e8ec13)
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/919e360f-76e5-4d80-b8de-72f5e23d2235)
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/54049bdf-499c-4123-8543-43b5cdd403fb)
+No botão Authorize você irá registrar o access_token gerado pela criação de uma conta ou entrada nela e estará permitido a acessar todos os endpoints a depender das suas permissões no site, se é administrador ou usuário normal.
 
 
 # Manual do Usuário
