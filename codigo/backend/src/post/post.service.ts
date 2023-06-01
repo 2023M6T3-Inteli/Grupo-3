@@ -140,7 +140,6 @@ export class PostService {
       });
       users.push(auxUser[0]);
     }
-
     return users;
   }
 
