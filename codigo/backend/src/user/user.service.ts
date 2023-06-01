@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, BadGatewayException } from '@nestjs/common';
-import { User, Tags } from '@prisma/client';
+import { BadGatewayException, Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ProfileUser } from './dto/pick-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -166,23 +166,23 @@ export class UserService {
 
   async getAllTags() {
     const tags = await this.prisma.tags.findMany({
-      orderBy: { createdAt: 'desc' },
       select: {
         id: true,
         userID: true,
         postID: true,
         subject: true,
-        createdAt: true,
       },
     });
     return tags;
   }
 
   async deleteTag(userId: string, delTag: string): Promise<void> {
-    const findTag = await this.prisma.tags.findFirst({ where: {
-      userID: userId,
-      subject: delTag["tag"]
-    }});
+    const findTag = await this.prisma.tags.findFirst({
+      where: {
+        userID: userId,
+        subject: delTag['tag'],
+      },
+    });
 
     if (!findTag) {
       throw new BadGatewayException('Tag relationship does not exist!');
@@ -192,7 +192,7 @@ export class UserService {
       where: {
         id: findTag.id,
       },
-    });;
+    });
   }
 
   async deleteByUserId(userId: string): Promise<void> {
@@ -213,12 +213,12 @@ export class UserService {
 
   async updateUserTags(userId: string, tags: string[]): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    
-    if(!user){
+
+    if (!user) {
       throw new BadGatewayException('Invalid user!');
     }
 
-    if(user.firstLogin == false){
+    if (user.firstLogin == false) {
       await this.prisma.user.update({
         where: {
           id: user.id,
@@ -226,18 +226,21 @@ export class UserService {
         data: {
           firstLogin: true,
         },
-      })
+      });
 
-      for(let i = 0; i < tags.length; i++){
+      for (let i = 0; i < tags.length; i++) {
         await this.prisma.tags.create({
           data: {
             userID: user.id,
             subject: tags[i],
+            postID: '',
           },
         });
       }
-    } else{
-      throw new BadGatewayException('User has already performed the setup of his account!');
+    } else {
+      throw new BadGatewayException(
+        'User has already performed the setup of his account!',
+      );
     }
   }
 }

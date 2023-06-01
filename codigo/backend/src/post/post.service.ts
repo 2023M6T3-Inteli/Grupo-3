@@ -9,12 +9,20 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { Post } from '@prisma/client';
+import { ProducerService } from 'src/kafka/producer.service';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly producerService: ProducerService,
+  ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
+    await this.producerService.produce({
+      topic: 'new post',
+      messages: [{ value: 'New Post' }],
+    });
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,

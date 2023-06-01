@@ -81,8 +81,8 @@ model Tags {
   postID    String?
   subject   String
   createdAt DateTime @default(now())
-  post      Post?    @relation(fields: [postID], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user      User?    @relation(fields: [userID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  post      Post?    @relation(fields: [postID], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "Tags_postID_fkey")
   @@index([userID], map: "Tags_userID_fkey")

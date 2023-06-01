@@ -2,6 +2,7 @@
 import {
   BadGatewayException,
   ForbiddenException,
+  Inject,
   Injectable,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -10,18 +11,20 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
 
+import { ClientKafka } from '@nestjs/microservices';
 import { AuthDto, AuthLoginDto } from './dto';
 import { JwtPayload, Tokens } from './types';
 
-@Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
     private config: ConfigService,
+    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientKafka
   ) {}
 
   async signupLocal(dto: AuthDto): Promise<Tokens> {
+    this.authClient.emit('create_user', JSON.stringify(dto))
     const hashedPassword = await argon.hash(dto.password);
 
     const findUser = await this.prisma.user.findUnique({
