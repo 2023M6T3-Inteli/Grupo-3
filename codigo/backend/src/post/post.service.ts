@@ -36,7 +36,7 @@ export class PostService {
     return createdPost;
   }
 
-  async getAllPosts() {
+  async getAllPosts(): Promise<{}> {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
       include: {
