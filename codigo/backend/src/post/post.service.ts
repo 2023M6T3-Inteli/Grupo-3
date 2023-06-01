@@ -135,10 +135,10 @@ export class PostService {
     const users = [];
 
     for (let i = 0; i < usersID.length; i++) {
-      const userstst = await this.prisma.user.findMany({
+      const auxUser = await this.prisma.user.findMany({
         where: { id: usersID[i] },
       });
-      users.push(userstst[0]);
+      users.push(auxUser[0]);
     }
 
     return users;
