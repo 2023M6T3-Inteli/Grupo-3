@@ -235,18 +235,42 @@ Para mais informações, acesse: <a href="https://www.canva.com/design/DAFgavuTP
 Exemplo de Diagrama de Casos de Uso
 </center>
 
-# Arquitetura do Sistema
+# Arquitetura do Sistema <br>
+	
+   Uma arquitetura de sistema é uma estrutura planejada e organizada para um sistema de software que descreve como os componentes do sistema interagem e se comunicam uns com os outros. Estabelece os fundamentos, diretrizes e padrões que orientam a criação, implementação e manutenção de um sistema com a intenção de satisfazer requisitos funcionais e ineficazes.Ela descreve a estrutura geral do sistema, incluindo seus componentes, suas relações, mecanismos de comunicação e princípios de operação. Ela fornece uma visão de alto nível do sistema, cobrindo elementos como compartilhamento de responsabilidade, separação de preocupações, modularidade e escalabilidade. <br>
+	
+  Uma arquitetura bem planejada e robusta torna possível construir sistemas complexos de forma mais eficaz, incentivando a reutilização de peças, a facilidade de manutenção, a flexibilidade e a capacidade do sistema de evoluir ao longo do tempo. Além disso, uma arquitetura adequada torna mais fácil identificar e tratar riscos e problemas, o que melhora a qualidade e a confiabilidade do sistema. <br>
+	
+  Em resumo, esta arquitetura de sistema é um projeto estruturado que estabelece como os componentes do sistema interagem e funcionam como um todo, fornecendo uma base estável para o desenvolvimento e evolução do nosso sistema ao longo do tempo.  <br>
+	
 <img width="661" alt="image" src="https://user-images.githubusercontent.com/99200253/235394478-8c6032bf-b423-4c4c-a851-2b151fe31373.png"> <br>
 Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg=/"> Miro <br>
 	
 # Arquitetura do Sistema (versão 2)
+	
+  Na versão dois da nossa arquitetura nós adicionamos o apache kafka da aws, ele atua como uma fila de mensagens para o nosso sistema, desempenhando um papel crucial na nossa arquitetura. Ele permite que nossos serviços troquem mensagens em sincronia, fornecendo um canal de comunicação seguro e expandível. O Kafka pode lidar com altas taxas de transferência de dados, garantindo a entrega de mensagens, apoiando a replicação e tolerando erros.<br>
+
+  Nesta arquitetura, os eventos são usados para alertar sobre mudanças de estado ou a ocorrência de ações relevantes para o sistema. Cada serviço tem a capacidade de criar e consumir eventos em Kafka, permitindo a comunicação entre os muitos componentes do sistema. Os eventos podem ser analisados imediatamente ou armazenados para análise adicional. Assim nossa arquitetura com Kafka oferece se torna poderosa para desenvolver o nosso sistemas distribuídos que são focados em eventos. Ela combina os benefícios da SOA, como modularidade e reutilização de serviços, com a escalabilidade e resiliência oferecidas por Kafka.
 
 <img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> 
 	
 # Diagrama do fluxo de sequência 
+ Este Diagrama do fluxo de sequência é uma ferramenta visual usada para descrever como os objetos interagem na nossa sequência de eventos. Ele exibe a ordem em que os objetos interagem ao longo do tempo, exibindo as mensagens que estão sendo enviadas entre eles (nós detalharemos melhor essas mensagens na especificação da mensageria com relação ao fluxo de sequência). 
+	
+ O nosso diagrama é usado para descrever o comportamento dinâmico do sistema, demonstrando como vários objetos trabalham juntos para realizar uma determinada função. Ele é especialmente útil para entender a lógica do fluxo de execução e identificar potenciais locais de interação.
+	
+ Assim o mesmo é uma representação visual da interação e sequência de eventos. Ele é usado para simular o comportamento dinâmico do sistema, nos ajudando a entender a ordem em que as ações são realizadas e identificando potenciais problemas ou melhorias no fluxo de interação entre elas.
+
 ![WhatsApp Image 2023-06-02 at 16 24 57](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/575814a3-ff54-4b6e-bc23-3ecdab9d960b)
 
 # Especificação de mensageria com relação ao fluxo de sequência 
+
+Como dito anteriormente a especificação de mensageria é uma continuação do nosso fluxo de sequência, ela busca detalhar as mensagens que estaremos enviando através das apis, assim nós representação mensagens trocadas quando objetos estão interagindo. Essas mensagens podem ser sincronizadas ou assíncronas, e sua inclusão no diagrama é crucial para descrever a comunicação entre os objetos e o fluxo de informações ao longo do tempo.
+	
+ Esta especificação mensageria do diagrama permite ver como as mensagens são enviadas e recebidas de objetos, ilustrando a troca de informações e a sequência em que essas interações ocorrem. Isso nos ajuda a entender o fluxo de execução do sistema e identificar dependências de objeto.
+
+  A nós incluimos essa especificação para uma representar completamente as interações de objeto, ela ajuda a melhorar a compreensão do sistema, tornando possível reconhecer os pontos de comunicação e o fluxo de informações ao longo do tempo. Esta especificação é especialmente útil na nossa arquitetura de microsserviços onde a comunicação entre muitos componentes é crucial para a funcionalidade geral do sistema.
+
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/b06d3764-0da6-42d9-aad4-2ab1e76feb43)
 	
 	
@@ -255,6 +279,11 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg
 Para uma visualização ampliada, acesse o link: https://miro.com/app/board/uXjVO5baQmg=/
 
 # Diagrama de fluxo de dados: <br>
+	
+  O diagrama de fluxo de dados é uma representação visual que descreve o movimento e a transformação dos dados no nosso sistema. Ele mostra como os dados são capturados, processados, armazenados e distribuídos por apis entre os diferentes componentes do sistema.
+
+  Assim nos usamos este diagrama para analisar e modelar o fluxo de dados do sistema, ajudando a identificar como os dados são manipulados e como as informações fluem entre os diferentes elementos do sistema. Ele fornece uma visão clara das entradas, saídas e processos de transformação de dados.
+
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
 Para mais informações, acesse: <a href="https://www.canva.com/design/DAFhCxQEjfE/NpXwvJpZzgwx2GHI2j4buQ/edit?utm_content=DAFhCxQEjfE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> Canva
 
