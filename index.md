@@ -15,15 +15,15 @@
 
 . Nome do Projeto: LearnLink  <br>
 . Nome do Parceiro: Dell <br> 
-. Nome do Grupo: Lírios <br>
-. Integrantes do grupo:
-  <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira, 
-  <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres, 
-  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho, 
-  <a href="https://www.linkedin.com/in/marcos-vinicius-166531239/"> Marcos Vinicius,
-  <a href="https://www.linkedin.com/in/matheusmacedosantos/"> Matheus Macedo,
-  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e
-  <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa
+. Nome do Grupo: Lírios <br>  <br> 
+. Integrantes do grupo:  <br> 
+  <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira,  <br> 
+  <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres,  <br> 
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho,  <br> 
+  <a href="https://www.linkedin.com/in/marcos-vinicius-166531239/"> Marcos Vinicius,  <br> 
+  <a href="https://www.linkedin.com/in/matheusmacedosantos/"> Matheus Macedo,  <br> 
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e  <br> 
+  <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa  <br> 
 	  
 <font size="+12"><center>
 Template do Documento do Projeto
