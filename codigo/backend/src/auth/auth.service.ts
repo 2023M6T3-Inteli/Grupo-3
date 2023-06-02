@@ -68,6 +68,8 @@ export class AuthService {
       messages: [{ value: 'New User' }],
     });
 
+    this.authClient.send('new-user', JSON.stringify(AuthDto));
+
     await this.updateRtHash(user.id, tokens.refresh_token);
 
     return tokens;

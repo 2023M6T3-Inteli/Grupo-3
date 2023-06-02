@@ -54,28 +54,26 @@ export class PostService {
   async getAllPosts() {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
-      include: { _count: true },
+      include: {
+        userPost: {
+          select: {
+            user: { select: { name: true, username: true, image: true } },
+          },
+        },
+        _count: { select: { likes: true } },
+      },
+      orderBy: { createdAt: 'desc' },
     });
     return posts;
   }
 
   async incrementLike(postID: string, userID: string): Promise<{}> {
-
     const findPost = await this.prisma.post.findUnique({
       where: { id: postID },
     });
 
     if (!findPost) {
       throw new BadGatewayException('Post not found');
-    }
-
-    const isActive = await this.prisma.post.findUnique({
-      where: { id: postID },
-      select: { active: true },
-    });
-
-    if (!isActive) {
-      throw new BadGatewayException('Post is not active');
     }
 
     const existingLike = await this.prisma.likes.findFirst({
@@ -103,7 +101,6 @@ export class PostService {
     return { message: 'Post liked with success' };
   }
 
-  // get all comments
   async findAllComments() {
     return this.prisma.comments.findMany();
   }
@@ -115,22 +112,9 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    const active = await this.prisma.post.findUnique({
-      where: { id: postId },
-      select: { active: true },
-    });
-
-    if (!active) {
-      throw new BadGatewayException(
-        'Post was deleted or oculted by the author',
-      );
-    }
-
-    const parsedContent = JSON.parse(content);
-
     const commentAdd = await this.prisma.comments.create({
       data: {
-        content: parsedContent.commentAdd,
+        content: content['content'],
         userID: userId,
         postID: postId,
       },
