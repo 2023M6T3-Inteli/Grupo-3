@@ -241,8 +241,14 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg
 	
 # Arquitetura do Sistema (versão 2)
 
-<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> <br>
-Arquitetura v2 <br>
+<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> 
+	
+# Diagrama do fluxo de sequência 
+![WhatsApp Image 2023-06-02 at 16 24 57](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/575814a3-ff54-4b6e-bc23-3ecdab9d960b)
+
+# Especificação de mensageria com relação ao fluxo de sequência 
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/b06d3764-0da6-42d9-aad4-2ab1e76feb43)
+	
 	
 # Arquitetura do Sistema (versão 3)
 <img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/0c15109c-178c-4287-bd16-6e163debc6f3"> <br>
@@ -251,6 +257,8 @@ Para uma visualização ampliada, acesse o link: https://miro.com/app/board/uXjV
 # Diagrama de fluxo de dados: <br>
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
 Para mais informações, acesse: <a href="https://www.canva.com/design/DAFhCxQEjfE/NpXwvJpZzgwx2GHI2j4buQ/edit?utm_content=DAFhCxQEjfE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> Canva
+
+
 
 <center>
 [template-documento4](../img/template-documento4.jpg)
