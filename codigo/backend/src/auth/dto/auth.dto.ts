@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Comments, Likes, Tags, UserPost } from '@prisma/client';
 import {
   IsBoolean,
   IsEmail,

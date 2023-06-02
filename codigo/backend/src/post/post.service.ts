@@ -1,28 +1,26 @@
 /* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
+  Inject,
   Injectable,
-  UnauthorizedException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateCommentDTO } from './dto/create-comment.dto';
-import { CreatePostDTO } from './dto/create-post.dto';
 import { Post } from '@prisma/client';
-import { ProducerService } from 'src/kafka/producer.service';
+import { ProducerService } from '../kafka/producer.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreatePostDTO } from './dto/create-post.dto';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly producerService: ProducerService,
+    @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
   ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
-    await this.producerService.produce({
-      topic: 'new post',
-      messages: [{ value: 'New Post' }],
-    });
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -43,6 +41,13 @@ export class PostService {
       data: { score: { increment: 1 } },
     });
 
+    await this.producerService.produce({
+      topic: 'new-post',
+      messages: [{ value: 'New Post' }],
+    });
+
+    this.postClient.send('new-post', JSON.stringify(createPostDTO));
+
     return createdPost;
   }
 
@@ -55,6 +60,7 @@ export class PostService {
   }
 
   async incrementLike(postID: string, userID: string): Promise<{}> {
+
     const findPost = await this.prisma.post.findUnique({
       where: { id: postID },
     });
@@ -102,8 +108,6 @@ export class PostService {
     return this.prisma.comments.findMany();
   }
 
-  //esse daqui ta encaminhado, deixo pro brunao deixar 100% e botar pra aparecer os comentários no post, dica
-  //a 2° parte que falei do post você põe no método getAllPosts que está logo acima
   async createComments(postId: string, userId: string, content: string) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
 
@@ -135,7 +139,6 @@ export class PostService {
     return commentAdd;
   }
 
-  //Delete post function, available only to the post owner and application admin
   async deletePost(postId: string, userId: string): Promise<Post> {
     const post = await this.prisma.userPost.findFirst({
       where: {
@@ -166,8 +169,7 @@ export class PostService {
     return deletedPost;
   }
 
-  // Edit post function, available only to the post owner
-  async editPost(userId: string, postId: string, newData: any): Promise<any> {
+  async editPost(userId: string, postId: string, newData: any): Promise<void> {
     const post = await this.prisma.userPost.findFirst({
       where: {
         postID: { equals: postId },

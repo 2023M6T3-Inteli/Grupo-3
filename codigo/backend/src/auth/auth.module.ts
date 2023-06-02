@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { SeedConsumer } from 'src/consumers/seed.consumer';
+import { KafkaModule } from 'src/kafka/kafka.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AtStrategy, RtStrategy } from './strategies';
@@ -8,6 +10,7 @@ import { AtStrategy, RtStrategy } from './strategies';
 @Module({
   imports: [
     JwtModule.register({}),
+    KafkaModule,
     ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
@@ -26,6 +29,6 @@ import { AtStrategy, RtStrategy } from './strategies';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy],
+  providers: [AuthService, AtStrategy, RtStrategy, SeedConsumer],
 })
 export class AuthModule {}

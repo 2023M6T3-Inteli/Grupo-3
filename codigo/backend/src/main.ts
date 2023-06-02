@@ -1,12 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true,
-  });
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   // Pipes
   app.useGlobalPipes(
@@ -16,6 +15,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  app.connectMicroservice({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['localhost:9092'],
+      },
+    },
+  });
 
   const config = new DocumentBuilder()
     .setTitle('LearnLink Endpoints')
@@ -27,6 +35,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  await app.startAllMicroservices();
 
   await app.listen(5500);
 }
