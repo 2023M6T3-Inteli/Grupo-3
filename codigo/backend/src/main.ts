@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -15,6 +16,15 @@ async function bootstrap() {
     }),
   );
 
+  app.connectMicroservice({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['localhost:9092'],
+      },
+    },
+  });
+
   const config = new DocumentBuilder()
     .setTitle('LearnLink Endpoints')
     .setDescription(
@@ -25,6 +35,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  await app.startAllMicroservices();
 
   await app.listen(5500);
 }

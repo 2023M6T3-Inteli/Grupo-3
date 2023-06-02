@@ -1,16 +1,23 @@
 import {
   BadGatewayException,
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Post } from '@prisma/client';
+import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDTO } from './dto/create-post.dto';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly producerService: ProducerService,
+    @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
+  ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
     const createdPost = await this.prisma.post.create({
@@ -33,6 +40,13 @@ export class PostService {
       data: { score: { increment: 1 } },
     });
 
+    await this.producerService.produce({
+      topic: 'new-post',
+      messages: [{ value: 'New Post' }],
+    });
+
+    this.postClient.send('new-post', JSON.stringify(createPostDTO));
+
     return createdPost;
   }
 
@@ -40,10 +54,14 @@ export class PostService {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
       include: {
-        _count: true,
-        userPost: { select: { userID: true } },
-        tags: { select: { subject: true } },
+        userPost: {
+          select: {
+            user: { select: { name: true, username: true, image: true } },
+          },
+        },
+        _count: { select: { likes: true } },
       },
+      orderBy: { createdAt: 'desc' },
     });
 
     return posts;
@@ -56,15 +74,6 @@ export class PostService {
 
     if (!findPost) {
       throw new BadGatewayException('Post not found');
-    }
-
-    const isActive = await this.prisma.post.findUnique({
-      where: { id: postID },
-      select: { active: true },
-    });
-
-    if (!isActive) {
-      throw new BadGatewayException('Post is not active');
     }
 
     const existingLike = await this.prisma.likes.findFirst({
@@ -92,7 +101,6 @@ export class PostService {
     return { message: 'Post liked with success' };
   }
 
-  // get all comments
   async findAllComments() {
     return this.prisma.comments.findMany();
   }
@@ -162,7 +170,6 @@ export class PostService {
     return commentAdd;
   }
 
-  //Delete post function, available only to the post owner and application admin
   async deletePost(postId: string, userId: string): Promise<Post> {
     const post = await this.prisma.userPost.findFirst({
       where: {
@@ -193,8 +200,7 @@ export class PostService {
     return deletedPost;
   }
 
-  // Edit post function, available only to the post owner
-  async editPost(userId: string, postId: string, newData: any): Promise<any> {
+  async editPost(userId: string, postId: string, newData: any): Promise<void> {
     const post = await this.prisma.userPost.findFirst({
       where: {
         postID: { equals: postId },
