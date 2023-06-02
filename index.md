@@ -250,7 +250,7 @@ Arquitetura v2 <br>
 <img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/0c15109c-178c-4287-bd16-6e163debc6f3"> <br>
 Para uma visualização ampliada, acesse o link: https://miro.com/app/board/uXjVO5baQmg=/
 
-Diagrama de fluxo de dados: <br>
+# Diagrama de fluxo de dados: <br>
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
 Para mais informações, acesse: <a href="https://www.canva.com/design/DAFhCxQEjfE/NpXwvJpZzgwx2GHI2j4buQ/edit?utm_content=DAFhCxQEjfE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> Canva
 
