@@ -365,10 +365,11 @@ O modelo lógico de banco de dados é uma representação abstrata e simplificad
 ## Teste Unitário
 
 Link ou imagem da tabela com dados organizados dos testes realizados.
-	Testes Unitários do Ranking
-	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789)
-	Testes Unitários do Usuário
-	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37)
+	
+Testes Unitários do Ranking
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789)
+Testes Unitários do Usuário
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37)
 
 
 ## Teste de Integração
