@@ -243,6 +243,10 @@ Exemplo de Diagrama de Casos de Uso
 <img width="661" alt="image" src="https://user-images.githubusercontent.com/99200253/235394478-8c6032bf-b423-4c4c-a851-2b151fe31373.png"> <br>
 Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg=/"> Miro <br>
 	
+# Arquitetura do Sistema (versão 2)
+
+<img width="305" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/cb8a4016-347b-46f1-9376-90edc4fb382f">
+Acima a arquitetura kafka realizada na sprint 2
 
 Diagrama de fluxo de dados: <br>
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
