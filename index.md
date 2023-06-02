@@ -245,8 +245,14 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg
 	
 # Arquitetura do Sistema (versão 2)
 
-<img width="305" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/cb8a4016-347b-46f1-9376-90edc4fb382f">
-Acima a arquitetura kafka realizada na sprint 2
+<img width="305" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/cb8a4016-347b-46f1-9376-90edc4fb382f"> <br>
+Acima a arquitetura kafka realizada na sprint 2 <br>
+<img width="305" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> <br>
+Arquitetura v2 <br>
+	
+# Arquitetura do Sistema (versão 3)
+<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/0c15109c-178c-4287-bd16-6e163debc6f3"> <br>
+Para uma visualização ampliada, acesse o link: https://miro.com/app/board/uXjVO5baQmg=/
 
 Diagrama de fluxo de dados: <br>
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
