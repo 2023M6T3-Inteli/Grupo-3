@@ -241,7 +241,7 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg
 	
 # Arquitetura do Sistema (versão 2)
 
-<img width="305" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> <br>
+<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> <br>
 Arquitetura v2 <br>
 	
 # Arquitetura do Sistema (versão 3)
