@@ -1,3 +1,9 @@
+**<center>
+Template do Documento do Projeto** <br>
+**Módulo 6 - Engenharia de Software** <br>
+**Elaboração de aplicação para dispositivos móveis**
+</center>** <br><br>
+
 <center>
 [template-documento1](../img/template-documento1.jpg)
 </center>
@@ -13,10 +19,10 @@
 </tr>
 </table>
 
-. Nome do Projeto: LearnLink  <br>
-. Nome do Parceiro: Dell <br> 
-. Nome do Grupo: Lírios <br>  <br> 
-. Integrantes do grupo:  <br> 
+>  Nome do Projeto: LearnLink  <br>
+>  Nome do Parceiro: Dell <br> 
+>  Nome do Grupo: Lírios <br>  <br> 
+>  Integrantes do grupo:  <br> 
   <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira,  <br> 
   <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres,  <br> 
   <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho,  <br> 
@@ -25,16 +31,6 @@
   <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e  <br> 
   <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa  <br> 
 	  
-<font size="+12"><center>
-Template do Documento do Projeto
-Módulo 6 - Engenharia de Software
-Elaboração de aplicação para dispositivos móveis
-</center></font>
-
->*Observação 1: A estrutura inicial deste documento é só um exemplo. O seu grupo deverá alterar esta estrutura de acordo com o que está sendo solicitado nos artefatos.*
-
->*Observação 2: O índice abaixo não precisa ser editado se você utilizar o Visual Studio Code com a extensão **Markdown All in One**. Essa extensão atualiza o índice automaticamente quando o arquivo é salvo.*
-
 **Conteúdo**
 
 - [Visão Geral do Projeto](#visão-geral-do-projeto)
