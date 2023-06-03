@@ -8,7 +8,7 @@ import {
   HttpStatus,
   Param,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
@@ -17,12 +17,12 @@ import { CreatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
 
 @ApiTags('post')
-@ApiBearerAuth()
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
+  @ApiBearerAuth()
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
@@ -31,16 +31,19 @@ export class PostController {
   }
 
   @Get()
+  @ApiBearerAuth()
   async getAllPosts() {
     return this.postService.getAllPosts();
   }
 
   @Get('comments')
+  @ApiBearerAuth()
   async findAllComments() {
     return this.postService.findAllComments();
   }
 
   @Post('comment/:postId')
+  @ApiBearerAuth()
   async createComment(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
@@ -58,6 +61,7 @@ export class PostController {
 
   //criar rota para dar like em posts
   @Post('likes/:postID')
+  @ApiBearerAuth()
   async incrementLike(
     @Param('postID') postID: string,
     @GetCurrentUserId() userID: string,
@@ -68,6 +72,7 @@ export class PostController {
   //Delete post function, available only to the post owner and application admin
 
   @Delete('delete/:postId')
+  @ApiBearerAuth()
   async deletePost(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
@@ -77,6 +82,7 @@ export class PostController {
 
   // Edit post function, available only to the post owner
   @Put('edit/:postId')
+  @ApiBearerAuth()
   async editPost(
     @Param('postId') postId: string,
     @Body() newData: string,
