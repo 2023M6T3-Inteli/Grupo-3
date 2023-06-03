@@ -19,7 +19,7 @@ async function bootstrap() {
           level: 'error',
           format: format.combine(format.timestamp(), format.json()),
           datePattern: 'YYYY-MM-DD',
-          zippedArchive: true, // don't want to zip our logs
+          zippedArchive: false, // don't want to zip our logs
           maxFiles: '30d', // will keep log until they are older than 30 days
         }),
         // same for all levels
@@ -27,7 +27,7 @@ async function bootstrap() {
           filename: `logs/%DATE%-combined.log`,
           format: format.combine(format.timestamp(), format.json()),
           datePattern: 'YYYY-MM-DD',
-          zippedArchive: true,
+          zippedArchive: false,
           maxFiles: '30d',
         }),
         new transports.Console({
