@@ -391,6 +391,11 @@ relacionamentos e tipos de relacionamentos
 ## Modelo Lógico 
 
 O modelo lógico de banco de dados é uma representação abstrata e simplificada dos dados armazenados no sistema. É utilizado para entender como os dados são relacionados e para garantir a integridade e consistência dos dados armazenados. Incluir  uma descrição detalhada das tabelas, campos e relações presentes no modelo lógico de banco de dados. Também serão apresentadas as regras de negócio e as restrições aplicadas aos dados para garantir a integridade e a consistência dos dados armazenados.
+	
+## Construção da base de dados
+
+Colab disponível para visualização através do seguinte link:
+https://colab.research.google.com/drive/1IByt3WEJskN7BR6_IpcmLoJw2KjRy5j0?authuser=1#scrollTo=66BwjNHjkOH9
 
 
 # Testes de Software
