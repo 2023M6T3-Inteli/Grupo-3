@@ -52,8 +52,16 @@ O dataset contém informações relevantes sobre avaliações de filmes, incluin
 *   movieId
 *   rating
 *   timestamp:
+  
+O dataset utilizado apresenta:
+*   userId --> 610 users
+*   movieId --> 9742 movies
+*   rating --> 100836 ratings
 
 O objetivo deste projeto é realizar análises e aplicar técnicas de processamento de dados nesse conjunto de dados, a fim de obter insights valiosos sobre as preferências e comportamentos dos usuários em relação aos filmes avaliados. A partir dessas análises, poderemos extrair informações úteis para recomendações personalizadas e tomada de decisões relacionadas ao domínio dos filmes.
+  
+Colab disponível para visualização através do seguinte link:
+https://colab.research.google.com/drive/1IByt3WEJskN7BR6_IpcmLoJw2KjRy5j0?authuser=1#scrollTo=66BwjNHjkOH9
 
 # Documentação
 
