@@ -1,5 +1,12 @@
 import { sleep, check } from 'k6';
 import http from 'k6/http';
+import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js"
+
+export function handleSummary(data) {
+  return {
+    "C:/Users/Inteli/Documents/GitHub/Grupo-3/codigo/backend/test/reports.html": htmlReport(data),
+  }
+};
 
 //o teste de estresse determina como a sua aplicação irá reagir em momentos extremos, mostrando um break point de que quantidade de usuários o sistema vai falhar
 export let options = {
