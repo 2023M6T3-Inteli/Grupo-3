@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GlobalStyles from '../../styles/GlobalStyles';
 import BottomNavbar from '../../elements/BottomNavbar/BottomNavbar';
 import CardFeed from '../../components/CardFeed';
-import { Box, Grid, TextField, Avatar }from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Box, Grid, TextField} from '@mui/material';
 import SearchBox from '../../components/SearchBox';
 import HeaderApp from '../../components/HeaderApp';
 
 
 const Saved: React.FC = () => {
+  const [prefers, setPrefers] = useState([]);
+
+  useEffect(()=>{
+    const fetchPrefers = async ()=> {
+      
+
+    }
+  })
+
   return (
-      <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <HeaderApp />
@@ -20,7 +26,6 @@ const Saved: React.FC = () => {
               <Grid item xs={12}>
                     <div style={{display:"Flex", justifyContent:"center"}}>
                       <SearchBox></SearchBox>
-                        {/*<TextField id="outlined-basic" label="search" variant="outlined"/>*/}
                     </div>
               </Grid>
               <Grid item xs={12}>
@@ -30,7 +35,7 @@ const Saved: React.FC = () => {
           </Grid>
           <BottomNavbar/>
           <GlobalStyles/>
-      </Box>
+        </Box>
     );
 }
 
