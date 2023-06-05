@@ -3,7 +3,6 @@ import { BadGatewayException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { ProfileUser } from './dto/pick-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -32,6 +31,7 @@ export class UserService {
         tags: true,
       },
     });
+
     return users;
   }
 

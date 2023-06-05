@@ -9,12 +9,14 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @ApiTags('post')
 @Controller('post')
@@ -23,6 +25,7 @@ export class PostController {
 
   @Post()
   @ApiBearerAuth()
+  @UseInterceptors(CacheInterceptor)
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,

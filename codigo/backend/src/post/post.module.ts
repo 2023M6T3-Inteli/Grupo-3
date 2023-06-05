@@ -4,10 +4,12 @@ import { SeedConsumer } from '../consumers/seed.consumer';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     KafkaModule,
+    CacheModule.register(),
     ClientsModule.register([
       {
         name: 'POST_MICROSERVICE',
@@ -17,7 +19,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             clientId: 'post',
             brokers: ['localhost:9092'],
           },
-          producerOnlyMode: true,
           consumer: {
             groupId: 'post-consumer',
           },

@@ -20,6 +20,11 @@ export class PostService {
   ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
+    await this.producerService.produce({
+      topic: 'post-consumer',
+      messages: [{ value: JSON.stringify(createPostDTO) }],
+    });
+
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -39,13 +44,6 @@ export class PostService {
       where: { id: userID },
       data: { score: { increment: 1 } },
     });
-
-    await this.producerService.produce({
-      topic: 'new-post',
-      messages: [{ value: 'New Post' }],
-    });
-
-    this.postClient.send('new-post', JSON.stringify(createPostDTO));
 
     return createdPost;
   }
