@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Card, CardIntro, OwnerPost , CardProfile, CardContent, ImgContainer, PostTags, CardFootbar, PostInteraction, NotInterested } from './style';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -6,6 +6,7 @@ import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import next from '../../assets/next.webp';
 import nodejs from '../../assets/nodejs.png';
+import axios from 'axios';
 
 const Posts = [
   { id: 0, ownerPhoto: 'brun0meira',  owner: 'Bruno Meira', timestamp: '2023-05-10 14:54', tittlePost: 'Server-Side Rendering in React', PostImage: 'Null', postDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum scelerisque, mi et interdum pellentesque, velit purus sollicitudin enim, a tristique enim nibh luctus tortor. Integer eleifend pretium massa, quis sollicitudin tortor dictum nec.", postsTags: ['NextJS', 'Front-end', 'SSR'], likes: 23, comments: 30},
@@ -15,84 +16,174 @@ const Posts = [
 ]
 
 const CardFeed: React.FC = () => {
-  const textCard = Posts.map((post) => {
-    const [isLiked, setIsLiked] = useState(false);
+  const [data, setData] = useState<any>(null);
+  
+  const [posts,setPosts]= useState<any>([])
+  
+  const r = async () => {axios.get('http://localhost:5500/post')
+    .then(function (response) {
+      setPosts(response.data);
+    })
+    .catch(function (error) {
+      console.error('Error in GET request:', error);
+    })
+  }
 
-    const toggleLiked = () => {
-      setIsLiked(!isLiked);
-    };
+  useEffect(()=>{
+    r()
+  },[])
 
-    const myText = post.postDescription;
+  console.log(posts)
+
+  // const cardsList = posts.map((card: any) => {
+  //   return(
+  //     <div key={card.id}>
+  //       <h1>{card.title}</h1>
+  //       <p>{card.description}</p>
+  //       <p>{card.createdAt}</p>
+  //     </div>
+  //   )
+  // })
+
+  const cardsList = posts.map((card: any) => {
+
+    const myText = card.description;
     function textLimit(text: string, limit: number) {
       if (text.length <= limit) {
         return text;
       }
-
-      return <p>{text.slice(0, limit)}<span style={{color: '#0561FC'}}>...See more</span></p>;
-    }
-
-    const new_arr = post.postsTags;
-    function returnTags() {
-      return new_arr.map((element, i) => (
-        <span key={i}>#{element}</span>
-      ));
     }
 
     const imgOrText = () => {
-      if (post.PostImage != 'Null') {
+      if (card.image != "image.jpeg" || card.image != "gabriela.jpeg") {
         return <ImgContainer>
-        <img
-          src={post.PostImage}
-          alt="postImg"
-        />
-      </ImgContainer>;
+          <img
+            src={card.image}
+            alt="postImg"
+          />
+        </ImgContainer>;
       } else {
         return <p>{textLimit(myText, 245)}</p>;
       }
     }
 
-    return (
+    return(
       <Card>
         <CardIntro>
           <OwnerPost>
             <img style={{width: 40, height: 40 , borderRadius: 20, marginRight:'10px' }}
-              src={"https://github.com/" + post.ownerPhoto + ".png"}
+              src={"https://github.com/" + "brun0meira" + ".png"}
               alt="profileImg"
             />
             <CardProfile>
-              <p><span>{post.owner}</span></p>
-              <p>{post.timestamp}</p>
+              <p><span>{card.title}</span></p>
+              <p>{card.createdAt}</p>
             </CardProfile>
           </OwnerPost>
           <MoreHorizIcon sx={{ color: '#8F8F8F'}} />
         </CardIntro>
         <CardContent>
-          <h3>{post.tittlePost}</h3>
+          <h3>{card.title}</h3>
           {imgOrText()}
           <PostTags>
-            {returnTags()}
+            {/* {returnTags()} */}
           </PostTags>
           <CardFootbar>
             <PostInteraction>
-              <button onClick={toggleLiked}>
+              {/* <button onClick={toggleLiked}>
                 {isLiked ? <FavoriteOutlinedIcon sx={{ color: '#FB3542'}} /> : <FavoriteBorderOutlinedIcon />}
-              </button>
-              <p>{post.likes} Likes</p>
+              </button> */}
+              <p>{card._count["likes"]} Likes</p>
               <ChatBubbleOutlineIcon />
-              <p>{post.comments} Comments</p>
+              <p>{card._count["comments"]} Comments</p>
             </PostInteraction>
-            <NotInterested>
+            {/* <NotInterested>
               <p>Not interested</p>
-            </NotInterested>
+            </NotInterested> */}
           </CardFootbar>
         </CardContent>
       </Card>
-    );
-  });
+    )
+  })
+
+  // const textCard = Posts.map((post) => {
+  //   const [isLiked, setIsLiked] = useState(false);
+
+  //   const toggleLiked = () => {
+  //     setIsLiked(!isLiked);
+  //   };
+
+    // const myText = post.postDescription;
+    // function textLimit(text: string, limit: number) {
+    //   if (text.length <= limit) {
+    //     return text;
+    //   }
+
+  //     return <p>{text.slice(0, limit)}<span style={{color: '#0561FC'}}>...See more</span></p>;
+  //   }
+
+  //   const new_arr = post.postsTags;
+  //   function returnTags() {
+  //     return new_arr.map((element, i) => (
+  //       <span key={i}>#{element}</span>
+  //     ));
+  //   }
+
+    // const imgOrText = () => {
+    //   if (post.PostImage != 'Null') {
+    //     return <ImgContainer>
+    //     <img
+    //       src={post.PostImage}
+    //       alt="postImg"
+    //     />
+    //   </ImgContainer>;
+    //   } else {
+    //     return <p>{textLimit(myText, 245)}</p>;
+    //   }
+    // }
+
+  //   return (
+      // <Card>
+      //   <CardIntro>
+      //     <OwnerPost>
+      //       <img style={{width: 40, height: 40 , borderRadius: 20, marginRight:'10px' }}
+      //         src={"https://github.com/" + post.ownerPhoto + ".png"}
+      //         alt="profileImg"
+      //       />
+      //       <CardProfile>
+      //         <p><span>{post.owner}</span></p>
+      //         <p>{post.timestamp}</p>
+      //       </CardProfile>
+      //     </OwnerPost>
+      //     <MoreHorizIcon sx={{ color: '#8F8F8F'}} />
+      //   </CardIntro>
+      //   <CardContent>
+      //     <h3>{post.tittlePost}</h3>
+      //     {imgOrText()}
+      //     <PostTags>
+      //       {returnTags()}
+      //     </PostTags>
+      //     <CardFootbar>
+      //       <PostInteraction>
+      //         <button onClick={toggleLiked}>
+      //           {isLiked ? <FavoriteOutlinedIcon sx={{ color: '#FB3542'}} /> : <FavoriteBorderOutlinedIcon />}
+      //         </button>
+      //         <p>{post.likes} Likes</p>
+      //         <ChatBubbleOutlineIcon />
+      //         <p>{post.comments} Comments</p>
+      //       </PostInteraction>
+      //       {/* <NotInterested>
+      //         <p>Not interested</p>
+      //       </NotInterested> */}
+      //     </CardFootbar>
+      //   </CardContent>
+      // </Card>
+  //   );
+  // });
   
   return (
     <Container>
-      {textCard}
+      {cardsList}
     </Container>
   );
 }

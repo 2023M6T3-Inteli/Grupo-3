@@ -1,3 +1,9 @@
+**<center>
+Template do Documento do Projeto** <br>
+**Módulo 6 - Engenharia de Software** <br>
+**Elaboração de aplicação para dispositivos móveis**
+</center>** <br><br>
+
 <center>
 [template-documento1](../img/template-documento1.jpg)
 </center>
@@ -13,28 +19,18 @@
 </tr>
 </table>
 
-. Nome do Projeto: LearnLink  <br>
-. Nome do Parceiro: Dell <br> 
-. Nome do Grupo: Lírios <br>
-. Integrantes do grupo:
-  <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira, 
-  <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres, 
-  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho, 
-  <a href="https://www.linkedin.com/in/marcos-vinicius-166531239/"> Marcos Vinicius,
-  <a href="https://www.linkedin.com/in/matheusmacedosantos/"> Matheus Macedo,
-  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e
-  <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa
+>  Nome do Projeto: LearnLink  <br>
+>  Nome do Parceiro: Dell <br> 
+>  Nome do Grupo: Lírios <br>  <br> 
+>  Integrantes do grupo:  <br> 
+  <a href="https://www.linkedin.com/in/bruno-omeira/"> Bruno Meira,  <br> 
+  <a href="https://www.linkedin.com/in/gabrielriostorres/"> Gabriel Torres,  <br> 
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Livia Coutinho,  <br> 
+  <a href="https://www.linkedin.com/in/marcos-vinicius-166531239/"> Marcos Vinicius,  <br> 
+  <a href="https://www.linkedin.com/in/matheusmacedosantos/"> Matheus Macedo,  <br> 
+  <a href="https://www.linkedin.com/in/liviapcoutinho/"> Raíssa Sabino e  <br> 
+  <a href="https://www.linkedin.com/in/yveslevi/"> Yves Lapa  <br> 
 	  
-<font size="+12"><center>
-Template do Documento do Projeto
-Módulo 6 - Engenharia de Software
-Elaboração de aplicação para dispositivos móveis
-</center></font>
-
->*Observação 1: A estrutura inicial deste documento é só um exemplo. O seu grupo deverá alterar esta estrutura de acordo com o que está sendo solicitado nos artefatos.*
-
->*Observação 2: O índice abaixo não precisa ser editado se você utilizar o Visual Studio Code com a extensão **Markdown All in One**. Essa extensão atualiza o índice automaticamente quando o arquivo é salvo.*
-
 **Conteúdo**
 
 - [Visão Geral do Projeto](#visão-geral-do-projeto)
@@ -168,7 +164,10 @@ Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVMRXrhB0
 	  
 ## Descritivo da Solução
 
-Descrição da solução a ser desenvolvida (o que é, quais principais funcionalidades, como usar) . Caso ainda não esteja definida a solução na Sprint 1, o faça assim que possível.
+A solução proposta é desenvolver um aplicativo web/mobile em nuvem (AWS) para a Intranet da Dell, com o objetivo de recomendar conteúdos sobre tecnologia aos funcionários. A plataforma permitirá aos usuários explorar diferentes áreas da tecnologia, se inscrever em tópicos de interesse e receber recomendações personalizadas com base em seu perfil.
+Além disso, haverá recursos de interação social para compartilhar informações e participar de discussões.
+A solução também oferecerá análises e métricas para acompanhar o engajamento e fazer melhorias contínuas.
+Em resumo, a solução proposta busca fornecer uma plataforma abrangente, personalizada e interativa para o compartilhamento de conteúdo e o aprendizado de tecnologia pelos funcionários da Dell, com o objetivo de promover o desenvolvimento profissional, o engajamento e o compartilhamento de conhecimentos dentro da empresa.
 
 
 ### Objetivos
@@ -177,12 +176,18 @@ Descrever o objetivo geral e os objetivos específicos.
 
 
 #### Objetivos gerais
-
-
+	  
+- Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
+- Fornecer uma ferramenta de comunicação eficiente entre os colaboradores da empresa.
+- Melhorar o engajamento dos funcionários com a cultura e os valores da empresa.
 
 #### Objetivos específicos
-
-
+	  
+- Criar um ambiente seguro para compartilhamento de informações internas da empresa.
+- Permitir que os colaboradores possam interagir e colaborar com seus colegas de trabalho.
+- Possibilitar o reconhecimento dos funcionários através de um sistema de ranking.
+- Garantir a conformidade das publicações com as diretrizes da empresa através de um sistema de denúncia.
+- Proporcionar aos usuários uma experiência personalizada com base em seus interesses e avaliações de conteúdo.
 
 ### Justificativa
 
@@ -230,14 +235,59 @@ Para mais informações, acesse: <a href="https://www.canva.com/design/DAFgavuTP
 Exemplo de Diagrama de Casos de Uso
 </center>
 
-# Arquitetura do Sistema
+# Arquitetura do Sistema <br>
+	
+   Uma arquitetura de sistema é uma estrutura planejada e organizada para um sistema de software que descreve como os componentes do sistema interagem e se comunicam uns com os outros. Estabelece os fundamentos, diretrizes e padrões que orientam a criação, implementação e manutenção de um sistema com a intenção de satisfazer requisitos funcionais e ineficazes.Ela descreve a estrutura geral do sistema, incluindo seus componentes, suas relações, mecanismos de comunicação e princípios de operação. Ela fornece uma visão de alto nível do sistema, cobrindo elementos como compartilhamento de responsabilidade, separação de preocupações, modularidade e escalabilidade. <br>
+	
+  Uma arquitetura bem planejada e robusta torna possível construir sistemas complexos de forma mais eficaz, incentivando a reutilização de peças, a facilidade de manutenção, a flexibilidade e a capacidade do sistema de evoluir ao longo do tempo. Além disso, uma arquitetura adequada torna mais fácil identificar e tratar riscos e problemas, o que melhora a qualidade e a confiabilidade do sistema. <br>
+	
+  Em resumo, esta arquitetura de sistema é um projeto estruturado que estabelece como os componentes do sistema interagem e funcionam como um todo, fornecendo uma base estável para o desenvolvimento e evolução do nosso sistema ao longo do tempo.  <br>
+	
 <img width="661" alt="image" src="https://user-images.githubusercontent.com/99200253/235394478-8c6032bf-b423-4c4c-a851-2b151fe31373.png"> <br>
 Para mais informações, acesse: <a href="https://miro.com/app/board/uXjVO5baQmg=/"> Miro <br>
 	
+# Arquitetura do Sistema (versão 2)
+	
+  Na versão dois da nossa arquitetura nós adicionamos o apache kafka da aws, ele atua como uma fila de mensagens para o nosso sistema, desempenhando um papel crucial na nossa arquitetura. Ele permite que nossos serviços troquem mensagens em sincronia, fornecendo um canal de comunicação seguro e expandível. O Kafka pode lidar com altas taxas de transferência de dados, garantindo a entrega de mensagens, apoiando a replicação e tolerando erros.<br>
 
-Diagrama de fluxo de dados: <br>
+  Nesta arquitetura, os eventos são usados para alertar sobre mudanças de estado ou a ocorrência de ações relevantes para o sistema. Cada serviço tem a capacidade de criar e consumir eventos em Kafka, permitindo a comunicação entre os muitos componentes do sistema. Os eventos podem ser analisados imediatamente ou armazenados para análise adicional. Assim nossa arquitetura com Kafka oferece se torna poderosa para desenvolver o nosso sistemas distribuídos que são focados em eventos. Ela combina os benefícios da SOA, como modularidade e reutilização de serviços, com a escalabilidade e resiliência oferecidas por Kafka.
+
+<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/40dbbf39-8022-4067-86ac-6f464dffce48"> 
+	
+# Diagrama do fluxo de sequência 
+ Este Diagrama do fluxo de sequência é uma ferramenta visual usada para descrever como os objetos interagem na nossa sequência de eventos. Ele exibe a ordem em que os objetos interagem ao longo do tempo, exibindo as mensagens que estão sendo enviadas entre eles (nós detalharemos melhor essas mensagens na especificação da mensageria com relação ao fluxo de sequência). 
+	
+ O nosso diagrama é usado para descrever o comportamento dinâmico do sistema, demonstrando como vários objetos trabalham juntos para realizar uma determinada função. Ele é especialmente útil para entender a lógica do fluxo de execução e identificar potenciais locais de interação.
+	
+ Assim o mesmo é uma representação visual da interação e sequência de eventos. Ele é usado para simular o comportamento dinâmico do sistema, nos ajudando a entender a ordem em que as ações são realizadas e identificando potenciais problemas ou melhorias no fluxo de interação entre elas.
+
+![WhatsApp Image 2023-06-02 at 16 24 57](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/575814a3-ff54-4b6e-bc23-3ecdab9d960b)
+
+# Especificação de mensageria com relação ao fluxo de sequência 
+
+Como dito anteriormente a especificação de mensageria é uma continuação do nosso fluxo de sequência, ela busca detalhar as mensagens que estaremos enviando através das apis, assim nós representação mensagens trocadas quando objetos estão interagindo. Essas mensagens podem ser sincronizadas ou assíncronas, e sua inclusão no diagrama é crucial para descrever a comunicação entre os objetos e o fluxo de informações ao longo do tempo.
+	
+ Esta especificação mensageria do diagrama permite ver como as mensagens são enviadas e recebidas de objetos, ilustrando a troca de informações e a sequência em que essas interações ocorrem. Isso nos ajuda a entender o fluxo de execução do sistema e identificar dependências de objeto.
+
+  A nós incluimos essa especificação para uma representar completamente as interações de objeto, ela ajuda a melhorar a compreensão do sistema, tornando possível reconhecer os pontos de comunicação e o fluxo de informações ao longo do tempo. Esta especificação é especialmente útil na nossa arquitetura de microsserviços onde a comunicação entre muitos componentes é crucial para a funcionalidade geral do sistema.
+
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99209068/b06d3764-0da6-42d9-aad4-2ab1e76feb43)
+	
+	
+# Arquitetura do Sistema (versão 3)
+<img width="836" alt="image" src="https://github.com/2023M6T3-Inteli/Grupo-3/assets/99189965/0c15109c-178c-4287-bd16-6e163debc6f3"> <br>
+Para uma visualização ampliada, acesse o link: https://miro.com/app/board/uXjVO5baQmg=/
+
+# Diagrama de fluxo de dados: <br>
+	
+  O diagrama de fluxo de dados é uma representação visual que descreve o movimento e a transformação dos dados no nosso sistema. Ele mostra como os dados são capturados, processados, armazenados e distribuídos por apis entre os diferentes componentes do sistema.
+
+  Assim nos usamos este diagrama para analisar e modelar o fluxo de dados do sistema, ajudando a identificar como os dados são manipulados e como as informações fluem entre os diferentes elementos do sistema. Ele fornece uma visão clara das entradas, saídas e processos de transformação de dados.
+
 <img width="421" alt="image" src="https://user-images.githubusercontent.com/99200253/235394849-65ce8ad5-49b6-4280-9a6d-24f647258d6b.png"> <br>
 Para mais informações, acesse: <a href="https://www.canva.com/design/DAFhCxQEjfE/NpXwvJpZzgwx2GHI2j4buQ/edit?utm_content=DAFhCxQEjfE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"> Canva
+
+
 
 <center>
 [template-documento4](../img/template-documento4.jpg)
@@ -265,20 +315,20 @@ De início, após analisar tais Design Systems, pode-se afirmar que esses são u
 Comparando os DS’s, buscaremos identificar seus pontos fortes e fracos, destacando aspectos como facilidade de uso, customização, disponibilidade de componentes, documentação e suporte, desempenho e compatibilidade com diferentes plataformas e navegadores. Com base nessa análise, poderemos tomar decisões informadas sobre a melhor abordagem a ser seguida em nosso projeto e garantir uma experiência de usuário de alta qualidade<br>
 
 Para que essa análise ocorra de maneira organizada, serão divididos os critérios:<br>
--Facilidade de uso e integração:<br>
+- Facilidade de uso e integração:<br>
 No contexto da Dell Technologies e da Atlassian,  se tratam de um ponto forte pela facilidade de usar e integrar em projetos, com uma ampla gama de componentes pré-construídos e exemplos de código disponíveis. Além disso, fornece diversas ferramentas e recursos para facilitar a implementação e a colaboração entre designers e desenvolvedores. 
 Já no caso da Apple, concentra-se majoritariamente em fornecer diretrizes de design, em vez de fornecer componentes pré-construídos. <br>
--Customização e flexibilidade:<br>
+- Customização e flexibilidade:<br>
 		Mais uma vez os Design System da Dell e da Atlassian se assemelha por garantir uma boa experiência de customização, permitindo aos desenvolvedores ajustarem os componentes e estilos de acordo com suas necessidades, enquanto os da Apple, mais uma vez, é menos focado em customização e mais em seguir as diretrizes específicas para garantir a consistência da experiência do usuário em dispositivos Apple.
--Componentes disponíveis:<br>
+- Componentes disponíveis:<br>
 	A Dell Technologies e a Atlassian disponibilizam uma vasta camada de componentes para o desenvolvimento, enquanto a Apple segue por outro lado, fornecendo frameworks e kits de desenvolvimento de software (SDKs) com componentes básicos para suas plataformas.
--Documentação e suporte:<br>
+- Documentação e suporte:<br>
 	Todas as documentações analisadas são completas e cumprem seu propósito de auxiliar no desenvolvimento seguindo um design system eficiente, porém dois deles possuem especificidades interessantes. A Apple, oferecendo um canal de suporte e a Atlassian, fornecendo além de kits de design, materiais de aprendizagem. <br>
--Performance e otimização:<br>
+- Performance e otimização:<br>
 	Neste aspecto, a Apple se destaca, por focar em seus dispositivos de fabricação própria, prezando pela otimização nestes, de modo que os frameworks e SDKs fornecidos pela Apple são otimizados para seus dispositivos e sistemas operacionais.
--Escalabilidade e manutenção:<br>
+- Escalabilidade e manutenção:<br>
 		Os três design systems analisados possuem uma boa estrutura de escalabilidade e manutenção, de modo a ter cada detalhe documentado, para que a solução por inteiro siga um padrão.
--Exemplo de aplicação:<br>
+- Exemplo de aplicação:<br>
 Mesmo com um Design System bem estruturado e detalhado, é importante lembrar que o sucesso de um projeto de interface de usuário depende em grande parte da habilidade da equipe de desenvolvimento e design. Um exemplo disso é o aplicativo mobile "AR Assistent", que segue algumas diretrizes do Dell Technologies Design System, mas que não conseguiu implementá-las de forma eficiente e harmoniosa, resultando em uma aplicação com problemas de interação e aparência.<br>
 
 Para garantir uma implementação adequada do Design System, é fundamental que a equipe de desenvolvimento e design trabalhe em conjunto, mantendo a consistência visual e a experiência do usuário em mente. Isso pode incluir revisões de design e testes de usabilidade para identificar e corrigir problemas de interação e aparência.<br>
@@ -350,6 +400,11 @@ O modelo lógico de banco de dados é uma representação abstrata e simplificad
 ## Teste Unitário
 
 Link ou imagem da tabela com dados organizados dos testes realizados.
+	
+Testes Unitários do Ranking <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789) <br>
+Testes Unitários do Usuário <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37) <br>
 
 
 ## Teste de Integração
@@ -379,7 +434,11 @@ Link ou imagem da tabela com dados organizados dos testes realizados.
 
 # Documentação da API
 
-Apresentar a documentação no formato Swagger ou aplicação equivalente com todas as requisições dos endpoints desenvolvidos e funcionando.
+Devido ao problema enfretado pela AWS acessada pelo lab, que, quando fechada, o EC2 cai com os load balancers, a documentação teve que ficar no local, seguem os prints abaixo da documentação da API:
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/91b5ac06-3a3b-4586-b8fe-5b04f7e8ec13)
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/919e360f-76e5-4d80-b8de-72f5e23d2235)
+	![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/54049bdf-499c-4123-8543-43b5cdd403fb)
+No botão Authorize você irá registrar o access_token gerado pela criação de uma conta ou entrada nela e estará permitido a acessar todos os endpoints a depender das suas permissões no site, se é administrador ou usuário normal.
 
 
 # Manual do Usuário

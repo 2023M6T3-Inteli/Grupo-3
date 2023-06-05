@@ -1,14 +1,30 @@
-/* eslint-disable prettier/prettier */
-import { BadGatewayException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { Post } from '@prisma/client';
+import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly producerService: ProducerService,
+    @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
+  ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
+    await this.producerService.produce({
+      topic: 'post-consumer',
+      messages: [{ value: JSON.stringify(createPostDTO) }],
+    });
+
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -32,11 +48,20 @@ export class PostService {
     return createdPost;
   }
 
-  async getAllPosts() {
+  async getAllPosts(): Promise<{}> {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
-      include: { _count: true },
+      include: {
+        userPost: {
+          select: {
+            user: { select: { name: true, username: true, image: true } },
+          },
+        },
+        _count: { select: { likes: true } },
+      },
+      orderBy: { createdAt: 'desc' },
     });
+
     return posts;
   }
 
@@ -47,15 +72,6 @@ export class PostService {
 
     if (!findPost) {
       throw new BadGatewayException('Post not found');
-    }
-
-    const isActive = await this.prisma.post.findUnique({
-      where: { id: postID },
-      select: { active: true },
-    });
-
-    if (!isActive) {
-      throw new BadGatewayException('Post is not active');
     }
 
     const existingLike = await this.prisma.likes.findFirst({
@@ -83,13 +99,57 @@ export class PostService {
     return { message: 'Post liked with success' };
   }
 
-  // get all comments
   async findAllComments() {
     return this.prisma.comments.findMany();
   }
 
-  //esse daqui ta encaminhado, deixo pro brunao deixar 100% e botar pra aparecer os comentários no post, dica
-  //a 2° parte que falei do post você põe no método getAllPosts que está logo acima
+  async findCommentsByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const comments = await this.prisma.comments.findMany({
+      where: { postID: postId },
+    });
+
+    return comments;
+  }
+
+  async findCommentsUsersByPostId(postId: string) {
+    const post = await this.prisma.post.findFirst({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const comments = await this.prisma.comments.findMany({
+      where: { postID: postId },
+    });
+
+    const usersID = [];
+
+    for (let i = 0; i < comments.length; i++) {
+      usersID.push(comments[i].userID);
+    }
+
+    const users = [];
+
+    for(let i = 0; i < usersID.length; i++){
+      const auxUser = await this.prisma.user.findMany({
+        where: { id: usersID[i] },
+      });
+      users.push(auxUser[0])
+    }
+    return users;
+  }
+
+  // Create comments in posts
   async createComments(postId: string, userId: string, content: string) {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
 
@@ -97,22 +157,9 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    const active = await this.prisma.post.findUnique({
-      where: { id: postId },
-      select: { active: true },
-    });
-
-    if (!active) {
-      throw new BadGatewayException(
-        'Post was deleted or oculted by the author',
-      );
-    }
-
-    const parsedContent = JSON.parse(content);
-
     const commentAdd = await this.prisma.comments.create({
       data: {
-        content: parsedContent.commentAdd,
+        content: content['content'],
         userID: userId,
         postID: postId,
       },
@@ -121,39 +168,49 @@ export class PostService {
     return commentAdd;
   }
 
-  // Função de deletar se for dono do post ou admin
-  async deletePost(postId: string, userId: string): Promise<void> {
-    const post = await this.prisma.post.findUnique({ where: { id: postId } });
+  async deletePost(postId: string, userId: string): Promise<Post> {
+    const post = await this.prisma.userPost.findFirst({
+      where: {
+        postID: { equals: postId },
+      },
+    });
+
+    const userAdmin = await this.prisma.user.findFirst({
+      where: {
+        id: { equals: userId },
+      },
+    });
+
     if (!post) {
       throw new NotFoundException('Post not found');
     }
 
-    if (post.id !== userId && !this.isAdmin(userId)) {
-      throw new UnauthorizedException('You are not allowed to delete this post');
+    if (post.userID !== userId && userAdmin.admin == false) {
+      throw new UnauthorizedException(
+        'You are not allowed to delete this post',
+      );
     }
 
-    await this.prisma.post.delete({ where: { id: postId } });
+    const deletedPost = await this.prisma.post.delete({
+      where: { id: postId },
+    });
+
+    return deletedPost;
   }
 
-  private isAdmin(userId: string): any {
-    if (userId) {
-      return true
-    } else {
-      return false
+  async editPost(userId: string, postId: string, newData: any): Promise<void> {
+    const post = await this.prisma.userPost.findFirst({
+      where: {
+        postID: { equals: postId },
+      },
+    });
+
+    if (!post || post.userID !== userId) {
+      throw new UnauthorizedException(
+        'You are not allowed to update this post',
+      );
     }
-    // Todo - logica do se for admin 
-  }
 
-  // Função de editar se for dono do post
-  async editPost(userId: string, postId: string, newData: any): Promise<any> {
-    const post = await this.prisma.post.findUnique({ where: { id: userId }, select: { userPost: true } })
-
-    // const post = await this.prisma.userPost.findUnique({ where: { id: userId, }, select: { userID: true } });
-    return post;
-    // if (!post || post.userID !== userId) {
-    //   throw new UnauthorizedException('You are not allowed to update this post');
-    // }
-
-    // await this.prisma.post.update({ where: { id: postId }, data: newData });
+    await this.prisma.post.update({ where: { id: postId }, data: newData });
   }
 }

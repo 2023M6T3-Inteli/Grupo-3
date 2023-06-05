@@ -6,7 +6,7 @@ export const Intro = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 10px 0;
+  margin: 20px 0 30px 0;
 `;
 
 export const RightSide = styled.div`
@@ -33,7 +33,10 @@ export const RankingButton = styled.button`
   padding: 3px 7px 3px 3px;
   color: white;
   background: #0672CB;
-  border: 1px solid #0672CB;
+  border: 6px solid #0672CB;
+  height:40px;
+  width: 100px;
+
   
   svg{
     margin-right: 5px;

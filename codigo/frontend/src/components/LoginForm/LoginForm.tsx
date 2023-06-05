@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -6,8 +6,8 @@ import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import { Container } from "@mui/material";
 import GlobalStyles from "../../styles/GlobalStyles";
-
-
+import axios from 'axios';
+import { setAuthorizationHeader } from '../../axios';
 
 const Father = styled.div`
   display: flex;
@@ -115,40 +115,64 @@ const CreateAccount = styled(Typography)`
   }
 `;
 
+
+
 function LoginForm() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const handleOnClickHomL = useCallback(
-    () => navigate("/feed", { replace: true }),
-    [navigate]
-  );
+
+  const handleEmailChange = (event: any) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: any) => {
+    setPassword(event.target.value);
+  };
+
+  const handleFormSubmit = async (event: any) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5500/auth/signin', {
+        email,
+        password
+      });
+      console.log('Login successful:', response.data);
+      setEmail('');
+      setPassword('');
+      navigate("/feed", { replace: true })
+      const { access_token } = response.data;
+      setAuthorizationHeader(access_token);
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
 
   return (
-    <Form>
+    <Form onSubmit={handleFormSubmit}>
       <Title>Welcome to LearnLink,</Title>
       <Subtitle>the app that encourages a culture of knowledge sharing in your company.</Subtitle>
       <Instruction>
         You must login with the SSO from your enterprise
       </Instruction>
       <Father>
-        <Input label="E-mail" fullWidth margin="normal" />
-        <Input label="Password" fullWidth margin="normal" type="password" />
+        <Input label="E-mail" value={email} onChange={handleEmailChange} fullWidth margin="normal" />
+        <Input label="Password" name="password" value={password} onChange={handlePasswordChange} fullWidth margin="normal" type="password" />
         <Password>
           <ForgotPassword> Don't remember your password? Reset password </ForgotPassword>
         </Password>
-        <StyledButton onClick={handleOnClickHomL} variant="contained" color="primary">
+        <StyledButton type="submit" variant="contained" color="primary">
           {" "}
           Sign In{" "}
         </StyledButton>
-
         <Create>
           <CreateAccount>Don't have an account? Create account.</CreateAccount>
         </Create>
       </Father>
-
-      <GlobalStyles></GlobalStyles>
-      
+      <GlobalStyles></GlobalStyles>  
     </Form>
-
   );
 }
 

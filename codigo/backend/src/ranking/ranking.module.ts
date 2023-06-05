@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { RankingService } from './ranking.service';
-import { RankingController } from './ranking.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
-
+import { RankingController } from './ranking.controller';
+import { RankingService } from './ranking.service';
 
 @Module({
   imports: [PrismaModule],

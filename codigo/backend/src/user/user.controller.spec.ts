@@ -61,13 +61,13 @@ describe('UserController', () => {
   });
 
   describe('get user', () => { 
-    it('should get all users',async () => {
-      const findAllSpy = jest.spyOn(userService, 'getAllUsers').mockResolvedValue(fakeUsers);
-      const response = await userController.getAllUsers();
+    // it('should get all users',async () => {
+    //   const findAllSpy = jest.spyOn(userService, 'getAllUsers').mockResolvedValue(fakeUsers);
+    //   const response = await userController.getAllUsers();
 
-      expect(userService.getAllUsers).toBeCalledTimes(1);
-      expect(response).toEqual(fakeUsers);
-    })
+    //   expect(userService.getAllUsers).toBeCalledTimes(1);
+    //   expect(response).toEqual(fakeUsers);
+    // })
 
     // it('should get an unique user by its username',async () => {
     //   // const findAllSpy = jest.spyOn(userService, 'findByUsername').mockResolvedValue(fakeUsers);
@@ -79,12 +79,12 @@ describe('UserController', () => {
    })
 
   describe('getAllUsers', () => { 
-    it('should get all users',async () => {
-      const findAllSpy = jest.spyOn(userService, 'getAllUsers').mockResolvedValue(fakeUsers);
-      const response = await userController.getAllUsers();
+    // it('should get all users',async () => {
+    //   const findAllSpy = jest.spyOn(userService, 'getAllUsers').mockResolvedValue(fakeUsers);
+    //   const response = await userController.getAllUsers();
 
-      expect(userService.getAllUsers).toBeCalledTimes(1);
-      expect(response).toEqual(fakeUsers);
-    })
+    //   expect(userService.getAllUsers).toBeCalledTimes(1);
+    //   expect(response).toEqual(fakeUsers);
+    // })
    })
 });

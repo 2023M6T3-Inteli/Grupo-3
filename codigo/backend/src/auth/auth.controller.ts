@@ -4,7 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -31,8 +31,8 @@ export class AuthController {
     description: 'Forbbiden',
   })
   @HttpCode(HttpStatus.CREATED)
-  signupLocal(@Body() dto: AuthDto): Promise<Tokens> {
-    return this.authService.signupLocal(dto);
+  async signupLocal(@Body() dto: AuthDto): Promise<Tokens> {
+    return await this.authService.signupLocal(dto);
   }
 
   @Public()

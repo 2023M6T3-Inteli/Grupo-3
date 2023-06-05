@@ -6,16 +6,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     width: 80%;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-right: 0.5px solid #D2D2D2;
+    border-left: 0.5px solid #D2D2D2;
   }
 
-  @media (min-width: 1280px){
+  @media (min-width: 1280px) {
     width: 60%;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    border-right: 0.5px solid #D2D2D2;
+    border-left: 0.5px solid #D2D2D2;
   }
 `;
 
@@ -40,9 +40,10 @@ export const Trending = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 0 10px 0;
+  padding: 5px;
 
   p{
-    color: #0561FC;
+    color: #0672CB;
   }
 
   div{
@@ -86,7 +87,7 @@ export const ForYou = styled.div`
   }
 
   h4{
-    color: #0561FC;
+    color: #0672CB;
     font-weight: bold;
   }
 

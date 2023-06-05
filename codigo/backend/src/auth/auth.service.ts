@@ -1,26 +1,33 @@
 import {
   BadGatewayException,
   ForbiddenException,
-  Injectable,
+  Inject,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { ClientKafka } from '@nestjs/microservices';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
+import { ProducerService } from 'src/kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
-
 import { AuthDto, AuthLoginDto } from './dto';
 import { JwtPayload, Tokens } from './types';
 
-@Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
     private config: ConfigService,
+    private producerService: ProducerService,
+    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientKafka,
   ) {}
 
   async signupLocal(dto: AuthDto): Promise<Tokens> {
+    await this.producerService.produce({
+      topic: 'auth-consumer',
+      messages: [{ value: JSON.stringify(dto)}],
+    });
+
     const hashedPassword = await argon.hash(dto.password);
 
     const findUser = await this.prisma.user.findUnique({
@@ -60,6 +67,7 @@ export class AuthService {
       });
 
     const tokens = await this.getTokens(user.id, user.email);
+
     await this.updateRtHash(user.id, tokens.refresh_token);
 
     return tokens;
@@ -71,6 +79,44 @@ export class AuthService {
         email: dto.email,
       },
     });
+
+    if (user.lastLogin == '') {
+      await this.prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          lastLogin: new Date().toString(),
+        },
+      });
+    } else {
+      const lastLogin = new Date(user.lastLogin);
+      const actualDate = new Date();
+
+      const hours = Math.abs(lastLogin.valueOf() - actualDate.valueOf()) / 36e5;
+
+      if (hours > 24 && hours < 48) {
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            lastLogin: new Date().toString(),
+            streak: user.streak + 1,
+          },
+        });
+      } else if (hours > 48) {
+        await this.prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            lastLogin: new Date().toString(),
+            streak: 0,
+          },
+        });
+      }
+    }
 
     if (!user)
       throw new ForbiddenException(
@@ -139,7 +185,7 @@ export class AuthService {
   async getTokens(userId: string, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
       sub: userId,
-      email: email
+      email: email,
     };
 
     const [at, rt] = await Promise.all([

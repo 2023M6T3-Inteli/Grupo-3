@@ -10,6 +10,7 @@ export const Container = styled.div`
   width: 20%;
   display: none;
 
+
   @media (min-width: 768px){
     display: flex;
     flex-direction: column;
@@ -73,6 +74,7 @@ export const MenuButton = styled.button`
 
   padding: 10px;
   outline: 0;
+  color: #636363;
 
   & + button{
     margin-top: 5px;
@@ -101,7 +103,7 @@ const iconCSS = css`
 
   width: 40px;
   height: 40px;
-  color: black;
+  color: #636363;
 `;
 
 export const HomeIcon = styled(HomeOutlinedIcon)`

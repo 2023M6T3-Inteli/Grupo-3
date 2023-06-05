@@ -17,7 +17,7 @@ const FeedMain: React.FC = () => {
       <Trends>
         <Trending>
           <div>
-            <RecommendIcon sx={{ color: '#0561FC', 'margin-right': '5px', width: '18px', height: '18px' }} />
+            <RecommendIcon sx={{ color: '#0672CB', 'margin-right': '5px', width: '18px', height: '18px' }} />
             <h2>You might like</h2>
             <InfoOutlinedIcon sx={{ color: '#000000', 'margin-left': '5px', width: '18px', height: '18px' }} />
           </div>

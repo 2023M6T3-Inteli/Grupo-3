@@ -1,20 +1,20 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
-  Patch,
+  Post,
   UseGuards
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
+import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { AdminGuard } from '../guards/admin.guard';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ProfileUser } from './dto/pick-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
-import { ProfileUser } from './dto/pick-user.dto';
-import { Profile } from 'passport';
 
 @ApiTags('user')
 @Controller('users')
@@ -35,15 +35,6 @@ export class UserController {
     return this.userService.findByUsername(username);
   }
 
-  @Patch(':id')
-  @ApiBearerAuth()
-  async update(
-    @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    return await this.userService.update(id, updateUserDto);
-  }
-
   @Get('admin')
   @UseGuards(AdminGuard)
   @ApiBearerAuth()
@@ -56,5 +47,41 @@ export class UserController {
   @ApiBearerAuth()
   async deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
+  }
+
+  @Get('setup')
+  @ApiBearerAuth()
+  async getAllTags() {
+    return this.userService.getAllTags();
+  }
+
+  @Delete('tag/:userId')
+  @ApiBearerAuth()
+  async deleteTag(
+    @Param('userId') userId: string,
+    @Body() delTag: string,
+    ): Promise<void> {
+    await this.userService.deleteTag(userId, delTag);
+  }
+
+  @Delete('tags/:userId')
+  @ApiBearerAuth()
+  async deleteByUserId(@Param('userId') userId: string): Promise<void> {
+    await this.userService.deleteByUserId(userId);
+  }
+
+  @Delete('tags/:postId')
+  @ApiBearerAuth()
+  async deleteByPostId(@Param('postId') postId: string): Promise<void> {
+    await this.userService.deleteByPostId(postId);
+  }
+
+  @Post('setup/tags')
+  @ApiBearerAuth()
+  async updateUserTags(
+    @GetCurrentUserId() userId: string,
+    @Body() tags: string[],
+  ): Promise<void> {
+    await this.userService.updateUserTags(userId, tags);
   }
 }
