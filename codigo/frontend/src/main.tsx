@@ -11,6 +11,7 @@ import Ranking from './pages/Ranking/index';
 import Saved from './pages/Saved';
 import PostContent from './pages/PostContent/PostContent';
 import Account from './pages/Account';
+import User from './pages/Account/User'
 
 
 
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/Account",
     element: <Account />,
+  },
+  {
+    path: "/User",
+    element: <User/>
   },
   {
     path: "/acc",

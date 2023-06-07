@@ -5,6 +5,7 @@ import CardFeed from '../../components/CardFeed';
 import { Box, Grid, TextField} from '@mui/material';
 import SearchBox from '../../components/SearchBox';
 import HeaderApp from '../../components/HeaderApp';
+import axios from 'axios';
 
 
 const Saved: React.FC = () => {
@@ -12,10 +13,15 @@ const Saved: React.FC = () => {
 
   useEffect(()=>{
     const fetchPrefers = async ()=> {
-      
-
-    }
-  })
+      try{
+        const response = await axios.get('/api/test');
+        setPrefers(response.data);
+      } catch (error){
+        console.error(error);
+      }
+    };
+     fetchPrefers();
+  },[]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,7 +35,6 @@ const Saved: React.FC = () => {
                     </div>
               </Grid>
               <Grid item xs={12}>
-                  <CardFeed/>
                   <CardFeed/>
               </Grid>
           </Grid>
