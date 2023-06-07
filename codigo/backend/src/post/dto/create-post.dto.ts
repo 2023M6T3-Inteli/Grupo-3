@@ -12,6 +12,10 @@ export class CreatePostDTO {
   @IsOptional()
   title: string;
 
+  @ApiProperty({ example: '["React", "NodeJS"]', description: 'Tags' })
+  @IsOptional()
+  tags: string[];
+
   @ApiProperty({
     example: 'This is my example post',
     description: 'Description',

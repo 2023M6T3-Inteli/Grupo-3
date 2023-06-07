@@ -29,6 +29,18 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
+  @Get('/profile/:userId')
+  @ApiBearerAuth()
+  async findOne(@Param('userId') userId: string): Promise<ProfileUser> {
+    return await this.userService.findOne(userId);
+  }
+
+  @Get('/profile/:email')
+  @ApiBearerAuth()
+  async findByEmail(@Param('email') email: string): Promise<ProfileUser> {
+    return this.userService.findByEmail(email);
+  }
+
   @Get('/profile/:username')
   @ApiBearerAuth()
   async findByUsername(@Param('username') username: string): Promise<ProfileUser> {

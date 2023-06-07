@@ -19,6 +19,7 @@ export const Card = styled.div`
 `;
 
 export const CardIntro = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -35,35 +36,29 @@ export const OwnerPost = styled.div`
 export const CardProfile = styled.div`
   p{
     margin: 0;
-    font-weight: 200;
-    font-size: 12px;
+    width: fit-content;
 
     span{
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: bold;
     }
   }
   
 `;
 
 export const CardContent = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0px 14px 0px 14px;
 
-  h3{
-    margin: 15px 0px 10px 0px;
-    font-weight: 200;
-    color: #0E0E0E; 
+  h2{
+    margin: 10px 0px 5px 0px;
+    font-weight: bold;
+    text-align: start;
   }
 
   p{
     text-align: justify;
-    font-weight: 200;
-    color: #666666;
-    
   }
-  
 `;
 
 export const ImgContainer = styled.div`
@@ -80,7 +75,6 @@ export const ImgContainer = styled.div`
 
 export const PostTags = styled.div`
   margin: 5px 0 15px 0;
-  padding: 10px 0px 24px 0px;
   display: flex;
   flex-direction: row;
   height: 17px;

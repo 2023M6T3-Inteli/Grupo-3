@@ -1,15 +1,6 @@
 /* eslint-disable prettier/prettier */
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
@@ -23,11 +14,13 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
+  @UseInterceptors(FileInterceptor('file'))
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
+    @UploadedFile() imagem: Express.Multer.File,
   ) {
-    return this.postService.createPost(createPostDTO, userID);
+    return this.postService.createPost(createPostDTO, userID, imagem);
   }
 
   @Get()
@@ -35,9 +28,32 @@ export class PostController {
     return this.postService.getAllPosts();
   }
 
+  @Get('byId/:postID')
+  async getPostById(
+    @Param('postID') postID: string,
+  ) {
+    return this.postService.getPostById(postID);
+  }
+
+  //criar rota para dar like em posts
+  @Post('likes/:postID')
+  async incrementLike(
+    @Param('postID') postID: string,
+    @GetCurrentUserId() userID: string,
+  ): Promise<{}> {
+    return this.postService.incrementLike(postID, userID);
+  }
+
   @Get('comments')
   async findAllComments() {
     return this.postService.findAllComments();
+  }
+
+  @Get('comments/:postId')
+  async findCommentsByPostId(
+    @Param('postId') postId: string,
+  ) {
+    return this.postService.findCommentsByPostId(postId);
   }
 
   @Post('comment/:postId')
@@ -54,15 +70,6 @@ export class PostController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  }
-
-  //criar rota para dar like em posts
-  @Post('likes/:postID')
-  async incrementLike(
-    @Param('postID') postID: string,
-    @GetCurrentUserId() userID: string,
-  ): Promise<{}> {
-    return this.postService.incrementLike(postID, userID);
   }
 
   //Delete post function, available only to the post owner and application admin
