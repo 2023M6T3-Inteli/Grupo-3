@@ -8,13 +8,12 @@ import { CreatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
 
 @ApiTags('post')
-@ApiBearerAuth()
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @ApiBearerAuth()
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
@@ -24,6 +23,7 @@ export class PostController {
   }
 
   @Get()
+  @ApiBearerAuth()
   async getAllPosts() {
     return this.postService.getAllPosts();
   }
@@ -35,16 +35,8 @@ export class PostController {
     return this.postService.getPostById(postID);
   }
 
-  //criar rota para dar like em posts
-  @Post('likes/:postID')
-  async incrementLike(
-    @Param('postID') postID: string,
-    @GetCurrentUserId() userID: string,
-  ): Promise<{}> {
-    return this.postService.incrementLike(postID, userID);
-  }
-
   @Get('comments')
+  @ApiBearerAuth()
   async findAllComments() {
     return this.postService.findAllComments();
   }
@@ -57,6 +49,7 @@ export class PostController {
   }
 
   @Post('comment/:postId')
+  @ApiBearerAuth()
   async createComment(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
@@ -72,9 +65,20 @@ export class PostController {
     }
   }
 
+  //criar rota para dar like em posts
+  @Post('likes/:postID')
+  @ApiBearerAuth()
+  async incrementLike(
+    @Param('postID') postID: string,
+    @GetCurrentUserId() userID: string,
+  ): Promise<{}> {
+    return this.postService.incrementLike(postID, userID);
+  }
+
   //Delete post function, available only to the post owner and application admin
 
   @Delete('delete/:postId')
+  @ApiBearerAuth()
   async deletePost(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
@@ -84,6 +88,7 @@ export class PostController {
 
   // Edit post function, available only to the post owner
   @Put('edit/:postId')
+  @ApiBearerAuth()
   async editPost(
     @Param('postId') postId: string,
     @Body() newData: string,
