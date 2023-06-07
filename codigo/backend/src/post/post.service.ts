@@ -1,30 +1,20 @@
 import {
   BadGatewayException,
-  Inject,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { Post } from '@prisma/client';
-import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDTO } from './dto/create-post.dto';
-import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly producerService: ProducerService,
-    @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
   ) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
-    await this.producerService.produce({
-      topic: 'post-consumer',
-      messages: [{ value: JSON.stringify(createPostDTO) }],
-    });
-
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,

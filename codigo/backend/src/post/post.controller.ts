@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { CacheInterceptor } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
@@ -6,22 +7,30 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Inject,
   Param,
   Post,
   Put,
   UseInterceptors,
 } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import {
+  Producer,
+  KafkaMessage,
+} from '@nestjs/microservices/external/kafka.interface';
 
 @ApiTags('post')
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    @Inject('POST_PRODUCER') private kafkaProducer: Producer,
+  ) {}
 
   @Post()
   @ApiBearerAuth()
@@ -30,7 +39,12 @@ export class PostController {
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
   ) {
-    return this.postService.createPost(createPostDTO, userID);
+    const post = this.postService.createPost(createPostDTO, userID);
+    this.kafkaProducer.send({
+      topic: 'post',
+      messages: [{ key: 'post', value: JSON.stringify(createPostDTO) }],
+    });
+    return post;
   }
 
   @Get()
@@ -93,4 +107,14 @@ export class PostController {
   ): Promise<void> {
     await this.postService.editPost(userId, postId, newData);
   }
+
+  // @MessagePattern('post')
+  // async consumer(@Payload() message: KafkaMessage) {
+  //   await this.kafkaProducer.send({
+  //     topic: 'post',
+  //     messages: [
+  //       { key: 'post', value: JSON.stringify({ ...message.value }) },
+  //     ],
+  //   });
+  // }
 }

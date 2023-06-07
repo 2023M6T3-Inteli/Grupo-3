@@ -3,7 +3,7 @@ import { KafkaModule } from '../kafka/kafka.module';
 import { SeedConsumer } from '../consumers/seed.consumer';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
 import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
@@ -16,17 +16,26 @@ import { CacheModule } from '@nestjs/cache-manager';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'post',
             brokers: ['localhost:9092'],
           },
           consumer: {
-            groupId: 'post-consumer',
+            groupId: 'post-producer',
           },
         },
       },
     ]),
   ],
   controllers: [PostController],
-  providers: [PostService, SeedConsumer],
+  providers: [
+    PostService,
+    SeedConsumer,
+    {
+      provide: 'POST_PRODUCER',
+      useFactory: async (kafkaService: ClientKafka) => {
+        return kafkaService.connect();
+      },
+      inject: ['POST_MICROSERVICE'],
+    },
+  ],
 })
 export class PostModule {}
