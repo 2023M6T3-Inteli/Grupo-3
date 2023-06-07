@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+<<<<<<< HEAD
 import {
   Body,
   Controller,
@@ -11,6 +12,10 @@ import {
   Put,
   UseInterceptors,
 } from '@nestjs/common';
+=======
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+>>>>>>> main
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
@@ -29,8 +34,9 @@ export class PostController {
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
+    @UploadedFile() imagem: Express.Multer.File,
   ) {
-    return this.postService.createPost(createPostDTO, userID);
+    return this.postService.createPost(createPostDTO, userID, imagem);
   }
 
   @Get()
@@ -39,10 +45,24 @@ export class PostController {
     return this.postService.getAllPosts();
   }
 
+  @Get('byId/:postID')
+  async getPostById(
+    @Param('postID') postID: string,
+  ) {
+    return this.postService.getPostById(postID);
+  }
+
   @Get('comments')
   @ApiBearerAuth()
   async findAllComments() {
     return this.postService.findAllComments();
+  }
+
+  @Get('comments/:postId')
+  async findCommentsByPostId(
+    @Param('postId') postId: string,
+  ) {
+    return this.postService.findCommentsByPostId(postId);
   }
 
   @Post('comment/:postId')
