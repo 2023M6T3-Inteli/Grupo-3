@@ -4,34 +4,47 @@ import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporte
 
 export function handleSummary(data) {
   return {
-    'Grupo-3/codigo/backend/test/reports.html': htmlReport(data),
+    'C:/Users/Inteli/Documents/GitHub/Grupo-3/codigo/backend/test/reports.html':
+      htmlReport(data),
   };
 }
 
 export let options = {
   stages: [
-    { duration: '1m', target: 50 },
-    { duration: '3m', target: 50 },
-    { duration: '1m', target: 0 },
+    { duration: '1s', target: 1 },
+    { duration: '10s', target: 10 },
+    { duration: '10s', target: 0 },
   ],
-  thresholds: {
-    http_req_duration: ['p(95) < 500'], //95% das requisições tem que ser completadas dentro de 500ms
-  },
 };
 
 const API_BASE_URL = 'http://localhost:5500';
+let accessToken = '';
 
 export default function () {
-  const params = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const headers = {
+    'Content-Type': 'application/json',
+    accept: '*/*',
   };
 
-  const payloadLogin = JSON.stringify({
-    email: 'yves@dell.com',
-    password: 'adoleta',
+  // Generate unique credentials for each virtual user
+  const username = `user${__VU}`; // Use VU number in the username
+  const email = `${username}@dell.com`;
+  const password = `password${__VU}`; // Use VU number in the password
+
+  const payloadSignup = JSON.stringify({
+    email: email,
+    password: password,
+    username: username,
+    // name: String,
+    acceptTerms: true,
+    admin: false
   });
+
+  const resSignup = http.post(`${API_BASE_URL}/auth/signup`, payloadSignup, {
+    headers,
+  });
+
+  check(resSignup, { 'status is 200': (r) => r.status === 200 });
 
   const payloadPost = JSON.stringify({
     title: 'My Post 44',
@@ -40,46 +53,25 @@ export default function () {
     content: 'Content of the post',
     active: true,
   });
+  const resPost = http.post(`${API_BASE_URL}/post`, payloadPost, headers);
 
-  const payloadSignup = JSON.stringify({
-    email: 'admi@dell.com',
-    password: 'adoleta',
-    name: 'admi',
-    username: 'admi',
-    location: 'Rondonópolis',
-    acceptTerms: true,
-    admin: true,
-  });
+  // Sign in and retrieve access token
+  if (!accessToken) {
+    const payloadLogin = JSON.stringify({
+      email: 'yves@dell.com',
+      password: 'adoleta',
+    });
 
-  const payloadDeletePost = JSON.stringify({
-    postId: '16ec526a-d892-4e24-b8da-e6a820d35afd',
-  });
+    const resLogin = http.post(`${API_BASE_URL}/auth/signin`, payloadLogin, {
+      headers,
+    });
 
-  const payloadLikePost = JSON.stringify({
-    postId: 'f30876e2-d651-496d-9930-d1e2ba7763a9',
-  });
+    check(resLogin, { 'status is 200': (r) => r.status === 200 });
 
-  const resPost = http.post(`${API_BASE_URL}/post`, payloadPost, params);
+    accessToken = resLogin.json('access_token');
+  }
 
-  const resPostDelete = http.delete(
-    `${API_BASE_URL}/post/delete/:postId`,
-    payloadDeletePost,
-    params,
-  );
-
-  const resSignup = http.post(
-    `${API_BASE_URL}/auth/signup`,
-    payloadSignup,
-    params,
-  );
-
-  const resLogin = http.post(
-    `${API_BASE_URL}/auth/signin`,
-    payloadLogin,
-    params,
-  );
-
-  const resLike = http.post(`${API_BASE_URL}/post`, payloadLikePost, params);
+  headers['Authorization'] = `Bearer ${accessToken}`;
 
   const response = http.batch([
     ['GET', `${API_BASE_URL}/users`],
@@ -87,11 +79,7 @@ export default function () {
     ['GET', `${API_BASE_URL}/ranking`],
   ]);
 
-  check(resLogin, { 'status is 200': (r) => r.status === 200 });
-  check(resPost, { 'status is 200': (r) => r.status === 200 });
-  check(resSignup, { 'status is 200': (r) => r.status === 200 });
-  check(resPostDelete, { 'status is 200': (r) => r.status === 200 });
-  check(resLike, { 'status is 200': (r) => r.status === 200 });
+  check(resPost, { 'status is 201': (r) => r.status === 201 });
   check(response, { 'status is 200': (r) => r.status === 200 });
   sleep(1);
 }

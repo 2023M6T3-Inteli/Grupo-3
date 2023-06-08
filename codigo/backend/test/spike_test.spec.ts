@@ -21,8 +21,8 @@ export let options = {
   //   { duration: '10s', target: 0 }, 
   // ],
   stages: [
-    { duration: '30s', target: 20 },
-    { duration: '50s', target: 10 },
+    { duration: '30s', target: 100 },
+    { duration: '50s', target: 1000 },
     { duration: '20s', target: 0 },
   ],
 };
@@ -46,5 +46,5 @@ export default function () {
     // ['DELETE', `${API_BASE_URL}/post/delete/:postId`],
     // ['PUT', `${API_BASE_URL}/post/edit/:postId`],
   ]);
-  sleep(100);
+  sleep(1);
 }
