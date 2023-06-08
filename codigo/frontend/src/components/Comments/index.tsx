@@ -33,7 +33,7 @@ const Comments: React.FC<CommentsProps> = ({commentParams}) => {
             <UserComment>
               <div>
                 <img style={{width: 40, height: 40 , borderRadius: 20, marginRight:'10px' }}
-                        src={"https://github.com/" + "brun0meira" + ".png"}
+                        src={"https://github.com/" + comment.user["username"] + ".png"}
                         alt="profileImg"
                       />
                 <div>

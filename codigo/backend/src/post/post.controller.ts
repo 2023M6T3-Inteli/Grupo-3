@@ -17,9 +17,8 @@ export class PostController {
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
-    @UploadedFile() imagem: Express.Multer.File,
   ) {
-    return this.postService.createPost(createPostDTO, userID, imagem);
+    return this.postService.createPost(createPostDTO, userID);
   }
 
   @Get()

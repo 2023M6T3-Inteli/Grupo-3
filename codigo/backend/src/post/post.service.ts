@@ -21,11 +21,7 @@ export class PostService {
     @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
   ) {}
 
-  async createPost(
-    createPostDTO: CreatePostDTO,
-    userID: string,
-    imagem: Express.Multer.File,
-  ) {
+  async createPost(createPostDTO: CreatePostDTO, userID: string) {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -52,12 +48,6 @@ export class PostService {
     });
 
     this.postClient.send('new-post', JSON.stringify(createPostDTO));
-
-    console.log(imagem);
-    // const { originalname } = file;
-    // console.log(originalname);
-    // const bucketS3 = process.env.AWS_BUCKET_NAME;
-    // await this.uploadS3(file.buffer, bucketS3, originalname);
 
     return createdPost;
   }

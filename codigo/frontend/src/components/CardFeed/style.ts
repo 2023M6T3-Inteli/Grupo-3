@@ -16,9 +16,11 @@ export const Card = styled.div`
   border: 1px solid #E8E8E8;
   padding: 10px;
   margin-bottom: 20px;
+  z-index: 0;
 `;
 
 export const CardIntro = styled.div`
+position: relative;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -58,6 +60,43 @@ export const CardContent = styled.div`
 
   p{
     text-align: justify;
+  }
+`;
+
+export const ShowButton = styled.div`
+  z-index: 2;
+`;
+
+export const Options = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  right: 3px;
+  top: 15px;
+  border: 0.5px solid grey;
+  z-index: 3;
+  border-radius: 2px;
+
+  div{
+    height: 25%;
+    width: 80%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 3px 0px 3px;
+
+    & :last-child{
+    background: none;
+  }
+  }
+
+  & :last-child{
+    border-bottom: none;
   }
 `;
 
