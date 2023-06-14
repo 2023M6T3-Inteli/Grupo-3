@@ -59,6 +59,10 @@ export class UserService {
         tags: true,
       },
     });
+
+    if (!user) {
+      throw new BadGatewayException();
+    }
     return user;
   }
 
@@ -86,6 +90,9 @@ export class UserService {
         tags: true,
       },
     });
+    if (!user) {
+      throw new BadGatewayException();
+    }
     return user;
   }
 

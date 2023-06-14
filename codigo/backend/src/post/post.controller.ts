@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-import { CacheInterceptor } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
@@ -10,8 +9,7 @@ import {
   Inject,
   Param,
   Post,
-  Put,
-  UseInterceptors,
+  Put
 } from '@nestjs/common';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -30,7 +28,6 @@ export class PostController {
 
   @Post()
   @ApiBearerAuth()
-  @UseInterceptors(CacheInterceptor)
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
