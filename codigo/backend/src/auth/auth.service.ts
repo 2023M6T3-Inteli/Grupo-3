@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ClientKafka } from '@nestjs/microservices';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
-import { ProducerService } from 'src/kafka/producer.service';
+import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto, AuthLoginDto } from './dto';
 import { JwtPayload, Tokens } from './types';

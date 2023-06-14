@@ -40,7 +40,7 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
 
       expect(tokens.access_token).toBeTruthy();
@@ -55,7 +55,7 @@ describe('Auth Flow', () => {
           password: user.password,
           name: '',
           username: '',
-          acceptTerms: false
+          acceptTerms: false,
         });
       } catch (error) {
         expect(error.status).toBe(502);
@@ -74,7 +74,7 @@ describe('Auth Flow', () => {
       try {
         tokens = await authService.signinLocal({
           email: user.email,
-          password: user.password
+          password: user.password,
         });
       } catch (error) {
         expect(error.status).toBe(403);
@@ -89,12 +89,12 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
 
       const tokens = await authService.signinLocal({
         email: user.email,
-        password: user.password
+        password: user.password,
       });
 
       expect(tokens.access_token).toBeTruthy();
@@ -106,7 +106,7 @@ describe('Auth Flow', () => {
       try {
         tokens = await authService.signinLocal({
           email: user.email,
-          password: user.password + 'a'
+          password: user.password + 'a',
         });
       } catch (error) {
         expect(error.status).toBe(403);
@@ -132,7 +132,7 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
 
       let userFromDb: User | null;
@@ -180,7 +180,7 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
 
       const rt = _tokens.refresh_token;
@@ -212,7 +212,7 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
       console.log({
         _tokens,
@@ -241,7 +241,7 @@ describe('Auth Flow', () => {
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false
+        acceptTerms: false,
       });
 
       const rt = _tokens.refresh_token;

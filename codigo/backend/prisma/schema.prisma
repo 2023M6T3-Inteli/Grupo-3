@@ -64,12 +64,13 @@ model Likes {
 }
 
 model Comments {
-  id      String @id @default(uuid())
+  id      String  @id @default(uuid())
   userID  String
   postID  String
   content String
-  post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user    User   @relation(fields: [userID], references: [id], onDelete: Cascade)
+  report  Boolean @default(false)
+  post    Post    @relation(fields: [postID], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "Comments_postID_fkey")
   @@index([userID], map: "Comments_userID_fkey")
