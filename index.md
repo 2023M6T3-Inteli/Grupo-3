@@ -413,13 +413,12 @@ Testes Unitários do Usuário <br>
 
 
 ## Teste de Integração
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
-
+	
+Testes e logs da mensageria <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/5d105f1b-75ae-4ca4-b60f-67b446a90ea4)
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/a122f5f7-5dd1-45cf-95b3-73633c29ef22)
 
 ## Teste de Regressão
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de Usabilidade 
@@ -433,8 +432,9 @@ Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de API 
+Testes e Logs de API <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/edf56d3c-5743-4f99-81bf-6364c36a8562)
 
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 # Documentação da API
