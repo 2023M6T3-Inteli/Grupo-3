@@ -13,16 +13,12 @@ import {
   Put,
   UseInterceptors,
 } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
-import { CreatePostDTO } from './dto/create-post.dto';
+import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import {
-  Producer,
-  KafkaMessage,
-} from '@nestjs/microservices/external/kafka.interface';
 
 @ApiTags('post')
 @Controller('post')
@@ -82,8 +78,19 @@ export class PostController {
   async incrementLike(
     @Param('postID') postID: string,
     @GetCurrentUserId() userID: string,
-  ): Promise<{}> {
+  ): Promise<boolean> {
     return this.postService.incrementLike(postID, userID);
+  }
+
+  // Edit post function, available only to the post owner
+  @Put('edit/:postId')
+  @ApiBearerAuth()
+  async editPost(
+    @Param('postId') postId: string,
+    @Body() newData: UpdatePostDTO,
+    @GetCurrentUserId() userId: string,
+  ) {
+    return this.postService.editPost(userId, postId, newData);
   }
 
   //Delete post function, available only to the post owner and application admin
@@ -93,19 +100,8 @@ export class PostController {
   async deletePost(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
-  ): Promise<void> {
-    await this.postService.deletePost(postId, userId);
-  }
-
-  // Edit post function, available only to the post owner
-  @Put('edit/:postId')
-  @ApiBearerAuth()
-  async editPost(
-    @Param('postId') postId: string,
-    @Body() newData: string,
-    @GetCurrentUserId() userId: string,
-  ): Promise<void> {
-    await this.postService.editPost(userId, postId, newData);
+  ) {
+    return this.postService.deletePost(postId, userId);
   }
 
   // @MessagePattern('post')

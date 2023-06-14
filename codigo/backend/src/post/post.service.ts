@@ -2,17 +2,15 @@ import {
   BadGatewayException,
   Injectable,
   NotFoundException,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Post } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreatePostDTO } from './dto/create-post.dto';
+import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
-  constructor(
-    private readonly prisma: PrismaService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async createPost(createPostDTO: CreatePostDTO, userID: string) {
     const createdPost = await this.prisma.post.create({
@@ -55,7 +53,7 @@ export class PostService {
     return posts;
   }
 
-  async incrementLike(postID: string, userID: string): Promise<{}> {
+  async incrementLike(postID: string, userID: string): Promise<boolean> {
     const findPost = await this.prisma.post.findUnique({
       where: { id: postID },
     });
@@ -67,14 +65,10 @@ export class PostService {
     const existingLike = await this.prisma.likes.findFirst({
       where: { userID, postID },
     });
-
+  
     if (existingLike) {
-      await this.prisma.likes.delete({
-        where: { id: existingLike.id },
-      });
-
-      return { message: 'Like removed successfully' };
-    }
+      return false; // O usuário já deu "like" no post anteriormente
+    }  
 
     await this.prisma.likes.create({
       data: {
@@ -86,7 +80,7 @@ export class PostService {
 
     await this.prisma.likes.count({ where: { postID } });
 
-    return { message: 'Post liked with success' };
+    return true;
   }
 
   async findAllComments() {
@@ -158,22 +152,52 @@ export class PostService {
     return commentAdd;
   }
 
-  async deletePost(postId: string, userId: string): Promise<Post> {
-    const post = await this.prisma.userPost.findFirst({
-      where: {
-        postID: { equals: postId },
-      },
+  async editPost(
+    userId: string,
+    postId: string,
+    newData: UpdatePostDTO,
+  ): Promise<Post> {
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+      include: { userPost: { select: { userID: true } } },
     });
 
-    const userAdmin = await this.prisma.user.findFirst({
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const uID = post.userPost.find((x) => x.userID);
+
+    if (uID.userID !== userId) {
+      throw new UnauthorizedException(
+        'You are not allowed to update this post',
+      );
+    }
+
+    const editedPost = await this.prisma.post.update({
+      where: { id: postId },
+      data: newData,
+    });
+
+    return editedPost;
+  }
+
+  async deletePost(postId: string, userId: string): Promise<Post> {
+    const post = await this.prisma.userPost.findUnique({
       where: {
-        id: { equals: userId },
+        id: postId,
       },
     });
 
     if (!post) {
       throw new NotFoundException('Post not found');
     }
+
+    const userAdmin = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
 
     if (post.userID !== userId && userAdmin.admin == false) {
       throw new UnauthorizedException(
@@ -186,21 +210,5 @@ export class PostService {
     });
 
     return deletedPost;
-  }
-
-  async editPost(userId: string, postId: string, newData: any): Promise<void> {
-    const post = await this.prisma.userPost.findFirst({
-      where: {
-        postID: { equals: postId },
-      },
-    });
-
-    if (!post || post.userID !== userId) {
-      throw new UnauthorizedException(
-        'You are not allowed to update this post',
-      );
-    }
-
-    await this.prisma.post.update({ where: { id: postId }, data: newData });
   }
 }
