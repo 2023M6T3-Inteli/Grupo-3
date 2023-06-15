@@ -128,7 +128,7 @@ export class UserService {
     return user;
   }
 
-  async getAdminUsers(): Promise<ProfileUser[]> {
+  async getAdminUsers(currentUser: string): Promise<ProfileUser[]> {
     const adminUsers = this.prisma.user.findMany({
       where: { admin: true },
       select: {
@@ -155,11 +155,23 @@ export class UserService {
     return adminUsers;
   }
 
-  async deleteUser(id: string): Promise<User> {
+  async deleteUser(id: string, currentUser: string): Promise<User> {
     const findUser = await this.prisma.user.findUnique({ where: { id } });
 
     if (!findUser) {
       throw new Error('User does not exist');
+    }
+
+    if (findUser.id == currentUser) {
+      throw new Error('You can not delete yourself. Permission denied!');
+    }
+
+    const isAdmin = await this.prisma.user.findUnique({
+      where: { id: currentUser },
+    });
+
+    if (!isAdmin) {
+      throw new Error('Only admin users can delete others. Permission denied!');
     }
 
     const deletedUser = await this.prisma.user.delete({ where: { id } });

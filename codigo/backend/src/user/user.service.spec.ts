@@ -22,6 +22,23 @@ const fakeUsers = [
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    id: 'userId2',
+    name: 'Second',
+    score: 11,
+    image: 'true.png',
+    email: 'that@email.com',
+    admin: false,
+    location: '',
+    role: '',
+    hashedPassword: '',
+    acceptTerms: true,
+    curriculum: '',
+    username: 'not-unique',
+    hashedRt: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 ];
 
 const fakeAdminUsers = [
@@ -30,7 +47,7 @@ const fakeAdminUsers = [
     name: 'third',
     score: 12,
     image: 'true.png',
-    email: 'this@email.com',
+    email: 'those@email.com',
     admin: true,
     location: '',
     role: '',
@@ -155,9 +172,48 @@ describe('UserService', () => {
 
   describe('admin users', () => {
     it('should get admin users', async () => {
-      const response = await service.getAdminUsers();
+      await service.getAdminUsers('userId3');
 
       expect(prisma.user.findMany).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('delete user', () => {
+    it('should delete user if is admin', async () => {
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(response).toEqual(fakeUsers[0]);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadGatewayException);
+      }
+    });
+    it('should not delete user if is not admin', async () => {
+      jest.spyOn(prisma.user, 'delete').mockRejectedValue(new Error());
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
+    });
+    it('should not delete if user does not exist', async () => {
+      jest.spyOn(prisma.user, 'delete').mockRejectedValue(new Error());
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
     });
   });
 });

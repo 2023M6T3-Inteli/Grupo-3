@@ -1,8 +1,12 @@
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Comments } from '@prisma/client';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 import { AdminGuard } from '../guards/admin.guard';
 import { PrismaService } from '../prisma/prisma.service';
 import { User } from '../user/entities/user.entity';
+import { CreatePostDTO } from './dto/create-post.dto';
+import { Post } from './entities/post.entity';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 
@@ -31,6 +35,7 @@ const fakePosts = [
       admin: true,
     },
     comments: [],
+    createdAt: new Date(),
   },
   {
     id: 'suahfusdf',
@@ -44,6 +49,7 @@ const fakePosts = [
       admin: true,
     },
     comments: [],
+    createdAt: new Date(),
   },
   {
     id: 'any',
@@ -57,6 +63,7 @@ const fakePosts = [
     },
     description: 'This is a test',
     comments: [],
+    createdAt: new Date(),
   },
   {
     id: 'auhdfus',
@@ -70,6 +77,7 @@ const fakePosts = [
     },
     description: 'This is a test',
     comments: [],
+    createdAt: new Date(),
   },
 ];
 
@@ -141,40 +149,215 @@ const prismaMock = {
 };
 
 describe('PostController', () => {
-  let controller: PostController;
-  let service: PostService;
+  let postController: PostController;
+  let postService: PostService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        ClientsModule.register([
+          { name: 'POST_PRODUCER', transport: Transport.KAFKA },
+        ]),
+      ],
       controllers: [PostController],
       providers: [
         PostService,
         { provide: PrismaService, useValue: prismaMock },
-        AdminGuard
+        AdminGuard,
+        CaslAbilityFactory,
       ],
     }).compile();
 
-    controller = module.get<PostController>(PostController);
-    service = module.get<PostService>(PostService);
+    postController = module.get<PostController>(PostController);
+    postService = module.get<PostService>(PostService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-    expect(service).toBeDefined();
+    expect(postController).toBeDefined();
+    expect(postService).toBeDefined();
   });
 
   describe('comments', () => {
     it('should return all comments', async () => {
       const comments: Comments[] = [
-        { id: 'commentId', content: 'Test Comment', userID: 'userId', postID: 'postId' },
+        {
+          id: 'commentId',
+          content: 'Test Comment',
+          userID: 'userId',
+          postID: 'postId',
+        },
       ];
 
-      jest.spyOn(service, 'findAllComments').mockResolvedValue(comments);
+      jest.spyOn(postService, 'findAllComments').mockResolvedValue(comments);
 
-      const result = await controller.findAllComments();
+      const result = await postController.findAllComments();
 
-      expect(service.findAllComments).toHaveBeenCalledTimes(1);
+      expect(postService.findAllComments).toHaveBeenCalledTimes(1);
       expect(result).toEqual(comments);
+    });
+
+    it('should create a comment', async () => {
+      const postId = 'postId';
+      const userId = 'userId';
+      const content = 'comment content';
+      const createdComment: Comments = {
+        id: 'commentID',
+        userID: userId,
+        postID: postId,
+        content: content,
+      };
+
+      jest
+        .spyOn(postService, 'createComments')
+        .mockResolvedValueOnce(createdComment);
+
+      const result = await postController.createComment(
+        postId,
+        userId,
+        content,
+      );
+
+      expect(postService.createComments).toBeCalledWith(
+        postId,
+        userId,
+        content,
+      );
+      expect(result).toEqual(createdComment);
+    });
+  });
+
+  describe('post', () => {
+    it('should create a post', async () => {
+      const createPostDTO: Post = {
+        title: 'Test Post',
+        content: 'Test Content',
+        description: 'Test Description',
+        image: 'image.png',
+        active: true,
+        comments: {
+          content: '',
+          id: '',
+          postID: '',
+          userID: '',
+        },
+      };
+      const userID = 'userId';
+
+      const createdPost: CreatePostDTO = {
+        title: createPostDTO.title,
+        description: createPostDTO.description,
+        image: createPostDTO.image,
+        content: createPostDTO.content,
+      };
+
+      jest.spyOn(postService, 'createPost').mockResolvedValueOnce(createdPost);
+
+      const result = await postController.createPost(createPostDTO, userID);
+
+      expect(postService.createPost).toBeCalledWith(createPostDTO, userID);
+      expect(result).toEqual(createdPost);
+    });
+    it('should get all posts', async () => {
+      const posts = await postController.getAllPosts();
+
+      expect(posts).toEqual(fakePosts);
+    });
+  });
+
+  describe('incrementLike', () => {
+    it('should increment the like count of a post', async () => {
+      const postID = 'postID';
+      const userID = 'userID';
+
+      jest.spyOn(postService, 'incrementLike').mockResolvedValueOnce(true);
+
+      const result = await postController.incrementLike(postID, userID);
+
+      expect(postService.incrementLike).toBeCalledWith(postID, userID);
+      expect(result).toBe(true);
+    });
+  });
+  describe('editPost', () => {
+    it('should edit a post', async () => {
+      const postId = 'postId';
+      const newData = {
+        title: 'Updated Test Post',
+        content: 'Content',
+        createdAt: new Date(),
+        active: true,
+        description: 'desc',
+        image: '.png',
+        id: 'post edited Id',
+      };
+      const userId = 'userId';
+
+      jest.spyOn(postService, 'editPost').mockResolvedValueOnce({
+        title: 'Updated Test Post',
+        content: 'Content',
+        createdAt: new Date(),
+        active: true,
+        description: 'desc',
+        image: '.png',
+        id: 'post edited Id',
+      });
+
+      const result = await postController.editPost(postId, newData, userId);
+
+      expect(postService.editPost).toBeCalledWith(userId, postId, newData);
+      expect(result).toEqual(newData);
+    });
+  });
+
+  describe('delete Post', () => {
+    it('should not delete post if is not the owner', async () => {
+      const userID = 'userID';
+      const postID = fakePosts[0].id;
+      const deletedPost = fakePosts[0];
+
+      jest.spyOn(postService, 'deletePost').mockResolvedValueOnce({
+        id: deletedPost.id,
+        active: deletedPost.active,
+        content: deletedPost.content,
+        createdAt: new Date(),
+        description: deletedPost.description,
+        title: deletedPost.title,
+        image: deletedPost.image,
+      });
+
+      const result = await postController.deletePost(postID, userID);
+      expect(postService.deletePost).toBeCalledWith(postID, userID);
+      expect(result).not.toBe(deletedPost);
+    });
+
+    it('should delete a post', async () => {
+      const deletedPost = fakePosts[1];
+      const postID = deletedPost.id;
+      const userID = deletedPost.userPost.userId;
+      const data = {
+        title: deletedPost.title,
+        content: deletedPost.content,
+        description: deletedPost.description,
+        image: deletedPost.image,
+        active: deletedPost.active,
+        createdAt: new Date(),
+        userPost: { admin: deletedPost.userPost.admin, userId: userID },
+        comments: [],
+      };
+
+      jest.spyOn(postService, 'deletePost').mockResolvedValueOnce({
+        id: deletedPost.id,
+        title: deletedPost.title,
+        content: deletedPost.content,
+        description: deletedPost.description,
+        image: deletedPost.image,
+        active: deletedPost.active,
+        createdAt: new Date(),
+      });
+
+      const result = await postController.deletePost(postID, userID);
+
+      expect(postService.deletePost).toBeCalledWith(postID, userID);
+      expect(postService.deletePost).toBeCalledTimes(1);
     });
   });
 });

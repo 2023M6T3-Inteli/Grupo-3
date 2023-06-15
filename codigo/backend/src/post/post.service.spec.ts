@@ -480,6 +480,7 @@ describe('PostService', () => {
         description: 'Test Description',
         image: 'test.jpg',
         content: 'Test Content',
+        
       };
       const userID = 'userId';
 

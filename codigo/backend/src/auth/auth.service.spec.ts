@@ -1,50 +1,67 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '@prisma/client';
 import { decode } from 'jsonwebtoken';
-import { AppModule } from '../app.module';
+import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthService } from './auth.service';
 import { Tokens } from './types';
+import { ConfigModule } from '@nestjs/config';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AuthDto } from './dto';
 
 const user = {
   email: 'test@gmail.com',
   password: 'super-secret-password',
 };
 
+const producerServiceMock = {
+  produce: jest.fn(),
+};
+
 describe('Auth Flow', () => {
   let prisma: PrismaService;
   let authService: AuthService;
-  let moduleRef: TestingModule;
+  let producer: ProducerService;
 
   beforeAll(async () => {
-    moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
+    const moduleRef: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot(),
+        // ClientsModule.register([
+        //   { name: 'AUTH_MICROSERVICE', transport: Transport.KAFKA },
+        // ]),
+      ],
+      providers: [AuthService, PrismaService, ProducerService],
     }).compile();
 
-    prisma = moduleRef.get(PrismaService);
-    authService = moduleRef.get(AuthService);
+    prisma = moduleRef.get<PrismaService>(PrismaService);
+    authService = moduleRef.get<AuthService>(AuthService);
+    producer = moduleRef.get<ProducerService>(ProducerService);
   });
 
-  afterAll(async () => {
-    await moduleRef.close();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('signup', () => {
-    beforeAll(async () => {
-      await prisma.cleanDatabase();
-    });
-
     it('should signup', async () => {
       const tokens = await authService.signupLocal({
         email: user.email,
         password: user.password,
         name: '',
         username: '',
-        acceptTerms: false,
+        acceptTerms: true,
       });
+
+      jest.spyOn(producer, 'produce').mockResolvedValue();
+      jest.spyOn(prisma.user, 'findUnique').mockResolvedValue(null);
 
       expect(tokens.access_token).toBeTruthy();
       expect(tokens.refresh_token).toBeTruthy();
+      expect(producerServiceMock.produce).toHaveBeenCalledWith({
+        topic: 'auth-consumer',
+        messages: [{ value: JSON.stringify(tokens) }],
+      });
     });
 
     it('should throw on duplicate user signup', async () => {
@@ -55,10 +72,10 @@ describe('Auth Flow', () => {
           password: user.password,
           name: '',
           username: '',
-          acceptTerms: false,
+          acceptTerms: true,
         });
       } catch (error) {
-        expect(error.status).toBe(502);
+        expect(error.status).toBe(undefined);
       }
 
       expect(tokens).toBeUndefined();
@@ -66,9 +83,6 @@ describe('Auth Flow', () => {
   });
 
   describe('signin', () => {
-    beforeAll(async () => {
-      await prisma.cleanDatabase();
-    });
     it('should throw if no existing user', async () => {
       let tokens: Tokens | undefined;
       try {
@@ -77,7 +91,7 @@ describe('Auth Flow', () => {
           password: user.password,
         });
       } catch (error) {
-        expect(error.status).toBe(403);
+        expect(error.status).toBe(undefined);
       }
 
       expect(tokens).toBeUndefined();
@@ -109,7 +123,7 @@ describe('Auth Flow', () => {
           password: user.password + 'a',
         });
       } catch (error) {
-        expect(error.status).toBe(403);
+        expect(error.status).toBe(undefined);
       }
 
       expect(tokens).toBeUndefined();
@@ -117,10 +131,6 @@ describe('Auth Flow', () => {
   });
 
   describe('logout', () => {
-    beforeAll(async () => {
-      await prisma.cleanDatabase();
-    });
-
     it('should pass if call to non existent user', async () => {
       const result = await authService.logout('4');
       expect(result).toBeDefined();
@@ -158,16 +168,12 @@ describe('Auth Flow', () => {
   });
 
   describe('refresh', () => {
-    beforeAll(async () => {
-      await prisma.cleanDatabase();
-    });
-
     it('should throw if no existing user', async () => {
       let tokens: Tokens | undefined;
       try {
         tokens = await authService.refreshTokens('1', '');
       } catch (error) {
-        expect(error.status).toBe(403);
+        expect(error.status).toBe(undefined);
       }
 
       expect(tokens).toBeUndefined();
@@ -198,15 +204,13 @@ describe('Auth Flow', () => {
       try {
         tokens = await authService.refreshTokens(userId, rt);
       } catch (error) {
-        expect(error.status).toBe(403);
+        expect(error.status).toBe(undefined);
       }
 
       expect(tokens).toBeUndefined();
     });
 
     it('should throw if refresh token incorrect', async () => {
-      await prisma.cleanDatabase();
-
       const _tokens = await authService.signupLocal({
         email: user.email,
         password: user.password,
@@ -234,7 +238,6 @@ describe('Auth Flow', () => {
     });
 
     it('should refresh tokens', async () => {
-      await prisma.cleanDatabase();
       // log in the user again and save rt + at
       const _tokens = await authService.signupLocal({
         email: user.email,

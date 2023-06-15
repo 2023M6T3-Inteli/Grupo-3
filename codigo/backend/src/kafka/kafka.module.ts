@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProducerService } from './producer.service';
 import { ConsumerService } from './consumer.service';
-import { PrismaModule } from '../prisma/prisma.module';
+import { ProducerService } from './producer.service';
 
 @Module({
   providers: [ProducerService, ConsumerService],

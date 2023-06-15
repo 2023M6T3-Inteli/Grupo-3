@@ -1,11 +1,9 @@
 import {
   BadGatewayException,
-  ForbiddenException,
-  Inject,
+  ForbiddenException
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { ClientKafka } from '@nestjs/microservices';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
 import { ProducerService } from '../kafka/producer.service';
@@ -19,7 +17,6 @@ export class AuthService {
     private jwtService: JwtService,
     private config: ConfigService,
     private producerService: ProducerService,
-    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientKafka,
   ) {}
 
   async signupLocal(dto: AuthDto): Promise<Tokens> {

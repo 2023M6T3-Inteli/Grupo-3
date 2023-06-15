@@ -12,7 +12,7 @@ import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createPost(createPostDTO: CreatePostDTO, userID: string) {
+  async createPost(createPostDTO: CreatePostDTO, userID: string): Promise<CreatePostDTO> {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,

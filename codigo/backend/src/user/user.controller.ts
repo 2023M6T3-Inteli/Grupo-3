@@ -36,17 +36,17 @@ export class UserController {
   }
 
   @Get('admin')
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @ApiBearerAuth()
-  async getAdmin(): Promise<ProfileUser[]> {
-    return this.userService.getAdminUsers();
+  async getAdmin(@GetCurrentUserId() currentUser: string): Promise<ProfileUser[]> {
+    return this.userService.getAdminUsers(currentUser);
   }
 
   @Delete('/delete/:id')
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @ApiBearerAuth()
-  async deleteUser(@Param('id') id: string): Promise<User> {
-    return this.userService.deleteUser(id);
+  async deleteUser(@Param('id') id: string, @GetCurrentUserId() currentUser: string): Promise<User> {
+    return this.userService.deleteUser(id, currentUser);
   }
 
   @Get('setup')

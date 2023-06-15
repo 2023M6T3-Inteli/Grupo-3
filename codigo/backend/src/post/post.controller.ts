@@ -9,7 +9,7 @@ import {
   Inject,
   Param,
   Post,
-  Put
+  Put,
 } from '@nestjs/common';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -17,12 +17,14 @@ import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decor
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 
 @ApiTags('post')
 @Controller('post')
 export class PostController {
   constructor(
     private readonly postService: PostService,
+    private readonly ability: CaslAbilityFactory,
     @Inject('POST_PRODUCER') private kafkaProducer: Producer,
   ) {}
 
