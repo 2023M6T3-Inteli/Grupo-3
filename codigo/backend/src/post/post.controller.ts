@@ -1,21 +1,6 @@
 /* eslint-disable prettier/prettier */
-<<<<<<< HEAD
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  UseInterceptors,
-} from '@nestjs/common';
-=======
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
->>>>>>> main
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
@@ -112,5 +97,13 @@ export class PostController {
     @GetCurrentUserId() userId: string,
   ): Promise<void> {
     await this.postService.editPost(userId, postId, newData);
+  }
+
+  //get nos likes 
+
+  @Get('/:userId')
+  
+  findAll(@Param('userId') userId: string) {
+    return this.postService.getAllLikeds(userId);
   }
 }
