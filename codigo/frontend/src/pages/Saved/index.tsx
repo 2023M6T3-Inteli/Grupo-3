@@ -6,21 +6,25 @@ import { Box, Grid, TextField} from '@mui/material';
 import SearchBox from '../../components/SearchBox';
 import HeaderApp from '../../components/HeaderApp';
 import axios from 'axios';
+import contentService from '../../services/contentService';
+import {Feed} from '../Feed/FeedMain/style';
 
 
 const Saved: React.FC = () => {
   const [prefers, setPrefers] = useState([]);
 
   useEffect(()=>{
-    const fetchPrefers = async ()=> {
+    const fetchPrefers = async (userID:string)=> {
+      fetch
       try{
-        const response = await axios.get('/api/test');
+        const response = await contentService.getPostLiked(userID);
         setPrefers(response.data);
       } catch (error){
-        console.error(error);
+        console.error('Error in GET request:', error);
       }
     };
-     fetchPrefers();
+
+    fetchPrefers();
   },[]);
 
   return (
@@ -35,7 +39,9 @@ const Saved: React.FC = () => {
                     </div>
               </Grid>
               <Grid item xs={12}>
-                  <CardFeed/>
+                  <Feed>
+                    aaaaaaa
+                  </Feed>
               </Grid>
           </Grid>
           <BottomNavbar/>

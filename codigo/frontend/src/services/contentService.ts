@@ -20,6 +20,11 @@ const contentService = {
 
     return content;
   },
+  getPostLiked: async (userId: string) =>{
+    const content = await axios.get(`${API_URL}/post/saved${userId}`,{
+    });
+    return content;
+  },
   
   createPost: async (title: string, tags: string[], description: string, imagem: any, content: string, comments: any, userPost: any, likes: any) => {
     const createPost = await axios.post(`${API_URL}/post`, {
