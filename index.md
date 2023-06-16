@@ -410,6 +410,9 @@ Testes Unitários do Ranking <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789) <br>
 Testes Unitários do Usuário <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37) <br>
+	
+Testes Unitários - geral - controllers && services
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/154fee6b-4ac7-4f7a-9757-b09117d81ffe)
 
 
 ## Teste de Integração
