@@ -1,18 +1,16 @@
 /* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
-  ForbiddenException,
-  Inject,
+  ForbiddenException
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
+import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { ClientKafka } from '@nestjs/microservices';
-import { AuthDto, AuthLoginDto } from './dto';
+import { AuthDto, AuthLoginDto } from './dto
 import { JwtPayload, Tokens } from './types';
-import { ProducerService } from 'src/kafka/producer.service';
 
 export class AuthService {
   constructor(
@@ -20,10 +18,14 @@ export class AuthService {
     private jwtService: JwtService,
     private config: ConfigService,
     private producerService: ProducerService,
-    @Inject('AUTH_MICROSERVICE') private readonly authClient: ClientKafka,
   ) {}
 
   async signupLocal(dto: AuthDto): Promise<Tokens> {
+    await this.producerService.produce({
+      topic: 'auth-consumer',
+      messages: [{ value: JSON.stringify(dto)}],
+    });
+
     const hashedPassword = await argon.hash(dto.password);
 
     const findUser = await this.prisma.user.findUnique({
@@ -63,13 +65,6 @@ export class AuthService {
       });
 
     const tokens = await this.getTokens(user.id, user.email);
-
-    await this.producerService.produce({
-      topic: 'new-user',
-      messages: [{ value: 'New User' }],
-    });
-
-    this.authClient.send('new-user', JSON.stringify(AuthDto));
 
     await this.updateRtHash(user.id, tokens.refresh_token);
 

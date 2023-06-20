@@ -1,33 +1,28 @@
-/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
-  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
-  Logger,
 } from '@nestjs/common';
 import { Post } from '@prisma/client';
-import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreatePostDTO } from './dto/create-post.dto';
-import { ClientKafka } from '@nestjs/microservices';
+import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly producerService: ProducerService,
-    @Inject('POST_MICROSERVICE') private readonly postClient: ClientKafka,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async createPost(createPostDTO: CreatePostDTO, userID: string) {
+  async createPost(
+    createPostDTO: CreatePostDTO,
+    userID: string,
+  ): Promise<CreatePostDTO> {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
         description: createPostDTO.description,
         image: createPostDTO.image,
         content: createPostDTO.content,
+        active: true,
         userPost: {
           create: {
             userID: userID,
@@ -36,26 +31,10 @@ export class PostService {
       },
     });
 
-    for (let i = 0; i < createPostDTO.tags.length; i++) {
-      await this.prisma.tags.create({
-        data: {
-          subject: createPostDTO.tags[i],
-          postID: createdPost.id,
-        },
-      });
-    }
-
     await this.prisma.user.update({
       where: { id: userID },
       data: { score: { increment: 1 } },
     });
-
-    await this.producerService.produce({
-      topic: 'new-post',
-      messages: [{ value: 'New Post' }],
-    });
-
-    this.postClient.send('new-post', JSON.stringify(createPostDTO));
 
     return createdPost;
   }
@@ -66,17 +45,10 @@ export class PostService {
       include: {
         userPost: {
           select: {
-            user: { select: { id: true, name: true, username: true, image: true, admin:true } },
+            user: { select: { name: true, username: true, image: true } },
           },
         },
-        tags: { select: { subject: true } },
-        likes: {
-          select: {
-            post: { select: { id: true } },
-            user: { select: { id: true } },
-          },
-        },
-        _count: { select: { likes: true, comments: true } },
+        _count: { select: { likes: true } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -84,30 +56,7 @@ export class PostService {
     return posts;
   }
 
-  async getPostById(postID: string): Promise<{}> {
-    const posts = await this.prisma.post.findUnique({
-      where: { id: postID },
-      include: {
-        userPost: {
-          select: {
-            user: { select: { name: true, username: true, image: true } },
-          },
-        },
-        tags: { select: { subject: true } },
-        likes: {
-          select: {
-            post: { select: { id: true } },
-            user: { select: { id: true } },
-          },
-        },
-        _count: { select: { likes: true, comments: true } },
-      },
-    });
-
-    return posts;
-  }
-
-  async incrementLike(postID: string, userID: string): Promise<{}> {
+  async incrementLike(postID: string, userID: string): Promise<boolean> {
     const findPost = await this.prisma.post.findUnique({
       where: { id: postID },
     });
@@ -121,11 +70,7 @@ export class PostService {
     });
 
     if (existingLike) {
-      await this.prisma.likes.delete({
-        where: { id: existingLike.id },
-      });
-
-      return { message: 'Like removed successfully' };
+      return false; // O usuário já deu "like" no post anteriormente
     }
 
     await this.prisma.likes.create({
@@ -138,7 +83,7 @@ export class PostService {
 
     await this.prisma.likes.count({ where: { postID } });
 
-    return { message: 'Post liked with success' };
+    return true;
   }
 
   async findAllComments() {
@@ -156,23 +101,6 @@ export class PostService {
 
     const comments = await this.prisma.comments.findMany({
       where: { postID: postId },
-      include: {
-        user: {
-          select: { name: true, username: true, image: true, admin: true },
-        },
-        post: {
-          select: {
-            id: true,
-            title: true,
-            description: true,
-            image: true,
-            active: true,
-            content: true,
-            createdAt: true,
-            _count: { select: { likes: true, comments: true } },
-          },
-        },
-      },
     });
 
     return comments;
@@ -227,23 +155,52 @@ export class PostService {
     return commentAdd;
   }
 
-  //Delete post function, available only to the post owner and application admin
-  async deletePost(postId: string, userId: string): Promise<Post> {
-    const post = await this.prisma.userPost.findFirst({
-      where: {
-        postID: { equals: postId },
-      },
+  async editPost(
+    userId: string,
+    postId: string,
+    newData: UpdatePostDTO,
+  ): Promise<Post> {
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+      include: { userPost: { select: { userID: true } } },
     });
 
-    const userAdmin = await this.prisma.user.findFirst({
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const uID = post.userPost.find((x) => x.userID);
+
+    if (uID.userID !== userId) {
+      throw new UnauthorizedException(
+        'You are not allowed to update this post',
+      );
+    }
+
+    const editedPost = await this.prisma.post.update({
+      where: { id: postId },
+      data: newData,
+    });
+
+    return editedPost;
+  }
+
+  async deletePost(postId: string, userId: string): Promise<Post> {
+    const post = await this.prisma.userPost.findUnique({
       where: {
-        id: { equals: userId },
+        id: postId,
       },
     });
 
     if (!post) {
       throw new NotFoundException('Post not found');
     }
+
+    const userAdmin = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
 
     if (post.userID !== userId && userAdmin.admin == false) {
       throw new UnauthorizedException(
@@ -258,74 +215,53 @@ export class PostService {
     return deletedPost;
   }
 
-  // Edit post function, available only to the post owner
-  async editPost(userId: string, postId: string, newData: any): Promise<any> {
-    const post = await this.prisma.userPost.findFirst({
-      where: {
-        postID: { equals: postId },
-      },
-    });
-
-    if (!post || post.userID !== userId) {
-      throw new UnauthorizedException(
-        'You are not allowed to update this post',
-      );
-    }
-
-    await this.prisma.post.update({ where: { id: postId }, data: newData });
-  }
-
   async findAllReportPosts() {
     return this.prisma.reportPosts.findMany();
   }
 
-  async reportPost(postId: string, userID: string){
+  async reportPost(postId: string, userID: string) {
     const post = await this.prisma.post.findFirst({
       where: {
-        id: postId
-      }
-    })
+        id: postId,
+      },
+    });
 
-    if (!post){
-      throw new NotFoundException(
-        'Post not found',
-      )
+    if (!post) {
+      throw new NotFoundException('Post not found');
     }
 
     const reportPost = await this.prisma.reportPosts.create({
       data: {
         userID: userID,
         postID: postId,
-      }
-    })
+      },
+    });
 
-    return reportPost
+    return reportPost;
   }
 
   async findAllReportComments() {
     return this.prisma.reportPosts.findMany();
   }
 
-  async reportComment(commentId: string, userID: string){
+  async reportComment(commentId: string, userID: string) {
     const comment = await this.prisma.post.findFirst({
       where: {
-        id: commentId
-      }
-    })
+        id: commentId,
+      },
+    });
 
-    if (!comment){
-      throw new NotFoundException(
-        'Comment not found',
-      )
+    if (!comment) {
+      throw new NotFoundException('Comment not found');
     }
 
     const ReportComments = await this.prisma.reportComments.create({
       data: {
         userID: userID,
         commentsId: commentId,
-      }
-    })
+      },
+    });
 
-    return ReportComments
+    return ReportComments;
   }
 }

@@ -1,12 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { CreateUserDTO } from '../../user/dto/create-dto';
-import {
-  CreateCommentDTO,
-  CreateUserPostDTO,
-  LikesDto,
-} from './create-comment.dto';
 
 export class CreatePostDTO {
   @ApiProperty({ example: 'My Post', description: 'Title' })

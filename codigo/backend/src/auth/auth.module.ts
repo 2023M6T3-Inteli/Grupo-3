@@ -1,16 +1,25 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { SeedConsumer } from 'src/consumers/seed.consumer';
-import { KafkaModule } from 'src/kafka/kafka.module';
+import { Agent } from 'https';
+import { SeedConsumer } from '../consumers/seed.consumer';
+import { KafkaModule } from '../kafka/kafka.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AtStrategy, RtStrategy } from './strategies';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     JwtModule.register({}),
     KafkaModule,
+    CacheModule.register(),
+    HttpModule.register({
+      httpAgent: new Agent({
+        rejectUnauthorized: false,
+      }),
+    }),
     ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
@@ -20,7 +29,6 @@ import { AtStrategy, RtStrategy } from './strategies';
             clientId: 'auth',
             brokers: ['localhost:9092'],
           },
-          producerOnlyMode: true,
           consumer: {
             groupId: 'auth-consumer',
           },

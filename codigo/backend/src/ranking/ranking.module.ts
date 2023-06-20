@@ -1,13 +1,12 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { RankingService } from './ranking.service';
-import { RankingController } from './ranking.controller';
+import { Module } from '@nestjs/common';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
-import { LoggerMiddleware } from 'src/utils/logger.middleware';
+import { RankingController } from './ranking.controller';
+import { RankingService } from './ranking.service';
 
 @Module({
   imports: [PrismaModule],
   controllers: [RankingController],
   providers: [RankingService, PrismaService],
 })
-export class RankingModule{}
+export class RankingModule {}
