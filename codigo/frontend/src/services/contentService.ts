@@ -21,16 +21,13 @@ const contentService = {
     return content;
   },
   
-  createPost: async (title: string, tags: string[], description: string, content: string, comments: any, userPost: any, likes: any) => {
+  createPost: async (title: string, tags: string[], description: string, userId: string) => {
     const createPost = await axios.post(`${API_URL}/post`, {
       title: title,
       tags: tags,
       description: description,
-      content: content,
-      active: true,
-      comments: comments,
-      userPost: userPost,
-      likes: likes,
+      image: "",
+      content:"",
     })
     return createPost
   },
@@ -39,6 +36,17 @@ const contentService = {
         userID: userID,
     })
     return incrementLike
+  },
+  deletePost: async (postID: string, userID: string) => {
+    const deletePost = await axios.delete(`${API_URL}/post/delete/${postID}`, {
+    })
+    return deletePost
+  },
+  editPost: async (postID: string, userID: string, newData: string[]) => {
+    const editPost = await axios.put(`${API_URL}/post/delete/${postID}`, {
+      newData: newData,
+    })
+    return editPost
   },
 };
 

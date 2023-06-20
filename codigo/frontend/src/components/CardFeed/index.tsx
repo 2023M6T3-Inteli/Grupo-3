@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CardModal from '../../context/CardModal';
 import CloseIcon from '@mui/icons-material/Close';
 import ReportIcon from '@mui/icons-material/Report';
+import contentService from '../../services/contentService';
 import moment from 'moment';
 moment.locale('pt-br');
 const now = moment();
@@ -20,13 +21,14 @@ interface CardProps {
 }
 
 const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
-  console.log(card.userPost[0])
   const postUser = card.userPost[0];
   const createdAtMoment = moment(card.createdAt);
   const diffMinutes = now.diff(createdAtMoment, 'minutes');
   const [isLiked, setIsLiked] = useState(card.likes.some((like) => (like.user)["id"] === currentUserId));
   const modalCtx = useContext(CardModal);
   const [showActions, setShowActions] = useState(false);
+
+  
 
   const minutesAgo = () => {
     if (diffMinutes < 5) {
@@ -102,8 +104,47 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
 
   const handleButtonClick = () => {
     setShowActions(!showActions);
-    console.log("cliquei")
   };
+
+  const deleteButtonClick = async () => {
+    try {
+      const responseDelete = await contentService.deletePost(card.id, currentUserId);
+      console.log(responseDelete.data);
+    } catch (err) {
+      console.error('Error in DELETE request:', err);
+    }
+  };
+
+  const defaultOptions = 
+  <Options>
+    <div style={{justifyContent:'flex-end', width:'100%', height:'fit-content'}} onClick={handleButtonClick}>
+      <CloseIcon sx={{ color: 'black', width: '20px', height: '20px' }}></CloseIcon>
+    </div>
+    <div>
+      <button onClick={moreDetails}><p>Ver mais</p></button>
+    </div>
+    <div style={{borderTop:'1px solid #E8E8E8', marginBottom:'10px'}}>
+      <button><p style={{color:'#FD2227'}}>Report</p></button>
+    </div>
+  </Options>
+
+  const ownerOptions = 
+  <Options>
+    <span style={{justifyContent:'flex-end', width:'100%', height:'fit-content'}} onClick={handleButtonClick}>
+      <CloseIcon sx={{ color: 'black', width: '20px', height: '20px' }}></CloseIcon>
+    </span>
+    <div>
+      <button><p>Edit</p></button>
+      {/* <ButtonsOptions><p>Edit</p></ButtonsOptions> */}
+    </div>
+    <div>
+      {/* <ButtonsOptions><p>Report</p></ButtonsOptions> */}
+      <button><p>Report</p></button>
+    </div>
+    <div style={{borderTop:'1px solid #E8E8E8', marginBottom:'10px'}}>
+      <button onClick={deleteButtonClick}><p style={{color:'#FD2227'}}>Delete</p></button>
+    </div>
+  </Options>
 
   return(
     <Card key={card.id}>
@@ -120,25 +161,16 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
         </OwnerPost>
         <ShowButton onClick={handleButtonClick}><MoreHorizIcon sx={{ color: '#8F8F8F'}} /></ShowButton>
         {showActions ? 
-        <Options>
-        <div style={{justifyContent:'flex-end', width:'100%'}} onClick={handleButtonClick}>
-          <CloseIcon sx={{ color: 'black', width: '20px', height: '20px' }}></CloseIcon>
-        </div>
-        <div>
-          <p>Edit</p>
-        </div>
-        <div>
-          <p>Report</p>
-        </div>
-        <div style={{borderTop:'0.5px solid grey'}}>
-          <p style={{color:'#FD2227'}}>Delete</p>
-        </div>
-      </Options> : <></>}
-        
+          currentUserId !== (postUser.user).id && (postUser.user).admin == false ? 
+          defaultOptions : ownerOptions 
+          : <></> 
+        }
       </CardIntro>
-      <CardContent onClick={moreDetails}>
-        <h2>{card.title}</h2>
-        {imgOrText()}
+      <CardContent>
+        <div onClick={moreDetails}>
+          <h2>{card.title}</h2>
+          {imgOrText()}
+        </div>
         <PostTags>
           {returnTags()}
         </PostTags>
@@ -148,8 +180,8 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
               {isLiked ? <FavoriteOutlinedIcon sx={{ color: '#FB3542'}} /> : <FavoriteBorderOutlinedIcon />}
             </button>
             <p>{card._count["likes"]} Likes</p>
-            <ChatBubbleOutlineIcon />
-            <p>{card._count["comments"]} Comments</p>
+            <ChatBubbleOutlineIcon onClick={moreDetails} />
+            <p onClick={moreDetails}>{card._count["comments"]} Comments</p>
           </PostInteraction>
           <NotInterested>
             <p>Not interested</p>

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
   Inject,
@@ -11,7 +12,6 @@ import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { ClientKafka } from '@nestjs/microservices';
-import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class PostService {
@@ -28,7 +28,6 @@ export class PostService {
         description: createPostDTO.description,
         image: createPostDTO.image,
         content: createPostDTO.content,
-        active: createPostDTO.active,
         userPost: {
           create: {
             userID: userID,
@@ -36,6 +35,15 @@ export class PostService {
         },
       },
     });
+
+    for (let i = 0; i < createPostDTO.tags.length; i++) {
+      await this.prisma.tags.create({
+        data: {
+          subject: createPostDTO.tags[i],
+          postID: createdPost.id,
+        },
+      });
+    }
 
     await this.prisma.user.update({
       where: { id: userID },
@@ -52,38 +60,13 @@ export class PostService {
     return createdPost;
   }
 
-  async uploadS3(file, bucket, name) {
-    const s3 = this.getS3();
-    const params = {
-      Bucket: bucket,
-      Key: String(name),
-      Body: file,
-    };
-    return new Promise((resolve, reject) => {
-      s3.upload(params, (err, data) => {
-        if (err) {
-          Logger.error(err);
-          reject(err.message);
-        }
-        resolve(data);
-      });
-    });
-  }
-
-  getS3() {
-    return new S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    });
-  }
-
   async getAllPosts(): Promise<{}> {
     const posts = await this.prisma.post.findMany({
       where: { active: true },
       include: {
         userPost: {
           select: {
-            user: { select: { name: true, username: true, image: true } },
+            user: { select: { id: true, name: true, username: true, image: true, admin:true } },
           },
         },
         tags: { select: { subject: true } },
@@ -175,7 +158,7 @@ export class PostService {
       where: { postID: postId },
       include: {
         user: {
-          select: { name: true, username: true, image: true },
+          select: { name: true, username: true, image: true, admin: true },
         },
         post: {
           select: {
@@ -290,5 +273,59 @@ export class PostService {
     }
 
     await this.prisma.post.update({ where: { id: postId }, data: newData });
+  }
+
+  async findAllReportPosts() {
+    return this.prisma.reportPosts.findMany();
+  }
+
+  async reportPost(postId: string, userID: string){
+    const post = await this.prisma.post.findFirst({
+      where: {
+        id: postId
+      }
+    })
+
+    if (!post){
+      throw new NotFoundException(
+        'Post not found',
+      )
+    }
+
+    const reportPost = await this.prisma.reportPosts.create({
+      data: {
+        userID: userID,
+        postID: postId,
+      }
+    })
+
+    return reportPost
+  }
+
+  async findAllReportComments() {
+    return this.prisma.reportPosts.findMany();
+  }
+
+  async reportComment(commentId: string, userID: string){
+    const comment = await this.prisma.post.findFirst({
+      where: {
+        id: commentId
+      }
+    })
+
+    if (!comment){
+      throw new NotFoundException(
+        'Comment not found',
+      )
+    }
+
+    const ReportComments = await this.prisma.reportComments.create({
+      data: {
+        userID: userID,
+        commentsId: commentId,
+      }
+    })
+
+    return ReportComments
   }
 }

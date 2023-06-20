@@ -37,7 +37,7 @@ const Comments: React.FC<CommentsProps> = ({commentParams}) => {
                         alt="profileImg"
                       />
                 <div>
-                  <p>{comment.user["name"]}</p>
+                  <p><b>{comment.user["name"]}</b></p>
                   <p>@{comment.user["username"]}</p>
                 </div>
               </div>

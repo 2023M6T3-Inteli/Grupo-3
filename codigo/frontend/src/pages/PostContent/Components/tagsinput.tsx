@@ -54,8 +54,6 @@ const CancelTagButton = styled(CancelIcon)`
   border-radius:0;
 `;
 
-
-
 const TagsInput: React.FC<TagsInputProps> = (props) => {
   const [tags, setTags] = useState<string[]>([]);
 
@@ -64,7 +62,7 @@ const TagsInput: React.FC<TagsInputProps> = (props) => {
       const newTags = [...tags, event.currentTarget.value];
       setTags(newTags);
       if(props.onSubmit){
-        props.onSubmit(tags);
+        props.onSubmit(newTags);
       }
       event.currentTarget.value = "";
     }

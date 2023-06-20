@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
   ForbiddenException,
@@ -82,6 +83,25 @@ export class AuthService {
       },
     });
 
+    
+
+    if (!user)
+      throw new ForbiddenException(
+        'E-mail or password does not exist. Access Denied!',
+      );
+
+    const passwordMatches = await argon.verify(
+      user.hashedPassword,
+      dto.password,
+    );
+    if (!passwordMatches)
+      throw new ForbiddenException(
+        'E-mail or password does not exist. Access Denied!',
+      );
+
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRtHash(user.id, tokens.refresh_token);
+
     if (user.lastLogin == '') {
       await this.prisma.user.update({
         where: {
@@ -119,23 +139,6 @@ export class AuthService {
         });
       }
     }
-
-    if (!user)
-      throw new ForbiddenException(
-        'E-mail or password does not exist. Access Denied!',
-      );
-
-    const passwordMatches = await argon.verify(
-      user.hashedPassword,
-      dto.password,
-    );
-    if (!passwordMatches)
-      throw new ForbiddenException(
-        'E-mail or password does not exist. Access Denied!',
-      );
-
-    const tokens = await this.getTokens(user.id, user.email);
-    await this.updateRtHash(user.id, tokens.refresh_token);
 
     return tokens;
   }

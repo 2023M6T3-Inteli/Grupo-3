@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { CreateUserDTO } from '../../user/dto/create-dto';
@@ -30,27 +31,4 @@ export class CreatePostDTO {
   @ApiProperty({ example: 'Content of the post', description: 'Content' })
   @IsOptional()
   content: string;
-
-  @ApiProperty({ example: true, description: 'Is the post active or not?' })
-  @IsOptional()
-  active: boolean;
-
-  @ApiProperty({
-    type: () => CreateCommentDTO,
-    isArray: true,
-    description: 'Comments of the post',
-  })
-  @IsOptional()
-  comments: CreateCommentDTO[];
-
-  @ApiProperty({
-    type: () => CreateUserPostDTO,
-    description: 'This attribute references the user that is the owner',
-  })
-  @IsOptional()
-  userPost: CreateUserDTO;
-
-  @ApiProperty({ type: () => LikesDto, description: 'Likes' })
-  @IsOptional()
-  likes: LikesDto;
 }

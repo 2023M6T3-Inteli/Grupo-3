@@ -95,4 +95,34 @@ export class PostController {
   ): Promise<void> {
     await this.postService.editPost(userId, postId, newData);
   }
+
+  @Get('report-post')
+  @ApiBearerAuth()
+  async findAllReportPosts() {
+    return this.postService.findAllReportPosts();
+  }
+
+  @Post('report/post/:postId')
+  @ApiBearerAuth()
+  async reportPost(
+    @Param('postId') postId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportPost(postId, userID);
+  }
+
+  @Get('report-cooments')
+  @ApiBearerAuth()
+  async findAllReportComments() {
+    return this.postService.findAllReportComments();
+  }
+
+  @Post('report/comment/:commentId')
+  @ApiBearerAuth()
+  async reportComment(
+    @Param('commentId') commentId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportComment(commentId, userID);
+  }
 }
