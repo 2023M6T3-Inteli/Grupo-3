@@ -1,10 +1,11 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
-import { KafkaModule } from '../kafka/kafka.module';
+import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
 import { SeedConsumer } from '../consumers/seed.consumer';
+import { KafkaModule } from '../kafka/kafka.module';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
-import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
-import { CacheModule } from '@nestjs/cache-manager';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.factory';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CacheModule } from '@nestjs/cache-manager';
   providers: [
     PostService,
     SeedConsumer,
+    CaslAbilityFactory,
     {
       provide: 'POST_PRODUCER',
       useFactory: async (kafkaService: ClientKafka) => {

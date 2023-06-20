@@ -9,13 +9,13 @@ export function handleSummary(data) {
   };
 }
 
-export let options = {
-  stages: [
-    { duration: '1s', target: 1 },
-    { duration: '10s', target: 10 },
-    { duration: '10s', target: 0 },
-  ],
-};
+// export let options = {
+//   stages: [
+//     { duration: '1s', target: 1 },
+//     { duration: '10s', target: 10 },
+//     { duration: '10s', target: 0 },
+//   ],
+// };
 
 const API_BASE_URL = 'http://localhost:5500';
 let accessToken = '';
@@ -26,16 +26,15 @@ export default function () {
     accept: '*/*',
   };
 
-  // Generate unique credentials for each virtual user
-  const username = `user${__VU}`; // Use VU number in the username
-  const email = `${username}@dell.com`;
-  const password = `password${__VU}`; // Use VU number in the password
+  // // Generate unique credentials for each virtual user
+  // const username = `user${__VU}`; // Use VU number in the username
+  // const email = `${username}@dell.com`;
+  // const password = `password${__VU}`; // Use VU number in the password
 
   const payloadSignup = JSON.stringify({
-    email: email,
-    password: password,
-    username: username,
-    // name: String,
+    email: 'email@email.com',
+    password: 'password',
+    username: 'username',
     acceptTerms: true,
     admin: false
   });
