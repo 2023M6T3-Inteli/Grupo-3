@@ -26,3 +26,21 @@ export class CreatePostDTO {
   @IsOptional()
   content: string;
 }
+
+export class UpdatePostDTO {
+  @ApiProperty({example: 'Updated Title', description:'Title' })
+  @IsOptional()
+  title: string
+
+  @ApiProperty({example: 'Updated descrtption', description: 'Description'})
+  @IsOptional()
+  description: string
+
+  @ApiProperty({ example: 'Updated Image', description: 'Image' })
+  @IsOptional()
+  image: string;
+
+  @ApiProperty({ example: 'Updated Content', description: 'Content' })
+  @IsOptional()
+  content: string;
+}

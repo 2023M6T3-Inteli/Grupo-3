@@ -15,7 +15,7 @@ export class PostService {
   async createPost(
     createPostDTO: CreatePostDTO,
     userID: string,
-  ): Promise<CreatePostDTO> {
+  ): Promise<Post> {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -30,6 +30,15 @@ export class PostService {
         },
       },
     });
+
+    for (let i = 0; i < createPostDTO.tags.length; i++) {
+      await this.prisma.tags.create({
+        data: {
+          subject: createPostDTO.tags[i],
+          postID: createdPost.id,
+        },
+      });
+    }
 
     await this.prisma.user.update({
       where: { id: userID },
@@ -51,6 +60,29 @@ export class PostService {
         _count: { select: { likes: true } },
       },
       orderBy: { createdAt: 'desc' },
+    });
+
+    return posts;
+  }
+
+  async getPostById(postID: string): Promise<{}> {
+    const posts = await this.prisma.post.findUnique({
+      where: { id: postID },
+      include: {
+        userPost: {
+          select: {
+            user: { select: { name: true, username: true, image: true } },
+          },
+        },
+        tags: { select: { subject: true } },
+        likes: {
+          select: {
+            post: { select: { id: true } },
+            user: { select: { id: true } },
+          },
+        },
+        _count: { select: { likes: true, comments: true } },
+      },
     });
 
     return posts;

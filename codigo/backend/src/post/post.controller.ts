@@ -53,6 +53,16 @@ export class PostController {
     return this.postService.getPostById(postID);
   }
 
+  //criar rota para dar like em posts
+  @Post('likes/:postID')
+  @ApiBearerAuth()
+  async incrementLike(
+    @Param('postID') postID: string,
+    @GetCurrentUserId() userID: string,
+  ): Promise<boolean> {
+    return this.postService.incrementLike(postID, userID);
+  }
+
   @Get('comments')
   @ApiBearerAuth()
   async findAllComments() {
@@ -81,15 +91,7 @@ export class PostController {
     }
   }
 
-  //criar rota para dar like em posts
-  @Post('likes/:postID')
-  @ApiBearerAuth()
-  async incrementLike(
-    @Param('postID') postID: string,
-    @GetCurrentUserId() userID: string,
-  ): Promise<boolean> {
-    return this.postService.incrementLike(postID, userID);
-  }
+  
 
   // Edit post function, available only to the post owner
   @Put('edit/:postId')
@@ -112,17 +114,6 @@ export class PostController {
   ) {
     return this.postService.deletePost(postId, userId);
   }
-
-  // Edit post function, available only to the post owner
-  // @Put('edit/:postId')
-  // @ApiBearerAuth()
-  // async editPost(
-  //   @Param('postId') postId: string,
-  //   @Body() newData: string,
-  //   @GetCurrentUserId() userId: string,
-  // ): Promise<void> {
-  //   await this.postService.editPost(userId, postId, newData);
-  // }
 
   @Get('report-post')
   @ApiBearerAuth()
