@@ -73,7 +73,7 @@ const User: React.FC = () => {
 
                 <Grid item xs={12}>
                     <Container>
-                        <SubTitulo>Tell us a little bit about yourself — this is how others will see you on Learn Link. You’ll always be able to edit this later in your Settings.</SubTitulo>
+                        <SubTitulo style={{width:347}}>Tell us a little bit about yourself — this is how others will see you on Learn Link. You’ll always be able to edit this later in your Settings.</SubTitulo>
                     </Container>
                 </Grid>
 

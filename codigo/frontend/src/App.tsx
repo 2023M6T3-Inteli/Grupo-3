@@ -14,6 +14,7 @@ import Saved from './pages/Saved';
 import PostContent from './pages/PostContent/PostContent';
 import Account from './pages/Account';
 import User from "./pages/Account/User";
+import Terms from "./pages/Account/Terms";
 import DetailsCard from "./modal/DetailsCard";
 
 const Content = styled.div`
@@ -34,6 +35,7 @@ function App() {
         <Route path="/notification" element={<Notifications />} />
         <Route path="/Account" element={<Account />} />
         <Route path="/Account/User" element={<User />} />
+        <Route path="/Account/User/terms" element={<Terms/>} />
         <Route path="/acc" element={<App />} />
         <Route path="/createpost" element={<PostContent />} />
       </Routes>
