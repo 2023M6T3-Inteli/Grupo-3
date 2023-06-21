@@ -4,7 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';

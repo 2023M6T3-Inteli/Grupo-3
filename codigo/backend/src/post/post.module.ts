@@ -17,11 +17,12 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.f
         transport: Transport.KAFKA,
         options: {
           client: {
+            clientId:'post',
             brokers: ['localhost:9092'],
-          },
-          consumer: {
-            groupId: 'post-producer',
-          },
+          }
+          // consumer: {
+          //   groupId: 'post-producer',
+          // },
         },
       },
     ]),
