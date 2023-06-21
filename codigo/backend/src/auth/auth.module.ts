@@ -1,8 +1,10 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { SeedConsumer } from 'src/consumers/seed.consumer';
-import { KafkaModule } from 'src/kafka/kafka.module';
+import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
+import { Agent } from 'https';
+import { SeedConsumer } from '../consumers/seed.consumer';
+import { KafkaModule } from '../kafka/kafka.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AtStrategy, RtStrategy } from './strategies';
@@ -11,6 +13,11 @@ import { AtStrategy, RtStrategy } from './strategies';
   imports: [
     JwtModule.register({}),
     KafkaModule,
+    HttpModule.register({
+      httpAgent: new Agent({
+        rejectUnauthorized: false,
+      }),
+    }),
     ClientsModule.register([
       {
         name: 'AUTH_MICROSERVICE',
@@ -20,7 +27,6 @@ import { AtStrategy, RtStrategy } from './strategies';
             clientId: 'auth',
             brokers: ['localhost:9092'],
           },
-          producerOnlyMode: true,
           consumer: {
             groupId: 'auth-consumer',
           },
@@ -29,6 +35,12 @@ import { AtStrategy, RtStrategy } from './strategies';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy, SeedConsumer],
+  providers: [AuthService, AtStrategy, RtStrategy, SeedConsumer, {
+    provide: 'AUTH_PRODUCER',
+    useFactory: async (kafkaService: ClientKafka) => {
+      return kafkaService.connect();
+    },
+    inject: ['AUTH_MICROSERVICE'],
+  },],
 })
 export class AuthModule {}

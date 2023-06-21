@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from '../common/decorators';
 import { CreateRankingDto } from './dto/create-ranking.dto';
 import { RankingService } from './ranking.service';
 @ApiTags('ranking')
