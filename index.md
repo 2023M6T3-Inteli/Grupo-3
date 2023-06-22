@@ -336,11 +336,11 @@ Em resumo, embora o Dell Technologies Design System forneça um conjunto valioso
 
 As imagens a seguir ilustram o aplicativo "AR Assistent" e destacam algumas das falhas na implementação do Dell Technologies Design System:<br>
 
-<img src="docs/img/app1.jpg">
-<img src="docs/img/app2.jpg">
-<img src="docs/img/app3.jpg">
-<img src="docs/img/app4.jpg">
-<img src="docs/img/app5.jpg">
+<img src="docs/img/app1.png">
+<img src="docs/img/app2.png">
+<img src="docs/img/app3.png">
+<img src="docs/img/app4.png">
+<img src="docs/img/app5.png">
 
 Como pode ser observado nas imagens acima, o exemplo demonstra algumas deficiências no que diz respeito à responsividade nas telas de dispositivos móveis atualmente utilizados. Além disso, as cores não são aplicadas de maneira adequada, resultando em uma aparência visualmente desagradável. A interface também deixa a desejar em termos de intuição e auto explicação, o que dificulta a navegação e a interação do usuário com o aplicativo.
 De modo geral, cada um dos analisados tem pontos altos e baixos, porém todos mantendo um padrão de excelente qualidade. Cada Design System apresenta qualidades e fragilidades distintas. O Dell Technologies Design System, utilizado em nosso projeto, oferece facilidade de uso, uma ampla gama de componentes e boa customização. O Apple Human Interface Guidelines é ideal para projetos específicos da Apple, mas pode ser limitado em termos de customização. O Atlassian Design System apresenta uma ampla gama de componentes e padrões, com ênfase na performance e escalabilidade.<br>
