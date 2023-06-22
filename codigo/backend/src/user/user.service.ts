@@ -155,6 +155,25 @@ export class UserService {
     return adminUsers;
   }
 
+  async updateUser(userID: string, user: User): Promise<void> {
+    const findUser = await this.prisma.user.findUnique({
+      where: { id: userID },
+    });
+
+    if (!findUser) throw new Error('User does not exist');
+
+    //pode fazer um update do nome, imagem, sua localização e seu currículo
+    await this.prisma.user.update({
+      where: { id: userID },
+      data: {
+        name: user.name,
+        image: user.image,
+        location: user.location,
+        curriculum: user.curriculum,
+      },
+    });
+  }
+
   async deleteUser(id: string, currentUser: string): Promise<User> {
     const findUser = await this.prisma.user.findUnique({ where: { id } });
 

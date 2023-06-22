@@ -251,4 +251,20 @@ export class PostService {
 
     return deletedPost;
   }
+
+  async deleteAll(userID: string): Promise<string> {
+    const adminUser = await this.prisma.user.findUnique({
+      where: { id: userID },
+      select: { admin: true },
+    });
+
+    if (!adminUser)
+      throw new UnauthorizedException(
+        'You are not allowed to delete all posts',
+      );
+
+    await this.prisma.post.deleteMany();
+
+    return 'All posts deleted';
+  }
 }

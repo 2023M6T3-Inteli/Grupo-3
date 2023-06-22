@@ -1,5 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Put,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -39,9 +52,7 @@ export class PostController {
   }
 
   @Get('byId/:postID')
-  async getPostById(
-    @Param('postID') postID: string,
-  ) {
+  async getPostById(@Param('postID') postID: string) {
     return this.postService.getPostById(postID);
   }
 
@@ -52,9 +63,7 @@ export class PostController {
   }
 
   @Get('comments/:postId')
-  async findCommentsByPostId(
-    @Param('postId') postId: string,
-  ) {
+  async findCommentsByPostId(@Param('postId') postId: string) {
     return this.postService.findCommentsByPostId(postId);
   }
 
@@ -105,6 +114,12 @@ export class PostController {
     @GetCurrentUserId() userId: string,
   ) {
     return this.postService.deletePost(postId, userId);
+  }
+
+  @Delete('delete')
+  @ApiBearerAuth()
+  async deleteAll(@GetCurrentUserId() userID: string): Promise<string> {
+    return this.postService.deleteAll(userID);
   }
 
   // @MessagePattern('post')
