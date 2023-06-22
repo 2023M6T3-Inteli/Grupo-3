@@ -8,13 +8,11 @@ import { KafkaModule } from '../kafka/kafka.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AtStrategy, RtStrategy } from './strategies';
-import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     JwtModule.register({}),
     KafkaModule,
-    CacheModule.register(),
     HttpModule.register({
       httpAgent: new Agent({
         rejectUnauthorized: false,

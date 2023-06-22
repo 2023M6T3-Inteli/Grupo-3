@@ -1,4 +1,3 @@
-import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
 import { SeedConsumer } from '../consumers/seed.consumer';
@@ -10,7 +9,6 @@ import { CaslAbilityFactory } from 'src/casl/casl-ability.factory/casl-ability.f
 @Module({
   imports: [
     KafkaModule,
-    CacheModule.register(),
     ClientsModule.register([
       {
         name: 'POST_MICROSERVICE',

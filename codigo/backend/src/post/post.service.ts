@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Post } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+
 import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 
 @Injectable()
@@ -48,24 +49,7 @@ export class PostService {
     return createdPost;
   }
 
-  async getAllPosts(): Promise<{}> {
-    const posts = await this.prisma.post.findMany({
-      where: { active: true },
-      include: {
-        userPost: {
-          select: {
-            user: { select: { name: true, username: true, image: true } },
-          },
-        },
-        _count: { select: { likes: true } },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    return posts;
-  }
-
-  async getPostById(postID: string): Promise<{}> {
+  async getPostById(postID: string) {
     const posts = await this.prisma.post.findUnique({
       where: { id: postID },
       include: {
@@ -83,6 +67,38 @@ export class PostService {
         },
         _count: { select: { likes: true, comments: true } },
       },
+    });
+
+    return posts;
+  }
+
+  async getAllPosts() {
+    const posts = await this.prisma.post.findMany({
+      where: { active: true },
+      include: {
+        userPost: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                image: true,
+                admin: true,
+              },
+            },
+          },
+        },
+        tags: { select: { subject: true } },
+        likes: {
+          select: {
+            post: { select: { id: true } },
+            user: { select: { id: true } },
+          },
+        },
+        _count: { select: { likes: true, comments: true } },
+      },
+      orderBy: { createdAt: 'desc' },
     });
 
     return posts;

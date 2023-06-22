@@ -172,9 +172,6 @@ Em resumo, a solução proposta busca fornecer uma plataforma abrangente, person
 
 ### Objetivos
 
-Descrever o objetivo geral e os objetivos específicos.
-
-
 #### Objetivos gerais
 	  
 - Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
