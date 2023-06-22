@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
-  ForbiddenException
+  ForbiddenException,
+  Inject,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import * as argon from 'argon2';
-import { ProducerService } from '../kafka/producer.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto, AuthLoginDto } from './dto';
 import { JwtPayload, Tokens } from './types';
@@ -17,13 +18,13 @@ export class AuthService {
     private prisma: PrismaService,
     private jwtService: JwtService,
     private config: ConfigService,
-    private producerService: ProducerService,
+    @Inject('AUTH_PRODUCER') private producerService: Producer,
   ) {}
 
   async signupLocal(dto: AuthDto): Promise<Tokens> {
-    await this.producerService.produce({
+    await this.producerService.send({
       topic: 'auth-consumer',
-      messages: [{ value: JSON.stringify(dto)}],
+      messages: [{ value: JSON.stringify(dto) }],
     });
 
     const hashedPassword = await argon.hash(dto.password);

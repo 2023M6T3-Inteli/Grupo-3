@@ -3,9 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
-import { AppModule } from './app.module';
-import { transports, format } from 'winston';
+import { format, transports } from 'winston';
 import 'winston-daily-rotate-file';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,8 +14,8 @@ async function bootstrap() {
       transports: [
         // file on daily rotation (error only)
         new transports.DailyRotateFile({
-       // %DATE will be replaced by the current date
-          filename: `logs/%DATE%-error.log`, 
+          // %DATE will be replaced by the current date
+          filename: `logs/%DATE%-error.log`,
           level: 'error',
           format: format.combine(format.timestamp(), format.json()),
           datePattern: 'YYYY-MM-DD',
@@ -31,15 +31,15 @@ async function bootstrap() {
           maxFiles: '30d',
         }),
         new transports.Console({
-         format: format.combine(
-           format.cli(),
-           format.splat(),
-           format.timestamp(),
-           format.printf((info) => {
-             return `${info.timestamp} ${info.level}: ${info.message}`;
-           }),
+          format: format.combine(
+            format.cli(),
+            format.splat(),
+            format.timestamp(),
+            format.printf((info) => {
+              return `${info.timestamp} ${info.level}: ${info.message}`;
+            }),
           ),
-      }),
+        }),
       ],
     }),
   });
@@ -59,6 +59,9 @@ async function bootstrap() {
       client: {
         brokers: ['localhost:9092'],
       },
+      consumer: {
+        groupId: 'post-consumer'
+      }
     },
   });
 

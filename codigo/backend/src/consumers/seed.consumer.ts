@@ -7,7 +7,7 @@ export class SeedConsumer implements OnModuleInit {
 
   async onModuleInit() {
     await this.consumerService.consume(
-      { topics: ['post'] },
+      { topics: ['post', 'auth'] },
       {
         eachMessage: async ({ topic, partition, message }) => {
           console.log({

@@ -11,7 +11,7 @@ import {
 export class AuthDto {
   @IsNotEmpty()
   @IsEmail()
-  @ApiProperty({ example: 'yves@dell.com', description: 'email' })
+  @ApiProperty({ example: 'lirios@dell.com', description: 'email' })
   email: string;
 
   @IsNotEmpty()
@@ -20,16 +20,16 @@ export class AuthDto {
   password: string;
 
   @IsString()
-  @ApiProperty({ example: 'haxb3yziw1', description: 'name' })
+  @ApiProperty({ example: 'Lirios', description: 'name' })
   name: string;
 
   @IsString()
-  @ApiProperty({ example: 'Annie', description: 'arroba' })
+  @ApiProperty({ example: 'lirios', description: 'username' })
   username: string;
 
   @IsString()
   @IsOptional()
-  @ApiProperty({ example: 'haxb3yziw1.png', description: 'Image' })
+  @ApiProperty({ example: 'myphoto.png', description: 'Image' })
   image?: string;
 
   @IsString()
@@ -58,7 +58,7 @@ export class AuthDto {
   @IsNumber()
   @IsOptional()
   @ApiProperty({
-    example: 1,
+    example: 0,
     description: 'Score according to number of posts',
   })
   score?: number;
