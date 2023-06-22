@@ -67,10 +67,25 @@ export class PostService {
       include: {
         userPost: {
           select: {
-            user: { select: { name: true, username: true, image: true } },
+            user: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                image: true,
+                admin: true,
+              },
+            },
           },
         },
-        _count: { select: { likes: true } },
+        tags: { select: { subject: true } },
+        likes: {
+          select: {
+            post: { select: { id: true } },
+            user: { select: { id: true } },
+          },
+        },
+        _count: { select: { likes: true, comments: true } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -90,10 +105,10 @@ export class PostService {
     const existingLike = await this.prisma.likes.findFirst({
       where: { userID, postID },
     });
-  
+
     if (existingLike) {
       return false; // O usuário já deu "like" no post anteriormente
-    }  
+    }
 
     await this.prisma.likes.create({
       data: {
