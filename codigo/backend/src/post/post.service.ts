@@ -12,7 +12,10 @@ import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createPost(createPostDTO: CreatePostDTO, userID: string): Promise<CreatePostDTO> {
+  async createPost(
+    createPostDTO: CreatePostDTO,
+    userID: string,
+  ): Promise<CreatePostDTO> {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -65,10 +68,10 @@ export class PostService {
     const existingLike = await this.prisma.likes.findFirst({
       where: { userID, postID },
     });
-  
+
     if (existingLike) {
       return false; // O usuário já deu "like" no post anteriormente
-    }  
+    }
 
     await this.prisma.likes.create({
       data: {
@@ -210,5 +213,66 @@ export class PostService {
     });
 
     return deletedPost;
+  }
+
+  async verifyAndChangePost(postID: string) {
+    const post = await this.prisma.post.findUnique({
+      where: { id: postID },
+    });
+
+    if (!post) throw new Error('Comment does not exist');
+
+    const updatePost = await this.prisma.post.update({
+      where: { id: postID },
+      data: { active: true },
+    });
+
+    return updatePost;
+  }
+
+  async verifyReportedComemnt(commentID: string) {
+    const comment = await this.prisma.comments.findUnique({
+      where: { id: commentID },
+    });
+
+    if (!comment) throw new Error('Comment does not exist');
+
+    const updateComment = await this.prisma.comments.update({
+      where: { id: commentID },
+      data: { report: true },
+    });
+
+    return updateComment;
+  }
+
+  //delete comment
+  async deleteCommentById(userID, commentID) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userID },
+    });
+
+    if (!user) throw new Error('User does not exist');
+
+    const verifyComment = await this.prisma.comments.findUnique({
+      where: { id: commentID },
+    });
+
+    if (!verifyComment) throw new Error('Comment does not exist');
+
+    const verifyUser = verifyComment.userID == userID;
+
+    if (!user.admin || verifyUser == true) {
+      throw new BadGatewayException(
+        'Only admin and the owner  user can delete the comment',
+      );
+    }
+
+    const comment = await this.prisma.comments.delete({
+      where: {
+        id: commentID,
+      },
+    });
+
+    return comment;
   }
 }

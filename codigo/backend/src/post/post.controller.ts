@@ -103,6 +103,15 @@ export class PostController {
     return this.postService.deletePost(postId, userId);
   }
 
+  @Delete('delete/comment/:commentID')
+  @ApiBearerAuth()
+  async deleteById(
+    @Param('commentID') commentID: string,
+    @GetCurrentUserId() userID,
+  ) {
+    return this.postService.deleteCommentById(userID, commentID);
+  }
+
   // @MessagePattern('post')
   // async consumer(@Payload() message: KafkaMessage) {
   //   await this.kafkaProducer.send({
