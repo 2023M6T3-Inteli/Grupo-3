@@ -21,7 +21,7 @@ export class UserService {
         curriculum: true,
         hashedPassword: false,
         image: true,
-        id: false,
+        id: true,
         likes: { select: { postID: true } },
         location: true,
         role: true,

@@ -1,13 +1,23 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 
 @ApiTags('post')
 @Controller('post')
@@ -51,6 +61,18 @@ export class PostController {
     @GetCurrentUserId() userID: string,
   ): Promise<boolean> {
     return this.postService.incrementLike(postID, userID);
+  }
+
+  @Post('verify/:postID')
+  @ApiBearerAuth()
+  async verifyAndChangePost(@Param('postID') postID: string) {
+    return this.postService.verifyAndChangePost(postID);
+  }
+
+  @Post('verify/:commentID')
+  @ApiBearerAuth()
+  async verifyAndReportComment(@Param('commentID') commentID: string) {
+    return this.postService.verifyReportedComemnt(commentID);
   }
 
   @Get('comments')
@@ -114,7 +136,7 @@ export class PostController {
   @Get('report-post')
   @ApiBearerAuth()
   async findAllReportPosts() {
-    return this.postService.findAllReportPosts()
+    return this.postService.findAllReportPosts();
   }
 
   @Post('report/post/:postId')
@@ -129,7 +151,7 @@ export class PostController {
   @Get('report-cooments')
   @ApiBearerAuth()
   async findAllReportComments() {
-    return this.postService.findAllReportComments();
+    return this.postService.findAllReportComments();''
   }
 
   @Post('report/comment/:commentId')

@@ -308,7 +308,7 @@ export class PostService {
   }
 
   //delete comment
-  async deleteCommentById(userID, commentID) {
+  async deleteCommentById(userID: string, commentID: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userID },
     });
@@ -321,12 +321,11 @@ export class PostService {
 
     if (!verifyComment) throw new Error('Comment does not exist');
 
-    const verifyUser = verifyComment.userID == userID;
+    const isUserCommentOwner = verifyComment.userID === userID;
+    const isUserAdmin = user.admin;
 
-    if (!user.admin || verifyUser == true) {
-      throw new BadGatewayException(
-        'Only admin and the owner  user can delete the comment',
-      );
+    if (!(isUserCommentOwner || isUserAdmin)) {
+      throw new Error('You are not authorized to delete this comment');
     }
 
     const comment = await this.prisma.comments.delete({
