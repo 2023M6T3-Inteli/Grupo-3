@@ -148,7 +148,7 @@ function LoginForm() {
       setAuthorizationHeader(access_token);
       setAuthenticated(true);
       setLoggedInUserId((response.data).userId);
-      navigate("/feed", { replace: true })
+      navigate("/Account", { replace: true })
     } catch (error) {
       console.error('Login error:', error);
     }
