@@ -1,27 +1,53 @@
 /* eslint-disable prettier/prettier */
+<<<<<<< HEAD
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+=======
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Put,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Producer } from '@nestjs/microservices/external/kafka.interface';
+>>>>>>> main
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
-import { CreatePostDTO } from './dto/create-post.dto';
+import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 
 @ApiTags('post')
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly ability: CaslAbilityFactory,
+    @Inject('POST_PRODUCER') private kafkaProducer: Producer,
+  ) {}
 
   @Post()
   @ApiBearerAuth()
-  @UseInterceptors(CacheInterceptor)
   async createPost(
     @Body() createPostDTO: CreatePostDTO,
     @GetCurrentUserId() userID: string,
-    @UploadedFile() imagem: Express.Multer.File,
   ) {
-    return this.postService.createPost(createPostDTO, userID, imagem);
+    const post = this.postService.createPost(createPostDTO, userID);
+    this.kafkaProducer.send({
+      topic: 'post',
+      messages: [{ key: 'post', value: JSON.stringify(createPostDTO) }],
+    });
+    return post;
   }
 
   @Get()
@@ -31,9 +57,7 @@ export class PostController {
   }
 
   @Get('byId/:postID')
-  async getPostById(
-    @Param('postID') postID: string,
-  ) {
+  async getPostById(@Param('postID') postID: string) {
     return this.postService.getPostById(postID);
   }
 
@@ -44,9 +68,7 @@ export class PostController {
   }
 
   @Get('comments/:postId')
-  async findCommentsByPostId(
-    @Param('postId') postId: string,
-  ) {
+  async findCommentsByPostId(@Param('postId') postId: string) {
     return this.postService.findCommentsByPostId(postId);
   }
 
@@ -77,6 +99,17 @@ export class PostController {
     return this.postService.incrementLike(postID, userID);
   }
 
+  // Edit post function, available only to the post owner
+  @Put('edit/:postId')
+  @ApiBearerAuth()
+  async editPost(
+    @Param('postId') postId: string,
+    @Body() newData: UpdatePostDTO,
+    @GetCurrentUserId() userId: string,
+  ) {
+    return this.postService.editPost(userId, postId, newData);
+  }
+
   //Delete post function, available only to the post owner and application admin
 
   @Delete('delete/:postId')
@@ -84,21 +117,17 @@ export class PostController {
   async deletePost(
     @Param('postId') postId: string,
     @GetCurrentUserId() userId: string,
-  ): Promise<void> {
-    await this.postService.deletePost(postId, userId);
+  ) {
+    return this.postService.deletePost(postId, userId);
   }
 
-  // Edit post function, available only to the post owner
-  @Put('edit/:postId')
+  @Delete('delete')
   @ApiBearerAuth()
-  async editPost(
-    @Param('postId') postId: string,
-    @Body() newData: string,
-    @GetCurrentUserId() userId: string,
-  ): Promise<void> {
-    await this.postService.editPost(userId, postId, newData);
+  async deleteAll(@GetCurrentUserId() userID: string): Promise<string> {
+    return this.postService.deleteAll(userID);
   }
 
+<<<<<<< HEAD
   //get nos likes 
 
   @Get('/:userId')
@@ -106,4 +135,15 @@ export class PostController {
   findAll(@Param('userId') userId: string) {
     return this.postService.getAllLikeds(userId);
   }
+=======
+  // @MessagePattern('post')
+  // async consumer(@Payload() message: KafkaMessage) {
+  //   await this.kafkaProducer.send({
+  //     topic: 'post',
+  //     messages: [
+  //       { key: 'post', value: JSON.stringify({ ...message.value }) },
+  //     ],
+  //   });
+  // }
+>>>>>>> main
 }
