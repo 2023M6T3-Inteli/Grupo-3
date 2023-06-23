@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
@@ -5,6 +6,10 @@ export class CreatePostDTO {
   @ApiProperty({ example: 'My Post', description: 'Title' })
   @IsOptional()
   title: string;
+
+  @ApiProperty({ example: '["React", "NodeJS"]', description: 'Tags' })
+  @IsOptional()
+  tags: string[];
 
   @ApiProperty({
     example: 'This is my example post',

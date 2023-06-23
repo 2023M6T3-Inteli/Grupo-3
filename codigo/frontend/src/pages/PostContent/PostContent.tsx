@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useCallback } from 'react';
 import axios from 'axios';
@@ -6,8 +6,11 @@ import { useNavigate } from "react-router-dom";
 import TagsInput from './Components/tagsinput';
 import { CancelButton, ContainerHead, InputContainer, InputTextarea, InputTitle, PersonContainer, PostButton, Privacy, ProfileImage, ProfileImageContainer, ProfileInfo, ProfileName } from './styles';
 import GlobalStyles from '../../styles/GlobalStyles';
+import contentService from '../../services/contentService';
+import UserContext from '../../context/UserContext';
 
 const PostContent: React.FC = () => {
+  const { loggedInUserId } = useContext(UserContext);
   const [postData, setPostData] = useState({
     title: '',
     description: '',
@@ -18,23 +21,17 @@ const PostContent: React.FC = () => {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const handlePost = () => {
-    axios
-      .post('/api/posts', postData)
-      .then((response) => {
-        console.log('Post criado com sucesso:', response.data);
-        setPostData({
-          title: '',
-          description: '',
-          content: '',
-          image: '',
-          tags: [],
-        });
-        setSelectedTags([]);
-      })
-      .catch((error) => {
-        console.error('Ocorreu um erro ao criar o post:', error);
-      });
+  const handlePost = async () => {
+    const title = postData.title;
+    const tags = postData.tags;
+    const description = postData.description;
+    try {
+      const responsePostCreate = await contentService.createPost(title, tags,description, loggedInUserId);
+      console.log(responsePostCreate.data);
+    } catch (err) {
+      console.error('Error in POST request:', err);
+    }
+    handleOnClickHome()
   };
 
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -106,7 +103,7 @@ const PostContent: React.FC = () => {
             const textarea = e.target as HTMLTextAreaElement;
             setPostData((prevData) => ({
               ...prevData,
-              content: textarea.value,
+              description: textarea.value,
             }));
             textarea.style.height = 'auto';
             textarea.style.height = `${textarea.scrollHeight}px`;
@@ -114,8 +111,7 @@ const PostContent: React.FC = () => {
         />
 
         <TagsInput
-          selectedTags={selectedTags}
-          onChange={(tags) => {
+          onSubmit={(tags) => {
             setPostData((prevData) => ({
               ...prevData,
               tags: tags,

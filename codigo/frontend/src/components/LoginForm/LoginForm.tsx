@@ -4,10 +4,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
-import { Container } from "@mui/material";
 import GlobalStyles from "../../styles/GlobalStyles";
 import axios from 'axios';
 import { setAuthorizationHeader } from '../../axios';
+import { useContext } from 'react';
+import AuthContext, { AuthProvider } from '../../context/AuthContext';
+import UserContext from "../../context/UserContext";
 
 const Father = styled.div`
   display: flex;
@@ -115,13 +117,13 @@ const CreateAccount = styled(Typography)`
   }
 `;
 
-
-
 function LoginForm() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setAuthenticated } = useContext(AuthContext);
+  const { setLoggedInUserId } = useContext(UserContext);
 
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
@@ -142,9 +144,11 @@ function LoginForm() {
       console.log('Login successful:', response.data);
       setEmail('');
       setPassword('');
-      navigate("/feed", { replace: true })
       const { access_token } = response.data;
       setAuthorizationHeader(access_token);
+      setAuthenticated(true);
+      setLoggedInUserId((response.data).userId);
+      navigate("/feed", { replace: true })
     } catch (error) {
       console.error('Login error:', error);
     }

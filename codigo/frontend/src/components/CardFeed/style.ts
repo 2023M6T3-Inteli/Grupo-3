@@ -16,9 +16,12 @@ export const Card = styled.div`
   border: 1px solid #E8E8E8;
   padding: 10px;
   margin-bottom: 20px;
+  z-index: 0;
 `;
 
 export const CardIntro = styled.div`
+position: relative;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -35,35 +38,101 @@ export const OwnerPost = styled.div`
 export const CardProfile = styled.div`
   p{
     margin: 0;
-    font-weight: 200;
-    font-size: 12px;
+    width: fit-content;
 
     span{
-      font-weight: 300;
-      font-size: 16px;
+      font-weight: bold;
     }
   }
   
 `;
 
 export const CardContent = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0px 14px 0px 14px;
 
-  h3{
-    margin: 15px 0px 10px 0px;
-    font-weight: 200;
-    color: #0E0E0E; 
+  h2{
+    margin: 10px 0px 5px 0px;
+    font-weight: bold;
+    text-align: start;
   }
 
   p{
     text-align: justify;
-    font-weight: 200;
-    color: #666666;
-    
   }
-  
+`;
+
+export const ShowButton = styled.div`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  :hover{
+    background-color: #E8E8E8;
+  }
+  z-index: 2;
+`;
+
+export const Options = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100px;
+  height: fit-content;
+  background-color: white;
+  right: 3px;
+  top: 15px;
+  z-index: 2;
+  border-radius: 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  span{
+    height: 25%;
+    width: 100%;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 3px 0px 3px;
+
+  }
+
+  div{
+    height: 25%;
+    width: 100%;
+    z-index: 3;
+    
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 3px 0px 3px;
+
+    :hover{
+      background-color: #E8E8E8;
+    }
+
+    & :last-child{
+    background: none;
+
+    
+
+    button{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  }
+
+  & :last-child{
+    border-bottom: none;
+  }
 `;
 
 export const ImgContainer = styled.div`
@@ -80,7 +149,6 @@ export const ImgContainer = styled.div`
 
 export const PostTags = styled.div`
   margin: 5px 0 15px 0;
-  padding: 10px 0px 24px 0px;
   display: flex;
   flex-direction: row;
   height: 17px;

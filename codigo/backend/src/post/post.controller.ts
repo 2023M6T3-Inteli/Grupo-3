@@ -1,16 +1,6 @@
 /* eslint-disable prettier/prettier */
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Inject,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Inject, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
@@ -48,10 +38,30 @@ export class PostController {
     return this.postService.getAllPosts();
   }
 
+  @Get('byId/:postID')
+  async getPostById(@Param('postID') postID: string) {
+    return this.postService.getPostById(postID);
+  }
+
+  //criar rota para dar like em posts
+  @Post('likes/:postID')
+  @ApiBearerAuth()
+  async incrementLike(
+    @Param('postID') postID: string,
+    @GetCurrentUserId() userID: string,
+  ): Promise<boolean> {
+    return this.postService.incrementLike(postID, userID);
+  }
+
   @Get('comments')
   @ApiBearerAuth()
   async findAllComments() {
     return this.postService.findAllComments();
+  }
+
+  @Get('comments/:postId')
+  async findCommentsByPostId(@Param('postId') postId: string) {
+    return this.postService.findCommentsByPostId(postId);
   }
 
   @Post('comment/:postId')
@@ -69,16 +79,6 @@ export class PostController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  }
-
-  //criar rota para dar like em posts
-  @Post('likes/:postID')
-  @ApiBearerAuth()
-  async incrementLike(
-    @Param('postID') postID: string,
-    @GetCurrentUserId() userID: string,
-  ): Promise<boolean> {
-    return this.postService.incrementLike(postID, userID);
   }
 
   // Edit post function, available only to the post owner
@@ -110,6 +110,35 @@ export class PostController {
     @GetCurrentUserId() userID,
   ) {
     return this.postService.deleteCommentById(userID, commentID);
+  }
+  @Get('report-post')
+  @ApiBearerAuth()
+  async findAllReportPosts() {
+    return this.postService.findAllReportPosts()
+  }
+
+  @Post('report/post/:postId')
+  @ApiBearerAuth()
+  async reportPost(
+    @Param('postId') postId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportPost(postId, userID);
+  }
+
+  @Get('report-cooments')
+  @ApiBearerAuth()
+  async findAllReportComments() {
+    return this.postService.findAllReportComments();
+  }
+
+  @Post('report/comment/:commentId')
+  @ApiBearerAuth()
+  async reportComment(
+    @Param('commentId') commentId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportComment(commentId, userID);
   }
 
   // @MessagePattern('post')

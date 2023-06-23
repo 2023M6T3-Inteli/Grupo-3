@@ -15,7 +15,7 @@ export class PostService {
   async createPost(
     createPostDTO: CreatePostDTO,
     userID: string,
-  ): Promise<CreatePostDTO> {
+  ): Promise<Post> {
     const createdPost = await this.prisma.post.create({
       data: {
         title: createPostDTO.title,
@@ -155,6 +155,16 @@ export class PostService {
     return commentAdd;
   }
 
+  async getPostById(postID: string) {
+    const post = await this.prisma.post.findUnique({ where: { id: postID } });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return post;
+  }
+
   async editPost(
     userId: string,
     postId: string,
@@ -213,6 +223,58 @@ export class PostService {
     });
 
     return deletedPost;
+  }
+
+  async findAllReportPosts() {
+    return this.prisma.reportPosts.findMany();
+  }
+
+  async reportPost(postId: string, userID: string) {
+    const post = await this.prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    const reportPost = await this.prisma.reportPosts.create({
+      data: {
+        userID: userID,
+        postID: postId,
+        id: '',
+      },
+    });
+
+    return reportPost;
+  }
+
+  async findAllReportComments() {
+    return this.prisma.reportPosts.findMany();
+  }
+
+  async reportComment(commentId: string, userID: string) {
+    const comment = await this.prisma.post.findFirst({
+      where: {
+        id: commentId,
+      },
+    });
+
+    if (!comment) {
+      throw new NotFoundException('Comment not found');
+    }
+
+    const ReportComments = await this.prisma.reportComments.create({
+      data: {
+        userID: userID,
+        commentsId: commentId,
+        id: '',
+      },
+    });
+
+    return ReportComments;
   }
 
   async verifyAndChangePost(postID: string) {

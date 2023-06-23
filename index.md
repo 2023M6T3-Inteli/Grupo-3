@@ -172,9 +172,6 @@ Em resumo, a solução proposta busca fornecer uma plataforma abrangente, person
 
 ### Objetivos
 
-Descrever o objetivo geral e os objetivos específicos.
-
-
 #### Objetivos gerais
 	  
 - Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
@@ -391,6 +388,11 @@ relacionamentos e tipos de relacionamentos
 ## Modelo Lógico 
 
 O modelo lógico de banco de dados é uma representação abstrata e simplificada dos dados armazenados no sistema. É utilizado para entender como os dados são relacionados e para garantir a integridade e consistência dos dados armazenados. Incluir  uma descrição detalhada das tabelas, campos e relações presentes no modelo lógico de banco de dados. Também serão apresentadas as regras de negócio e as restrições aplicadas aos dados para garantir a integridade e a consistência dos dados armazenados.
+	
+## Construção da base de dados
+
+Colab disponível para visualização através do seguinte link:
+https://colab.research.google.com/drive/1IByt3WEJskN7BR6_IpcmLoJw2KjRy5j0?authuser=1#scrollTo=66BwjNHjkOH9
 
 
 # Testes de Software
@@ -405,16 +407,18 @@ Testes Unitários do Ranking <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789) <br>
 Testes Unitários do Usuário <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37) <br>
+	
+Testes Unitários - geral - controllers && services <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/154fee6b-4ac7-4f7a-9757-b09117d81ffe)
 
 
 ## Teste de Integração
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
-
+	
+Testes e logs da mensageria <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/5d105f1b-75ae-4ca4-b60f-67b446a90ea4)
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/a122f5f7-5dd1-45cf-95b3-73633c29ef22)
 
 ## Teste de Regressão
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de Usabilidade 
@@ -428,8 +432,9 @@ Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de API 
+Testes e Logs de API <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/edf56d3c-5743-4f99-81bf-6364c36a8562)
 
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 # Documentação da API

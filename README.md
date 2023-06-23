@@ -10,9 +10,7 @@
 
 # Introdução
 
-Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenharia de Software do Inteli no 2º trimestre de 2023. Durante este trimperíodoestre está sendo desenvolvido um projeto em parceria com a Dell.
-
-> Alunos do grupo: veja as [instruções para os alunos](LEIAME_aluno.md).
+Este é o repositório dos arquivos dos alunos do Módulo 6 do curso de Engenharia de Software do Inteli no 2º trimestre de 2023. Durante este período está sendo desenvolvido um projeto em parceria com a Dell.
 
 # Projeto: *Elaboração de aplicação em dispositivo móvel*
 
@@ -45,15 +43,24 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 - <b>src</b>: todo o código fonte criado para o desenvolvimento do projeto, incluindo os blocos de código do circuito, backend e frontend se aplicáveis.
 
 ## Dataset
-Neste projeto, utilizamos o dataset fornecido pelo professor instrutor Victor Hayashi, que está disponível para acesso através do <a href="https://www.kaggle.com/datasets/shubhammehta21/movie-lens-small-latest-dataset"> link.
+Este projeto utiliza um conjunto de dados fornecido pelo professor instrutor Victor Hayashi, que pode ser acessado através do <a href="https://www.kaggle.com/datasets/shubhammehta21/movie-lens-small-latest-dataset"> link.
 
-O dataset contém informações relevantes sobre avaliações de filmes, incluindo os campos:
+O conjunto de dados contém informações relevantes sobre avaliações de filmes e é composto pelas seguintes colunas:
 *   userId
 *   movieId
 *   rating
 *   timestamp:
+  
+O conjunto de dados possui as seguintes quantidades de registros para cada coluna:
+*   userId --> 610 users
+*   movieId --> 9742 movies
+*   rating --> 100836 ratings
 
-O objetivo deste projeto é realizar análises e aplicar técnicas de processamento de dados nesse conjunto de dados, a fim de obter insights valiosos sobre as preferências e comportamentos dos usuários em relação aos filmes avaliados. A partir dessas análises, poderemos extrair informações úteis para recomendações personalizadas e tomada de decisões relacionadas ao domínio dos filmes.
+O objetivo deste projeto é realizar análises e aplicar técnicas de processamento de dados nesse conjunto de dados, visando obter insights valiosos sobre as preferências e comportamentos dos usuários em relação aos filmes avaliados. A partir dessas análises, poderemos extrair informações úteis para recomendações personalizadas e tomada de decisões relacionadas ao domínio dos filmes.
+  
+O Colab para visualização do projeto está disponível 
+<a href="https://colab.research.google.com/drive/1IByt3WEJskN7BR6_IpcmLoJw2KjRy5j0?authuser=1#scrollTo=66BwjNHjkOH9"> aqui.
+
 
 # Documentação
 
