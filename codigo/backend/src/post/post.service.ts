@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   BadGatewayException,
   Injectable,
@@ -56,8 +57,14 @@ export class PostService {
             },
           },
         },
+        likes: {
+          select: {
+            post: { select: { id: true } },
+            user: { select: { id: true } },
+          },
+        },
         tags: { select: { subject: true } },
-        _count: { select: { likes: true } },
+        _count: { select: { likes: true, comments: true } },
       },
       orderBy: { createdAt: 'desc' },
     });

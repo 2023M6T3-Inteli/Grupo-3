@@ -16,6 +16,26 @@ const userService = {
 
     return logout;
   },
+  getUserById: async (userId: string) => {
+    const user = await axios.get(`${API_URL}/users/profile/${userId}`, {
+    });
+
+    return user;
+  },
+
+  getAllUsers: async () => {
+    const users = await axios.get(`${API_URL}/users`, {
+    });
+
+    return users;
+  },
+
+  deleteUser: async (userId: string) => {
+    const deletedUser = await axios.delete(`${API_URL}/users/delete/${userId}`, {
+    });
+
+    return deletedUser;
+  },
 };
 
 export default userService;
