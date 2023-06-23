@@ -26,18 +26,16 @@ const contentService = {
     return content;
   },
   
-  createPost: async (title: string, tags: string[], description: string, imagem: any, content: string, comments: any, userPost: any, likes: any) => {
+  createPost: async (title: string, tags: string[], description: string, content: string, comments: any, userPost: any, likes: any) => {
     const createPost = await axios.post(`${API_URL}/post`, {
       title: title,
       tags: tags,
       description: description,
-      imagem: imagem,
       content: content,
       active: true,
       comments: comments,
       userPost: userPost,
       likes: likes,
-
     })
     return createPost
   },

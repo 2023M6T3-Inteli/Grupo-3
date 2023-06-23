@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container, Card, CardIntro, OwnerPost, ButtonTeste , CardProfile, CardContent, ImgContainer, PostTags, CardFootbar, PostInteraction, NotInterested } from './style';
+import { Container, Card, CardIntro, OwnerPost, ShowButton, Options , CardProfile, CardContent, ImgContainer, PostTags, CardFootbar, PostInteraction, NotInterested } from './style';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import CardModal from '../../context/CardModal';
+import CloseIcon from '@mui/icons-material/Close';
+import ReportIcon from '@mui/icons-material/Report';
 import moment from 'moment';
 moment.locale('pt-br');
 const now = moment();
@@ -16,11 +20,13 @@ interface CardProps {
 }
 
 const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
+  console.log(card.userPost[0])
   const postUser = card.userPost[0];
   const createdAtMoment = moment(card.createdAt);
   const diffMinutes = now.diff(createdAtMoment, 'minutes');
   const [isLiked, setIsLiked] = useState(card.likes.some((like) => (like.user)["id"] === currentUserId));
   const modalCtx = useContext(CardModal);
+  const [showActions, setShowActions] = useState(false);
 
   const minutesAgo = () => {
     if (diffMinutes < 5) {
@@ -94,22 +100,43 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
     }
   }
 
+  const handleButtonClick = () => {
+    setShowActions(!showActions);
+    console.log("cliquei")
+  };
+
   return(
-    <Card onClick={moreDetails} key={card.id}>
+    <Card key={card.id}>
       <CardIntro>
         <OwnerPost>
           <img style={{width: 40, height: 40 , borderRadius: 20, marginRight:'10px' }}
-            src={"https://github.com/" + "brun0meira" + ".png"}
+            src={"https://github.com/" + (postUser.user).username + ".png"}
             alt="profileImg"
           />
           <CardProfile>
-            <p><span>{postUser.user["username"]}</span></p>
+            <p><span>{(postUser.user).name}</span></p>
             {minutesAgo()}
           </CardProfile>
         </OwnerPost>
-        <MoreHorizIcon sx={{ color: '#8F8F8F'}} />
+        <ShowButton onClick={handleButtonClick}><MoreHorizIcon sx={{ color: '#8F8F8F'}} /></ShowButton>
+        {showActions ? 
+        <Options>
+        <div style={{justifyContent:'flex-end', width:'100%'}} onClick={handleButtonClick}>
+          <CloseIcon sx={{ color: 'black', width: '20px', height: '20px' }}></CloseIcon>
+        </div>
+        <div>
+          <p>Edit</p>
+        </div>
+        <div>
+          <p>Report</p>
+        </div>
+        <div style={{borderTop:'0.5px solid grey'}}>
+          <p style={{color:'#FD2227'}}>Delete</p>
+        </div>
+      </Options> : <></>}
+        
       </CardIntro>
-      <CardContent>
+      <CardContent onClick={moreDetails}>
         <h2>{card.title}</h2>
         {imgOrText()}
         <PostTags>

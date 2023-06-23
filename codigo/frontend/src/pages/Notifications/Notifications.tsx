@@ -12,14 +12,18 @@ import {useEffect, useState, useRef} from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import HeaderApp from '../../components/HeaderApp';
-
-import img1 from '../../assets/img1.png'
-import img2 from '../../assets/img2.png'
+import Trendingcards from '../../components/TrendingCard';
 
 
 const Notifications: React.FC = () => {
-    
-    const images = [img1, img2, img1, img2]
+
+    const carousel = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        console.log(carousel.current?.scrollWidth, carousel.current?.offsetWidth)
+    }, [])
+
 
     return (
         <Container>
@@ -35,13 +39,9 @@ const Notifications: React.FC = () => {
                 <TrendingText> Trending in Front-end</TrendingText>
                 <InfoOutlinedIcon fontSize='small'/>
             </Trending>
-            <motion.div className='carousel' whileTap={{ cursor : "grabbing" }} style={{width:"100%", cursor:"grab", overflow:"hidden"}}>
-                <motion.div className='inner' drag="x" style={{display:"flex"}}>
-                    {images.map(image => (
-                        <motion.div className='item' key={image} style={{minHeight:"80px",minWidth:"320px", padding:"8px"}}>
-                            <img src={image} alt='texto alt' style={{width:"100%", height:"90%", borderRadius:"12px", pointerEvents:'none'}}/>
-                        </motion.div>
-                    ) )}
+            <motion.div className='carousel' whileTap={{ cursor : "grabbing" }} style={{width:"100%", cursor:"grab", overflow:"hidden"}} ref={carousel}>
+                <motion.div className='inner' drag="x" dragConstraints={{right : 0, left : -width}} style={{display:"flex"}}>
+                    <Trendingcards />
                 </motion.div>
             </motion.div>
             <Notificationsfeed>

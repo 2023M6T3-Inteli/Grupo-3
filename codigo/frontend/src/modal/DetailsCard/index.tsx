@@ -78,7 +78,7 @@ const DetailsCard: React.FC = () => {
               <ModalWrapper>
                 <Header>
                 <img style={{width: 60, height: 60 , borderRadius: 30, marginRight:'10px' }}
-                  src={"https://github.com/" + "brun0meira" + ".png"}
+                  src={"https://github.com/" + modalParams.Username + ".png"}
                   alt="profileImg"
                 />
                   <div>
@@ -87,7 +87,7 @@ const DetailsCard: React.FC = () => {
                   </div>
                 </Header>
                 <Content>
-                  <h2>{modalParams.tittle}</h2>
+                  <h2><b>{modalParams.title}</b></h2>
                   <img></img>
                   <p>{modalParams.description}</p>
                 </Content>

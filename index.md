@@ -172,9 +172,6 @@ Em resumo, a solução proposta busca fornecer uma plataforma abrangente, person
 
 ### Objetivos
 
-Descrever o objetivo geral e os objetivos específicos.
-
-
 #### Objetivos gerais
 	  
 - Desenvolver uma plataforma para compartilhamento de conteúdo interno da empresa com seus colaboradores.
@@ -339,11 +336,11 @@ Em resumo, embora o Dell Technologies Design System forneça um conjunto valioso
 
 As imagens a seguir ilustram o aplicativo "AR Assistent" e destacam algumas das falhas na implementação do Dell Technologies Design System:<br>
 
-<img src="docs/img/app1.jpg">
-<img src="docs/img/app2.jpg">
-<img src="docs/img/app3.jpg">
-<img src="docs/img/app4.jpg">
-<img src="docs/img/app5.jpg">
+<img src="docs/img/app1.png">
+<img src="docs/img/app2.png">
+<img src="docs/img/app3.png">
+<img src="docs/img/app4.png">
+<img src="docs/img/app5.png">
 
 Como pode ser observado nas imagens acima, o exemplo demonstra algumas deficiências no que diz respeito à responsividade nas telas de dispositivos móveis atualmente utilizados. Além disso, as cores não são aplicadas de maneira adequada, resultando em uma aparência visualmente desagradável. A interface também deixa a desejar em termos de intuição e auto explicação, o que dificulta a navegação e a interação do usuário com o aplicativo.
 De modo geral, cada um dos analisados tem pontos altos e baixos, porém todos mantendo um padrão de excelente qualidade. Cada Design System apresenta qualidades e fragilidades distintas. O Dell Technologies Design System, utilizado em nosso projeto, oferece facilidade de uso, uma ampla gama de componentes e boa customização. O Apple Human Interface Guidelines é ideal para projetos específicos da Apple, mas pode ser limitado em termos de customização. O Atlassian Design System apresenta uma ampla gama de componentes e padrões, com ênfase na performance e escalabilidade.<br>
@@ -410,16 +407,18 @@ Testes Unitários do Ranking <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/ea0cc837-7979-4f80-802f-44f50830b789) <br>
 Testes Unitários do Usuário <br>
 ![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/b2cf93e6-088c-451d-9ce8-77d7ae4fef37) <br>
+	
+Testes Unitários - geral - controllers && services <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/98428867/154fee6b-4ac7-4f7a-9757-b09117d81ffe)
 
 
 ## Teste de Integração
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
-
+	
+Testes e logs da mensageria <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/5d105f1b-75ae-4ca4-b60f-67b446a90ea4)
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/a122f5f7-5dd1-45cf-95b3-73633c29ef22)
 
 ## Teste de Regressão
-
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de Usabilidade 
@@ -433,8 +432,9 @@ Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 ## Teste de API 
+Testes e Logs de API <br>
+![image](https://github.com/2023M6T3-Inteli/Grupo-3/assets/99200253/edf56d3c-5743-4f99-81bf-6364c36a8562)
 
-Link ou imagem da tabela com dados organizados dos testes realizados.
 
 
 # Documentação da API

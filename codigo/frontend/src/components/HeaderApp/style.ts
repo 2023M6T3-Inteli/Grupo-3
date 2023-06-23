@@ -25,6 +25,7 @@ export const LeftSide = styled.div`
   }
 `;
 
+
 export const RankingButton = styled.button`
   display: flex;
   flex-direction: row;

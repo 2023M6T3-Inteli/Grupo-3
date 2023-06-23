@@ -1,3 +1,4 @@
+import { BadGatewayException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from './user.service';
@@ -10,13 +11,50 @@ const fakeUsers = [
     score: 11,
     image: 'true.png',
     email: 'this@email.com',
-    admin: false,
+    admin: true,
     location: '',
     role: '',
     hashedPassword: '',
     acceptTerms: true,
     curriculum: '',
     username: 'unique',
+    hashedRt: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'userId2',
+    name: 'Second',
+    score: 11,
+    image: 'true.png',
+    email: 'that@email.com',
+    admin: false,
+    location: '',
+    role: '',
+    hashedPassword: '',
+    acceptTerms: true,
+    curriculum: '',
+    username: 'not-unique',
+    hashedRt: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+const fakeAdminUsers = [
+  {
+    id: 'userId3',
+    name: 'third',
+    score: 12,
+    image: 'true.png',
+    email: 'those@email.com',
+    admin: true,
+    location: '',
+    role: '',
+    hashedPassword: '',
+    acceptTerms: true,
+    curriculum: '',
+    username: '3notunique',
     hashedRt: '',
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -65,9 +103,6 @@ describe('UserService', () => {
 
       expect(response).toEqual(fakeUsers);
       expect(prisma.user.findMany).toHaveBeenCalledTimes(1);
-      // expect(prisma.user.findMany).toHaveBeenCalledWith({
-      //   orderBy: { createdAt: 'desc' },
-      // });
     });
 
     it('should find by username', async () => {
@@ -82,6 +117,103 @@ describe('UserService', () => {
 
       expect(response).toEqual(fakeUsers[0]);
       expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
+    });
+
+    it('should find by id', async () => {
+      const response = await service.findByUsername(fakeUsers[0].id);
+
+      expect(response).toEqual(fakeUsers[0]);
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not find if id does not exist', async () => {
+      jest
+        .spyOn(prisma.user, 'findUnique')
+        .mockRejectedValue(new BadGatewayException());
+
+      try {
+        await service.findOne('id_inexistente');
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadGatewayException);
+        expect(error.message).toBe('Bad Gateway');
+      }
+
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not find if username does not exist', async () => {
+      jest.spyOn(prisma.user, 'findUnique').mockRejectedValue(new Error());
+
+      try {
+        await service.findOne('username_inexistente');
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toBe('');
+      }
+
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not find if email does not exist', async () => {
+      jest
+        .spyOn(prisma.user, 'findUnique')
+        .mockRejectedValue(new BadGatewayException());
+
+      try {
+        await service.findOne('email_inexistente');
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadGatewayException);
+        expect(error.message).toBe('Bad Gateway');
+      }
+
+      expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('admin users', () => {
+    it('should get admin users', async () => {
+      await service.getAdminUsers('userId3');
+
+      expect(prisma.user.findMany).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('delete user', () => {
+    it('should delete user if is admin', async () => {
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(response).toEqual(fakeUsers[0]);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(BadGatewayException);
+      }
+    });
+    it('should not delete user if is not admin', async () => {
+      jest.spyOn(prisma.user, 'delete').mockRejectedValue(new Error());
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
+    });
+    it('should not delete if user does not exist', async () => {
+      jest.spyOn(prisma.user, 'delete').mockRejectedValue(new Error());
+      try {
+        const response = await service.deleteUser('userId', 'userId3');
+
+        expect(response).toBeCalledTimes(1);
+        expect(prisma.user.findUnique).toBeCalledTimes(2);
+        expect(prisma.user.delete).toBeCalledTimes(1);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
     });
   });
 });

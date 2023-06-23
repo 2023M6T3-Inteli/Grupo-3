@@ -8,18 +8,20 @@ datasource db {
 }
 
 model Post {
-  id            String          @id @default(uuid())
-  title         String
-  description   String
-  image         String          @default("")
-  active        Boolean         @default(true)
-  content       String
-  createdAt     DateTime        @default(now())
-  comments      Comments[]
-  likes         Likes[]
-  notifications Notifications[]
-  tags          Tags[]
-  userPost      UserPost[]
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  image          String           @default("")
+  active         Boolean          @default(true)
+  content        String           @default("")
+  createdAt      DateTime         @default(now())
+  comments       Comments[]
+  likes          Likes[]
+  notifications  Notifications[]
+  ReportComments ReportComments[]
+  ReportPosts    ReportPosts[]
+  tags           Tags[]
+  userPost       UserPost[]
 }
 
 model MLTable {
@@ -64,12 +66,14 @@ model Likes {
 }
 
 model Comments {
-  id      String @id @default(uuid())
-  userID  String
-  postID  String
-  content String
-  post    Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user    User   @relation(fields: [userID], references: [id], onDelete: Cascade)
+  id             String           @id @default(uuid())
+  userID         String
+  postID         String
+  content        String
+  report         Boolean          @default(false)
+  post           Post             @relation(fields: [postID], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userID], references: [id], onDelete: Cascade)
+  ReportComments ReportComments[]
 
   @@index([postID], map: "Comments_postID_fkey")
   @@index([userID], map: "Comments_userID_fkey")
@@ -79,8 +83,8 @@ model Tags {
   id        String   @id @default(uuid())
   userID    String?
   postID    String?
-  subject   String
   createdAt DateTime @default(now())
+  subject   String
   post      Post?    @relation(fields: [postID], references: [id], onDelete: Cascade)
   user      User?    @relation(fields: [userID], references: [id], onDelete: Cascade)
 
@@ -100,29 +104,58 @@ model UserPost {
 }
 
 model User {
-  id             String     @id @default(uuid())
+  id             String           @id @default(uuid())
   name           String
-  admin          Boolean    @default(false)
-  score          Int?       @default(0)
+  admin          Boolean          @default(false)
+  score          Int?             @default(0)
   hashedPassword String
-  location       String?    @default("")
-  role           String?    @default("")
-  acceptTerms    Boolean    @default(true)
-  curriculum     String?    @default("")
-  image          String?    @default("")
-  username       String     @unique
-  email          String     @unique
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  location       String?          @default("")
+  role           String?          @default("")
+  acceptTerms    Boolean          @default(true)
+  curriculum     String?          @default("")
+  image          String?          @default("")
+  username       String           @unique
+  email          String           @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
   hashedRt       String?
-  firstLogin     Boolean    @default(false)
-  lastLogin      String     @default("")
-  streak         Int        @default(0)
+  firstLogin     Boolean          @default(false)
+  lastLogin      String           @default("")
+  streak         Int              @default(0)
   comments       Comments[]
   likes          Likes[]
   MLTable        MLTable[]
+  ReportComments ReportComments[]
+  ReportPosts    ReportPosts[]
   tags           Tags[]
   userPost       UserPost[]
 
   @@map("users")
+}
+
+model ReportComments {
+  id         String   @id
+  userID     String
+  createdAt  DateTime @default(now())
+  commentsId String
+  postId     String?
+  Comments   Comments @relation(fields: [commentsId], references: [id])
+  Post       Post?    @relation(fields: [postId], references: [id])
+  users      User     @relation(fields: [userID], references: [id])
+
+  @@index([commentsId], map: "ReportComments_commentsId_fkey")
+  @@index([postId], map: "ReportComments_postId_fkey")
+  @@index([userID], map: "ReportComments_userID_fkey")
+}
+
+model ReportPosts {
+  id        String   @id
+  userID    String
+  postID    String
+  createdAt DateTime @default(now())
+  Post      Post     @relation(fields: [postID], references: [id], onDelete: Cascade)
+  users     User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+  @@index([postID], map: "ReportPosts_postID_fkey")
+  @@index([userID], map: "ReportPosts_userID_fkey")
 }

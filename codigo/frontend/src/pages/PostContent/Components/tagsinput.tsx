@@ -3,7 +3,8 @@ import styled from "styled-components";
 import CancelIcon from '@mui/icons-material/Cancel';
 
 interface TagsInputProps {
-  selectedTags: (tags: string[]) => void;
+  selectedTags?: (tags: string[]) => void;
+  onSubmit?: (tags: string[]) => void;
 }
 
 const TagsInputContainer = styled.div`
@@ -62,7 +63,9 @@ const TagsInput: React.FC<TagsInputProps> = (props) => {
     if (event.key === "Enter" && event.currentTarget.value !== "") {
       const newTags = [...tags, event.currentTarget.value];
       setTags(newTags);
-      props.selectedTags(newTags);
+      if(props.onSubmit){
+        props.onSubmit(tags);
+      }
       event.currentTarget.value = "";
     }
   };
@@ -70,7 +73,6 @@ const TagsInput: React.FC<TagsInputProps> = (props) => {
   const removeTags = (index: number) => {
     const newTags = tags.filter((_, i) => i !== index);
     setTags(newTags);
-    props.selectedTags(newTags);
   };
 
   return (
@@ -80,9 +82,6 @@ const TagsInput: React.FC<TagsInputProps> = (props) => {
           <TagItem key={index}>
             <span>{tag}</span>
             <CancelTagButton  onClick={() => removeTags(index)}/>            
-          
-            
-
           </TagItem>
         ))}
       </TagsList>

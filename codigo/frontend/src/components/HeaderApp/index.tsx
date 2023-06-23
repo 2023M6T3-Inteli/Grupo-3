@@ -14,13 +14,13 @@ const HeaderApp: React.FC = () => {
   return (
     <Intro>
       <RightSide>
-        <h1>Welcome, Bruno!</h1>        
+        <h2>Welcome, Bruno!</h2>        
       </RightSide>
       <LeftSide>
-        <RankingButton onClick={handleOnClickRanking}>
+        {/* <RankingButton onClick={handleOnClickRanking}>
           <EmojiEventsIcon style={{width: '30px', height:'30px', color:'#FCB818'}}/>
           <span>Ranking</span>
-        </RankingButton>
+        </RankingButton> */}
         <img style={{width: 40, height: 40 , borderRadius: 20}}
           src="https://github.com/brun0meira.png"
           alt="profileImg"

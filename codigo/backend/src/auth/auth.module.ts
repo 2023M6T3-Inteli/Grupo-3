@@ -1,20 +1,18 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
 import { Agent } from 'https';
-import { SeedConsumer } from 'src/consumers/seed.consumer';
-import { KafkaModule } from 'src/kafka/kafka.module';
+import { SeedConsumer } from '../consumers/seed.consumer';
+import { KafkaModule } from '../kafka/kafka.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AtStrategy, RtStrategy } from './strategies';
-import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     JwtModule.register({}),
     KafkaModule,
-    CacheModule.register(),
     HttpModule.register({
       httpAgent: new Agent({
         rejectUnauthorized: false,
@@ -37,6 +35,12 @@ import { CacheModule } from '@nestjs/cache-manager';
     ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy, SeedConsumer],
+  providers: [AuthService, AtStrategy, RtStrategy, SeedConsumer, {
+    provide: 'AUTH_PRODUCER',
+    useFactory: async (kafkaService: ClientKafka) => {
+      return kafkaService.connect();
+    },
+    inject: ['AUTH_MICROSERVICE'],
+  },],
 })
 export class AuthModule {}

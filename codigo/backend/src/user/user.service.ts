@@ -59,6 +59,10 @@ export class UserService {
         tags: true,
       },
     });
+
+    if (!user) {
+      throw new BadGatewayException();
+    }
     return user;
   }
 
@@ -86,6 +90,9 @@ export class UserService {
         tags: true,
       },
     });
+    if (!user) {
+      throw new BadGatewayException();
+    }
     return user;
   }
 
@@ -121,7 +128,7 @@ export class UserService {
     return user;
   }
 
-  async getAdminUsers(): Promise<ProfileUser[]> {
+  async getAdminUsers(currentUser: string): Promise<ProfileUser[]> {
     const adminUsers = this.prisma.user.findMany({
       where: { admin: true },
       select: {
@@ -148,11 +155,42 @@ export class UserService {
     return adminUsers;
   }
 
-  async deleteUser(id: string): Promise<User> {
+  async updateUser(userID: string, user: User): Promise<void> {
+    const findUser = await this.prisma.user.findUnique({
+      where: { id: userID },
+    });
+
+    if (!findUser) throw new Error('User does not exist');
+
+    //pode fazer um update do nome, imagem, sua localização e seu currículo
+    await this.prisma.user.update({
+      where: { id: userID },
+      data: {
+        name: user.name,
+        image: user.image,
+        location: user.location,
+        curriculum: user.curriculum,
+      },
+    });
+  }
+
+  async deleteUser(id: string, currentUser: string): Promise<User> {
     const findUser = await this.prisma.user.findUnique({ where: { id } });
 
     if (!findUser) {
       throw new Error('User does not exist');
+    }
+
+    if (findUser.id == currentUser) {
+      throw new Error('You can not delete yourself. Permission denied!');
+    }
+
+    const isAdmin = await this.prisma.user.findUnique({
+      where: { id: currentUser },
+    });
+
+    if (!isAdmin) {
+      throw new Error('Only admin users can delete others. Permission denied!');
     }
 
     const deletedUser = await this.prisma.user.delete({ where: { id } });
