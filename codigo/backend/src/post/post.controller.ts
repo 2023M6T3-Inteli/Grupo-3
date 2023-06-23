@@ -69,7 +69,7 @@ export class PostController {
     return this.postService.verifyAndChangePost(postID);
   }
 
-  @Post('verify/:commentID')
+  @Post('verify/comment/:commentID')
   @ApiBearerAuth()
   async verifyAndReportComment(@Param('commentID') commentID: string) {
     return this.postService.verifyReportedComemnt(commentID);

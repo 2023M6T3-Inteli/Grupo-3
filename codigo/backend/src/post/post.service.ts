@@ -124,14 +124,18 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    const comments = await this.prisma.comments.findMany({
+    const commentsReport = await this.prisma.comments.findMany({
       where: { postID: postId },
     });
 
+    console.log(commentsReport.find((x) => x.report));
+    if (!commentsReport.find((x) => x.report)) {
+      throw new Error();
+    }
     const usersID = [];
 
-    for (let i = 0; i < comments.length; i++) {
-      usersID.push(comments[i].userID);
+    for (let i = 0; i < commentsReport.length; i++) {
+      usersID.push(commentsReport[i].userID);
     }
 
     const users = [];
@@ -291,7 +295,7 @@ export class PostService {
       where: { id: postID },
     });
 
-    if (!post) throw new Error('Comment does not exist');
+    if (!post) throw new Error('Post does not exist');
 
     const updatePost = await this.prisma.post.update({
       where: { id: postID },
