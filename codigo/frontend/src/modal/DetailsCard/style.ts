@@ -11,16 +11,16 @@ export const ModalWrapper = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--dark-gray);
+    /* background: #6e767d; */
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--light-gray);
+    /* background: #6e767d; */
     border-radius: 1rem;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: var(--light-gray);
+    /* background: red; */
   }
 
 `;

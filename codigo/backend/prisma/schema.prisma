@@ -7,130 +7,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id             String           @id @default(uuid())
-  title          String
-  description    String
-  image          String           @default("")
-  active         Boolean          @default(true)
-  content        String           @default("")
-  createdAt      DateTime         @default(now())
-  comments       Comments[]
-  likes          Likes[]
-  notifications  Notifications[]
-  ReportComments ReportComments[]
-  ReportPosts    ReportPosts[]
-  tags           Tags[]
-  userPost       UserPost[]
-}
-
-model MLTable {
-  id            String          @id @default(uuid())
-  userID        String
-  tags          String
-  User          User            @relation(fields: [userID], references: [id], onDelete: Cascade)
-  notifications Notifications[]
-
-  @@index([userID], map: "MLTable_userID_fkey")
-}
-
-model Notifications {
-  id          String  @id @default(uuid())
-  title       String
-  postID      String
-  description String
-  mlTableID   String
-  mltable     MLTable @relation(fields: [mlTableID], references: [id], onDelete: Cascade)
-  post        Post    @relation(fields: [postID], references: [id], onDelete: Cascade)
-
-  @@index([mlTableID], map: "Notifications_mlTableID_fkey")
-  @@index([postID], map: "Notifications_postID_fkey")
-}
-
-model FAQ {
-  id       String @id @default(uuid())
-  question String
-  answer   String
-}
-
-model Likes {
-  id     String @id @default(uuid())
-  count  Int
-  userID String
-  postID String
-  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  user   User   @relation(fields: [userID], references: [id], onDelete: Cascade)
-
-  @@index([postID], map: "Likes_postID_fkey")
-  @@index([userID], map: "Likes_userID_fkey")
-}
-
 model Comments {
-  id             String           @id @default(uuid())
+  id             String           @id
   userID         String
   postID         String
   content        String
   report         Boolean          @default(false)
-  post           Post             @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user           User             @relation(fields: [userID], references: [id], onDelete: Cascade)
+  Post           Post             @relation(fields: [postID], references: [id], onDelete: Cascade)
+  users          users            @relation(fields: [userID], references: [id], onDelete: Cascade)
   ReportComments ReportComments[]
 
   @@index([postID], map: "Comments_postID_fkey")
   @@index([userID], map: "Comments_userID_fkey")
 }
 
-model Tags {
-  id        String   @id @default(uuid())
-  userID    String?
-  postID    String?
-  createdAt DateTime @default(now())
-  subject   String
-  post      Post?    @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user      User?    @relation(fields: [userID], references: [id], onDelete: Cascade)
-
-  @@index([postID], map: "Tags_postID_fkey")
-  @@index([userID], map: "Tags_userID_fkey")
+model FAQ {
+  id       String @id
+  question String
+  answer   String
 }
 
-model UserPost {
-  id     String @id @default(uuid())
+model Likes {
+  id     String @id
+  count  Int
   userID String
   postID String
-  post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userID], references: [id], onDelete: Cascade)
+  Post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users  users  @relation(fields: [userID], references: [id], onDelete: Cascade)
 
-  @@index([postID], map: "UserPost_postID_fkey")
-  @@index([userID], map: "UserPost_userID_fkey")
+  @@index([postID], map: "Likes_postID_fkey")
+  @@index([userID], map: "Likes_userID_fkey")
 }
 
-model User {
-  id             String           @id @default(uuid())
-  name           String
-  admin          Boolean          @default(false)
-  score          Int?             @default(0)
-  hashedPassword String
-  location       String?          @default("")
-  role           String?          @default("")
-  acceptTerms    Boolean          @default(true)
-  curriculum     String?          @default("")
-  image          String?          @default("")
-  username       String           @unique
-  email          String           @unique
+model MLTable {
+  id            String          @id
+  userID        String
+  tags          String
+  users         users           @relation(fields: [userID], references: [id], onDelete: Cascade)
+  Notifications Notifications[]
+
+  @@index([userID], map: "MLTable_userID_fkey")
+}
+
+model Notifications {
+  id          String  @id
+  title       String
+  postID      String
+  description String
+  mlTableID   String
+  MLTable     MLTable @relation(fields: [mlTableID], references: [id], onDelete: Cascade)
+  Post        Post    @relation(fields: [postID], references: [id], onDelete: Cascade)
+
+  @@index([mlTableID], map: "Notifications_mlTableID_fkey")
+  @@index([postID], map: "Notifications_postID_fkey")
+}
+
+model Post {
+  id             String           @id
+  title          String
+  description    String
+  image          String           @default("")
+  active         Boolean          @default(true)
+  content        String           @default("")
   createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  hashedRt       String?
-  firstLogin     Boolean          @default(false)
-  lastLogin      String           @default("")
-  streak         Int              @default(0)
-  comments       Comments[]
-  likes          Likes[]
-  MLTable        MLTable[]
+  Comments       Comments[]
+  Likes          Likes[]
+  Notifications  Notifications[]
   ReportComments ReportComments[]
   ReportPosts    ReportPosts[]
-  tags           Tags[]
-  userPost       UserPost[]
-
-  @@map("users")
+  Tags           Tags[]
+  UserPost       UserPost[]
 }
 
 model ReportComments {
@@ -141,7 +87,7 @@ model ReportComments {
   postId     String?
   Comments   Comments @relation(fields: [commentsId], references: [id])
   Post       Post?    @relation(fields: [postId], references: [id])
-  users      User     @relation(fields: [userID], references: [id])
+  users      users    @relation(fields: [userID], references: [id])
 
   @@index([commentsId], map: "ReportComments_commentsId_fkey")
   @@index([postId], map: "ReportComments_postId_fkey")
@@ -154,8 +100,60 @@ model ReportPosts {
   postID    String
   createdAt DateTime @default(now())
   Post      Post     @relation(fields: [postID], references: [id], onDelete: Cascade)
-  users     User     @relation(fields: [userID], references: [id], onDelete: Cascade)
+  users     users    @relation(fields: [userID], references: [id], onDelete: Cascade)
 
   @@index([postID], map: "ReportPosts_postID_fkey")
   @@index([userID], map: "ReportPosts_userID_fkey")
+}
+
+model Tags {
+  id        String   @id
+  userID    String?
+  postID    String?
+  createdAt DateTime @default(now())
+  subject   String
+  Post      Post?    @relation(fields: [postID], references: [id], onDelete: Cascade)
+  users     users?   @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+  @@index([postID], map: "Tags_postID_fkey")
+  @@index([userID], map: "Tags_userID_fkey")
+}
+
+model UserPost {
+  id     String @id
+  userID String
+  postID String
+  Post   Post   @relation(fields: [postID], references: [id], onDelete: Cascade)
+  users  users  @relation(fields: [userID], references: [id], onDelete: Cascade)
+
+  @@index([postID], map: "UserPost_postID_fkey")
+  @@index([userID], map: "UserPost_userID_fkey")
+}
+
+model users {
+  id             String           @id
+  name           String
+  admin          Boolean          @default(false)
+  score          Int?             @default(0)
+  hashedPassword String
+  location       String?          @default("")
+  role           String?          @default("")
+  acceptTerms    Boolean          @default(true)
+  curriculum     String?          @default("")
+  image          String?          @default("")
+  username       String           @unique
+  email          String           @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  hashedRt       String?
+  firstLogin     Boolean          @default(false)
+  lastLogin      String           @default("")
+  streak         Int              @default(0)
+  Comments       Comments[]
+  Likes          Likes[]
+  MLTable        MLTable[]
+  ReportComments ReportComments[]
+  ReportPosts    ReportPosts[]
+  Tags           Tags[]
+  UserPost       UserPost[]
 }

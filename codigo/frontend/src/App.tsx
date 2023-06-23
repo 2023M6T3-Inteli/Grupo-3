@@ -16,6 +16,8 @@ import Account from './pages/Account/Tags';
 import User from "./pages/Account/User";
 import Terms from "./pages/Account/Terms";
 import DetailsCard from "./modal/DetailsCard";
+import Admin from "./pages/Admin";
+import Users from "./pages/Users";
 
 const Content = styled.div`
   height: 100%;
@@ -30,6 +32,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/favorites" element={<Saved />} />
         <Route path="/notification" element={<Notifications />} />
@@ -38,6 +41,7 @@ function App() {
         <Route path="/Account/User/terms" element={<Terms/>} />
         <Route path="/acc" element={<App />} />
         <Route path="/createpost" element={<PostContent />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
       <GlobalStyles />
       <DetailsCard></DetailsCard>

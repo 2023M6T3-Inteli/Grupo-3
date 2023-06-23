@@ -1,5 +1,5 @@
 import React, { useState, useEffect , useContext } from 'react';
-import { Container, Header, Trends, Trending, ForYou, Feed,ButtonTeste } from './style';
+import { Container, Header, Trends, Trending, ForYou, Feed } from './style';
 import SearchBox from '../../../components/SearchBox';
 import HeaderApp from '../../../components/HeaderApp';
 import CardFeed from '../../../components/CardFeed/index';
@@ -16,8 +16,6 @@ const FeedMain: React.FC = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const [posts,setPosts]= useState<Card[]>([])
   const [isLoading, setIsLoading] = useState(true);
-
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,49 +49,7 @@ const FeedMain: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files.length > 0) {
-  //     setSelectedFile(event.target.files[0]);
-  //   }
-  // };
-
-  // const handleSubmit = async () => {
-  //   if (selectedFile) {
-  //     const formData = new FormData();
-  //     formData.append('file', selectedFile);
-  //     console.log("Arquivo que estou enviando")
-  //     console.log(formData.get('file'));
-
-  //     const title = "My Post teste dia 6";
-  //     const tags = [
-  //       "React",
-  //       "NodeJS"
-  //     ];
-  //     const description = "This is my example post";
-  //     const imagem = formData.get('file').toString();
-  //     const content = "Content of the post";
-  //     const comments = [
-  //       {
-  //         "content": "This post is very interesting"
-  //       }
-  //     ];
-  //     const userPost = {
-  //       "userID": "xansxyas"
-  //     };
-  //     const likes = {
-  //       "count": 10
-  //     };
-
-  //     try {
-  //       const responsePostCreate = await contentService.createPost(title, tags, description, imagem, content, comments, userPost, likes);
-  //       console.log(responsePostCreate.data);
-  //     } catch (err) {
-  //       console.error('Error in POST request:', err);
-  //     }
-  //   }
-  // };
-
-  console.log(posts)
+  console.log(posts);
 
   return(
     <Container>
@@ -103,9 +59,6 @@ const FeedMain: React.FC = () => {
       </Header>
       <Trends>
         <Trending>
-          {/* <div className="file-uploader">
-            <input type="file" onChange={handleFileChange}></input>
-          </div> */}
           <div>
             <RecommendIcon sx={{ color: '#0672CB', marginRight: '5px', width: '18px', height: '18px' }} />
             <h2>You might like</h2>

@@ -1,8 +1,11 @@
 /* eslint-disable prettier/prettier */
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 =======
+=======
+>>>>>>> development
 import {
   Body,
   Controller,
@@ -14,18 +17,22 @@ import {
   Param,
   Post,
   Put,
+<<<<<<< HEAD
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+=======
+} from '@nestjs/common';
+>>>>>>> development
 import { Producer } from '@nestjs/microservices/external/kafka.interface';
 >>>>>>> main
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 import { GetCurrentUserId } from '../common/decorators/get-current-user-id.decorator';
 import { CreateCommentDTO } from './dto/create-comment.dto';
 import { CreatePostDTO, UpdatePostDTO } from './dto/create-post.dto';
 import { PostService } from './post.service';
-import { CaslAbilityFactory } from '../casl/casl-ability.factory/casl-ability.factory';
 
 @ApiTags('post')
 @Controller('post')
@@ -61,6 +68,28 @@ export class PostController {
     return this.postService.getPostById(postID);
   }
 
+  //criar rota para dar like em posts
+  @Post('likes/:postID')
+  @ApiBearerAuth()
+  async incrementLike(
+    @Param('postID') postID: string,
+    @GetCurrentUserId() userID: string,
+  ): Promise<boolean> {
+    return this.postService.incrementLike(postID, userID);
+  }
+
+  @Post('verify/:postID')
+  @ApiBearerAuth()
+  async verifyAndChangePost(@Param('postID') postID: string) {
+    return this.postService.verifyAndChangePost(postID);
+  }
+
+  @Post('verify/comment/:commentID')
+  @ApiBearerAuth()
+  async verifyAndReportComment(@Param('commentID') commentID: string) {
+    return this.postService.verifyReportedComemnt(commentID);
+  }
+
   @Get('comments')
   @ApiBearerAuth()
   async findAllComments() {
@@ -89,16 +118,6 @@ export class PostController {
     }
   }
 
-  //criar rota para dar like em posts
-  @Post('likes/:postID')
-  @ApiBearerAuth()
-  async incrementLike(
-    @Param('postID') postID: string,
-    @GetCurrentUserId() userID: string,
-  ): Promise<{}> {
-    return this.postService.incrementLike(postID, userID);
-  }
-
   // Edit post function, available only to the post owner
   @Put('edit/:postId')
   @ApiBearerAuth()
@@ -121,6 +140,7 @@ export class PostController {
     return this.postService.deletePost(postId, userId);
   }
 
+<<<<<<< HEAD
   @Delete('delete')
   @ApiBearerAuth()
   async deleteAll(@GetCurrentUserId() userID: string): Promise<string> {
@@ -136,6 +156,46 @@ export class PostController {
     return this.postService.getAllLikeds(userId);
   }
 =======
+=======
+  @Delete('delete/comment/:commentID')
+  @ApiBearerAuth()
+  async deleteById(
+    @Param('commentID') commentID: string,
+    @GetCurrentUserId() userID,
+  ) {
+    return this.postService.deleteCommentById(userID, commentID);
+  }
+  @Get('report-post')
+  @ApiBearerAuth()
+  async findAllReportPosts() {
+    return this.postService.findAllReportPosts();
+  }
+
+  @Post('report/post/:postId')
+  @ApiBearerAuth()
+  async reportPost(
+    @Param('postId') postId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportPost(postId, userID);
+  }
+
+  @Get('report-cooments')
+  @ApiBearerAuth()
+  async findAllReportComments() {
+    return this.postService.findAllReportComments();''
+  }
+
+  @Post('report/comment/:commentId')
+  @ApiBearerAuth()
+  async reportComment(
+    @Param('commentId') commentId: string,
+    @GetCurrentUserId() userID: string,
+  ) {
+    return this.postService.reportComment(commentId, userID);
+  }
+
+>>>>>>> development
   // @MessagePattern('post')
   // async consumer(@Payload() message: KafkaMessage) {
   //   await this.kafkaProducer.send({

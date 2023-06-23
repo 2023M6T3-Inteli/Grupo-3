@@ -14,7 +14,7 @@ const MenuBar: React.FC = () => {
     [navigate]
   );
   const handleOnClickAdd = useCallback(
-    () => navigate("/", { replace: true }),
+    () => navigate("/createpost", { replace: true }),
     [navigate]
   );
   const handleOnClickSaved = useCallback(
