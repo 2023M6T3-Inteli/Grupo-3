@@ -17,8 +17,6 @@ const FeedMain: React.FC = () => {
   const [posts,setPosts]= useState<Card[]>([])
   const [isLoading, setIsLoading] = useState(true);
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);

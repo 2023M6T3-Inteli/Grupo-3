@@ -40,7 +40,7 @@ export class UserService {
       where: { id: userId },
       select: {
         acceptTerms: false,
-        admin: false,
+        admin: true,
         comments: true,
         email: true,
         createdAt: true,
@@ -54,6 +54,7 @@ export class UserService {
         location: true,
         role: true,
         score: true,
+        streak: true,
         updatedAt: false,
         userPost: { select: { post: true } },
         tags: true,

@@ -28,8 +28,6 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
   const modalCtx = useContext(CardModal);
   const [showActions, setShowActions] = useState(false);
 
-  
-
   const minutesAgo = () => {
     if (diffMinutes < 5) {
       return <p>Rigth now</p>;
@@ -135,10 +133,8 @@ const CardFeed: React.FC<CardProps> = ({ card, onLike, currentUserId }) => {
     </span>
     <div>
       <button><p>Edit</p></button>
-      {/* <ButtonsOptions><p>Edit</p></ButtonsOptions> */}
     </div>
     <div>
-      {/* <ButtonsOptions><p>Report</p></ButtonsOptions> */}
       <button><p>Report</p></button>
     </div>
     <div style={{borderTop:'1px solid #E8E8E8', marginBottom:'10px'}}>
