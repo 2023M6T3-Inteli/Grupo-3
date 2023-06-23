@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const Balls = styled.div`
-  backgroundColor:gray;
-  height:30px; 
-  width:30px; 
-  borderRadius:20px;
+export const Avatar = styled.div`
+  background: #D9D9D9;
+  height: 100px;
+  width:100px;
+  border-radius:50px;
 `;

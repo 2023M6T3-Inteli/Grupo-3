@@ -12,7 +12,7 @@ import Profile from './pages/Profile/Profile';
 import Ranking from './pages/Ranking/index';
 import Saved from './pages/Saved';
 import PostContent from './pages/PostContent/PostContent';
-import Account from './pages/Account';
+import Account from './pages/Account/Tags';
 import User from "./pages/Account/User";
 import Terms from "./pages/Account/Terms";
 import DetailsCard from "./modal/DetailsCard";

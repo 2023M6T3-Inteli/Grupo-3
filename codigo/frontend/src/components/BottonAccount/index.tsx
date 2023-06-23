@@ -1,17 +1,14 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import { Container } from './style';
 
 
-
-const BottonAccount: React.FC = () => {
+const ButtonAccount: React.FC = () => {
     return ( 
-        <Container>
-            <Button variant="contained" disableElevation sx={{ width: 347, height: 40, borderRadius: 0, bgcolor: "#0672CB" }}>
-                Next
-            </Button>
-        </Container>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: 'flex', height: 40, width: 347, backgroundColor: "#0672CB", justifyContent: 'center' }}>
+                <button type='submit' style={{ color: 'white' }}>NEXT</button>
+            </div>
+        </div>
     );
 }
 
-export default BottonAccount;
+export default ButtonAccount;
