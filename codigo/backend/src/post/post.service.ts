@@ -45,9 +45,18 @@ export class PostService {
       include: {
         userPost: {
           select: {
-            user: { select: { name: true, username: true, image: true } },
+            user: {
+              select: {
+                id: true,
+                name: true,
+                username: true,
+                image: true,
+                admin: true,
+              },
+            },
           },
         },
+        tags: { select: { subject: true } },
         _count: { select: { likes: true } },
       },
       orderBy: { createdAt: 'desc' },
