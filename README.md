@@ -59,7 +59,7 @@ O conjunto de dados possui as seguintes quantidades de registros para cada colun
 O objetivo deste projeto é realizar análises e aplicar técnicas de processamento de dados nesse conjunto de dados, visando obter insights valiosos sobre as preferências e comportamentos dos usuários em relação aos filmes avaliados. A partir dessas análises, poderemos extrair informações úteis para recomendações personalizadas e tomada de decisões relacionadas ao domínio dos filmes.
   
 O Colab para visualização do projeto está disponível 
-<a href="https://colab.research.google.com/drive/1IByt3WEJskN7BR6_IpcmLoJw2KjRy5j0?authuser=1#scrollTo=66BwjNHjkOH9"> aqui.
+<a href="https://colab.research.google.com/drive/1S7YdGNPlAir58Y6rI9-qmC_PjE5Zk9gD#scrollTo=D46T7CNg-IWo"> aqui.
 
 
 # Documentação
